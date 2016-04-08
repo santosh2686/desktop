@@ -11,6 +11,10 @@ var dbUrl='mongodb://localhost:27017/';
 //Window Functions and Events
 //https://github.com/nwjs/nw.js/wiki/window
 
+//Build the EXE
+//Build zip file of entire files and then paste in the directory where we have nw.exe and run the following command.
+//copy /b nw.exe+app.nw app.exe 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
