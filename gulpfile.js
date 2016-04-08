@@ -84,7 +84,7 @@ gulp.task('watch',function(){
 	gulp.watch('app/src/**/*.html',['template']);
 });
 
-gulp.task('build',sequence(['sass','javascript','template','inject','bower-inject'],'watch'));
+gulp.task('build',sequence(['sass','javascript','template','inject','bower-copy','bower-inject'],'watch'));
 
 /*
 //Start the node server and mongodb
