@@ -1,0 +1,65 @@
+@import 'constant';
+
+/*Authentication Module*/
+.auth-panel{
+    width: 380px;
+    margin: 60px auto 0 auto;
+    background: $auth_bg;
+    border: 1px solid $auth_border;
+    box-shadow: 0px 0px 2px #dadada, inset 0px -3px 0px #e6e6e6;
+    @media #{$mobile_portrait}{
+        width:auto;
+    }
+    @media #{$mobile_landscape}{
+        margin-top:30px;
+    }
+    .content{
+        padding:15px 30px;
+        h1{
+            font-size: 24px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+        >p{
+            margin:10px 0;
+        }
+    }    
+    .bg-warning{
+        padding: 10px;
+        color:red;
+        margin-bottom: 10px;
+        border:1px solid #fbeed5;
+    }
+    input[type="checkbox"]{
+        zoom:1.5;
+        vertical-align: top;
+        margin-top:3px;
+    }
+    .login-btn{
+        overflow: hidden;
+        p{float: left; padding-top: 5px;
+            a{
+                &:hover{
+            text-decoration: underline;
+            }
+            }
+        }
+        .btn{float: right}
+    }
+}
+
+.login-extra{
+    text-align: center;
+    padding: 10px 0;
+    font-size: 15px;
+    a{
+        color:$green_color;
+        &:hover{
+            text-decoration: underline
+        }
+    }
+}
+
+.register{
+    margin-top:20px;
+}

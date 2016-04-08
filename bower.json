@@ -1,0 +1,28 @@
+{
+  "name": "client",
+  "description": "Travel",
+  "main": "",
+  "authors": [
+    "Santosh"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.4.9",
+    "angular-ui-router": "^0.2.17",
+    "angular-bootstrap": "angular-ui-bootstrap-bower#1.1.2",
+    "footable": "^2.0.3",
+    "ExplorerCanvas": "excanvas#*",
+    "Chart.js": "^1.0.2"
+  },
+  "devDependencies": {}
+}

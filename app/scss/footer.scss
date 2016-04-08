@@ -1,0 +1,13 @@
+@import 'constant';
+div.footer {
+	background:$black_color;
+    position:absolute;
+	left:0;
+	bottom:0;
+	width:100%;
+    padding:10px 0;
+    color:$white_color;
+    @media #{$mobile_landscape_5},#{$mobile_landscape},#{$mobile_portrait}{               
+                text-align:center;
+            }
+}

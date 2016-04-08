@@ -1,0 +1,22 @@
+app.controller('loginController',['$scope','$state','authService',function($scope,$state,authService){
+	'use strict';
+		$scope.loginData={
+			userName:'',
+			password:''		
+		}
+		$scope.showAlert=false;
+		$scope.loading=false;		
+		$scope.signIn=function(){	
+			$scope.loading=true;
+            authService.getUser(JSON.stringify($scope.loginData)).then(function(res){
+                $scope.loading=false;
+                if(res.data.length===1){
+					$scope.showAlert=false;
+					sessionStorage.setItem('id',res.data[0]._id.$oid);	
+					$state.go('dashboard');		
+				}else{
+					$scope.showAlert=true;
+				}
+            });
+		}
+}]);

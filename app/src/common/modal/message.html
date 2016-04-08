@@ -1,0 +1,16 @@
+<div class="widget">
+	<div class="widget-header">
+    	<div class="pull-left" data-ng-bind="msg.title"></div>
+        <div class="pull-right">
+        	<span class="modal-close" data-ng-click="closeModal()">
+            	<i class="fa fa-close"></i>
+            </span>
+        </div>
+    </div>
+    <div class="widget-content notification">
+    	{{msg.text}}
+        <p>
+        	<button type="button" data-ng-click="closeModal()" class="btn btn-primary">OK</button>
+        </p>
+    </div>
+</div>

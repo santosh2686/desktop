@@ -1,0 +1,88 @@
+<div class="grid-widget">
+    <div class="grid-title" data-ng-if="!loading">
+        <h3 class="pull-left">Fixed Request</h3>
+        <div class="pull-right">
+            <span class="count">Total Request : <strong data-ng-bind="data.length"></strong></span> 
+            <button class="btn btn-primary" data-ng-click="newRequest('request/fixed/add-fixed-request.html','addFixedRequestController')">New Request</button>
+        </div>
+    </div>
+    <div class="grid-actionbar" data-ng-show="data.length>0 && !loading">
+       <div class="row">
+            <div class="col-md-8">
+                <form class="form-inline" novalidate="novalidate">
+                  <div class="form-group">
+                        <select class="form-control">
+                            <option data-ng-repeat="p in partyList">{{p.name}}</option>
+                        </select>
+                  </div>
+                  <div class="form-group">
+                        <select class="form-control">
+                            <option>Jan</option>
+                        </select>
+                  </div>
+                  <button type="button" class="btn btn-primary">Apply</button>
+                  <button type="button" class="btn btn-primary">Clear</button>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <form class="form-inline export">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Global Search" data-ng-model="globalSearch"/>
+                    </div>
+                    <div class="checkbox">
+                        <label>&nbsp;Export : &nbsp;</label>
+                        <button type="button" data-ng-click="exportData()" title="Export to PDF" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i></button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="grid">
+       <div data-ng-if="loading" class="loader">
+        <i class="fa fa-refresh fa-spin"></i>
+            Please Wait...
+        </div>
+        <div data-ng-if="data.length===0 && !loading" class="loader">0 Record Found.</div>
+        <table data-ng-if="data.length>1">
+            <thead>
+                <tr>
+                    <th data-class="expand">Date</th>            
+                    <th>Client Name</th>
+                    <th data-hide="phone,tablet">Request Type</th>
+                    <th data-hide="phone,tablet">Vehicle Provided</th>
+                    <th data-hide="phone">Vehicle</th>
+                    <th data-hide="phone">Driver</th>
+                    <th>Total KM</th>
+                    <th>Extra HR</th>            
+                    <th data-hide="phone" class="td-actions">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="f in data.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter:globalSearch" data-responsive-grid>
+                    <td data-ng-bind='f.date | date:"dd-MMM-yyyy"'></td>            
+                    <td data-ng-bind='f.partyName'></td>
+                    <td data-ng-bind="'{{f.requestType==='local'?'Local':'Out Station'}}'"></td>
+                    <td data-ng-bind='f.vehicleSelect'></td>
+                    <td>{{f.vehicleSelect==="daily"?f.vehicle:f.vehicleSelect==="own"?f.own.vehicle:f.vehicleSelect==="indirect"?f.inDirect.vehicle:f.vehicleSelect==="operator"?f.operator.vehicleName+','+f.operator.vehicleNo:f.agency.vehicleName+','+f.agency.vehicleNo}}
+                    </td>
+                    <td>
+                        {{f.vehicleSelect==="daily" || f.vehicleSelect==="own"?f.driver:f.vehicleSelect==="indirect"?f.inDirect.driver:f.vehicleSelect==="operator"?f.operator.driver:f.agency.driver}}
+                    </td>
+                    <td data-ng-bind='f.totalKm'></td>
+                    <td data-ng-bind='f.extraHr'></td> 
+                    <td class="td-actions">            	
+                       <div class="btn-group">
+                	<button title="View" data-ng-click="viewRequest('request/fixed/add-fixed-request.html','addFixedRequestController',localEnv?f._id:f._id.$oid)" class="btn btn-primary"><i class="fa fa-eye"></i></button>
+                    <button title="Edit" data-ng-click="editRequest('request/fixed/add-fixed-request.html','addFixedRequestController',localEnv?f._id:f._id.$oid)" class="btn btn-success"><i class="fa fa-edit"></i></button>
+                    <button title="Delete" data-ng-click="deleteRequest(localEnv?f._id:f._id.$oid)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="grid-pager" data-ng-show="data.length>1">
+    <uib-pagination total-items="totalItems" max-size="maxSize" ng-model="currentPage" force-ellipses="true" class="pagination-sm" items-per-page="itemsPerPage" boundary-link-numbers="true" previous-text="&lsaquo;" next-text="&rsaquo;"></uib-pagination>
+    </div>
+</div>

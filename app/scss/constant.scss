@@ -1,0 +1,41 @@
+$font-stack:13px/1.7em 'Open Sans';
+
+/*Colors*/
+$primary-color: #333;
+$white-color:#FFF;
+$black-color:#383838;
+$green_color: #00ba8b;
+$grey_color:#d6d6d6;
+$dark_grey_color:#666;
+$light_grey:#ccc;
+$active_color:#ff7f74;
+$red_color:#db3325;
+
+
+/*Login, register theme*/
+
+$auth_bg: #f9f9f9;
+$auth_border:#d5d5d5;
+
+/*Media Queries*/
+$desktop : "(min-width:1200px)";
+
+$tablet_landscape : "(min-width: 980px) and (max-width: 1199px)";
+$tablet_portrait : "(min-width: 768px) and (max-width: 979px)";
+
+$mobile_landscape_5 : "(min-width: 568px) and (max-width:767px)"; /*Set for iPhone 5 and above*/
+$mobile_landscape : "(min-width: 480px) and (max-width: 567px)";
+
+$mobile_portrait : "(min-width:50px) and (max-width: 479px)";
+
+
+/*Mixins*/
+@mixin gradient($color){
+    background-color:$color;
+	/*background-image:-moz--linear-gradient(top, rgba(255,255,255,0.8), rgba(255,255,255,0));
+	background-image:-webkit-gradient(linear, left top, left bottom, color-stop( rgba(255,255,255,0.8)), color-stop( rgba(255,255,255,0)));
+	background-image:-webkit-linear-gradient(top,  rgba(255,255,255,0.8),  rgba(255,255,255,0));
+	background-image:-o-linear-gradient(top,  rgba(255,255,255,0.8),  rgba(255,255,255,0));
+	background-image:-ms-linear-gradient(top,  rgba(255,255,255,0.8),  rgba(255,255,255,0));
+	background-image:linear-gradient(top,  rgba(255,255,255,0.8), rgba(255,255,255,0));*/
+}

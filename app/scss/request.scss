@@ -1,0 +1,98 @@
+@import 'constant';
+
+.request-flow{
+    background: #E5E5E5;
+    margin-bottom: 20px;
+    ul{
+        overflow: hidden;
+        li{
+            float: left;
+            width:50%;
+            text-align: center;
+            padding: 5px 0;
+            font-weight: bold;
+            font-size: 15px;
+            position: relative;
+             @media #{$mobile_portrait}{
+                font-size: 11px;
+            }
+            @media #{$mobile_landscape}{
+                font-size: 12px;
+            }
+            &.active{
+                background: $green_color;
+                color: $white-color;
+                &:first-child:after{
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    right: -32px;
+                    width: 0;
+                    height: 0;
+                    border: 16px solid transparent;
+                    border-color: transparent transparent transparent $green_color;
+                }
+                &:last-child:before{
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    left:0;
+                    width: 0;
+                    height: 0;
+                    border: 16px solid transparent;
+                    border-color: transparent transparent transparent #E5E5E5;                    
+                }
+            }            
+        }
+    }
+}
+
+/*New Request*/
+.new-request{
+    span.view-value{
+        text-transform: capitalize;
+        font-size: 13px;
+    }
+    label{
+        font-size:12px;
+        width: 100%;
+        margin:0;
+        &.time-label{
+            margin: 0;
+            line-height: 0;
+        }       
+    }
+    .btn{
+        padding: 4px 12px;
+         &.calc-btn{
+            @media #{$desktop}{
+                margin-top:15px;
+            }
+            @media #{$tablet_landscape}{
+                margin-top:15px;
+            }
+        }
+    }
+    .form-control{
+        height: 30px;
+        padding: 4px 12px;
+        font-size: 13px;
+        box-shadow: none;            
+    }
+    .section-title{
+        font-size: 14px;
+        font-weight: 800;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        border-bottom: 1px solid $auth-border;
+        padding-top: 5px;
+    }
+    .request-footer{
+        overflow: hidden;
+        border-top: 1px solid $auth-border;
+        padding: 10px 0 0 0;
+        .btn{
+            min-width:125px;
+        }
+    }
+}

@@ -1,0 +1,13 @@
+.git
+
+node_modules/
+node_modules/*
+
+database/
+database/*
+
+bower_components/
+bower_components/*
+
+dist/
+dist/*

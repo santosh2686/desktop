@@ -1,0 +1,54 @@
+{
+  "name": "Client",
+  "version": "1.0.0",
+  "description": "Travel",
+  "node-main": "server.js",
+  "main": "http://localhost:8080/#/dashboard",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Santosh",
+  "window": {
+    "toolbar": false,
+    "width": 800,
+    "height": 600,
+    "icon":"icon.png"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-angular-templatecache": "^1.8.0",
+    "gulp-bower-files": "^0.2.7",
+    "gulp-bower-src": "^0.1.0",
+    "gulp-coffee": "^2.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-filter": "^3.0.1",
+    "gulp-flatten": "^0.2.0",
+    "gulp-inject": "^3.0.0",
+    "gulp-jsdoc": "^0.1.5",
+    "gulp-jshint": "^2.0.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-minify-html": "^1.0.5",
+    "gulp-order": "^1.1.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.2.0",
+    "gulp-sequence": "^0.4.5",
+    "gulp-template-cache": "0.0.2",
+    "gulp-uglify": "^1.5.3",
+    "gulp-uncss": "^1.0.4",
+    "gulp-util": "^3.0.7",
+    "gulp-wiredep": "0.0.0",
+    "jshint": "^2.9.1",
+    "jshint-stylish": "^2.1.0",
+    "main-bower-files": "^2.11.1",
+    "mini-css": "^1.0.3",
+    "wiredep": "^3.0.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "mongodb": "^2.1.16",
+    "nw": "^0.13.3",
+    "path": "^0.12.7"
+  }
+}
