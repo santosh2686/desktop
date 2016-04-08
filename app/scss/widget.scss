@@ -2,6 +2,14 @@
 
 /*Panel Widget*/
 .widget{
+	.modal-content &{
+		margin:0;
+        .modal-close{
+            display: block;
+            padding:8px 12px;   
+            cursor: pointer;
+        }
+	}
     border:1px solid $auth_border;
     margin-bottom: 10px;
     .widget-header{
@@ -10,7 +18,7 @@
         height: 39px;
         text-shadow: 1px 1px 2px rgba(255,255,255,.5);
         @include gradient(#F9F9F9);
-        .pull-left,.pull-right{
+        .pull-left{
             color:#525252;
             font-weight: 800;
             text-transform: capitalize;
@@ -19,8 +27,13 @@
                 margin-right: 5px;
                 vertical-align: middle;
             }
-
         }
+		.pull-right{
+			i.fa-refresh{
+				padding:12px;
+				cursor:pointer;
+			}
+		}
     }
     .widget-content{
       padding: 10px;
@@ -264,18 +277,7 @@
     }
 }
 
-/*Modal*/
-.modal-content{
-    .widget{
-        margin:0;
-        .modal-close{
-            display: block;
-            padding: 2px 8px 4px;
-            margin: 4px;            
-            cursor: pointer;
-        }
-    }
-}
+
 
 /*Calendar*/
 .uib-datepicker-popup{

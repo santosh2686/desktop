@@ -10,9 +10,10 @@
   "author": "Santosh",
   "window": {
     "toolbar": false,
-    "width": 800,
-    "height": 600,
-    "icon":"icon.png"
+    "width": 1024,
+    "height": 768,
+    "icon":"icon.png",
+	"frame":true
   },
   "license": "ISC",
   "devDependencies": {

@@ -8,6 +8,9 @@ var qs = require('querystring');
 var path = require("path");
 var dbUrl='mongodb://localhost:27017/';
 
+//Window Functions and Events
+//https://github.com/nwjs/nw.js/wiki/window
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -16,6 +19,21 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
 
+/*
+db.authenticate('admin1', 'pass123', function(err, result) {
+  if(!err){
+	res.send('Authentication Success');
+  }
+});
+*/
+
+/*db.addUser('admin', 'pass123', function(err, result) {
+	if(!err){
+		res.send('User Addded');
+	}else{
+		res.send('Failed')
+	}
+})*/
 
 app.route('/api/:databse/:collection')
 .get(function(req,res){
@@ -24,13 +42,13 @@ app.route('/api/:databse/:collection')
     var queryObject = url.parse(req.url,true).query;
     var q=queryObject.q?JSON.parse(queryObject.q):{};
     var f=queryObject.f?JSON.parse(queryObject.f):{};
-    var s=queryObject.s?JSON.parse(queryObject.s):{};
-    
+    var s=queryObject.s?JSON.parse(queryObject.s):{};    
     if(q._id){
         q._id=objectId(q._id);
     }
-    
-    MongoClient.connect(dbUrl+database,function(err,db){
+	//Inline authentication for database
+	//MongoClient.connect('mongodb://admin:pass123@localhost:27017/travel',function(err,db){	
+    MongoClient.connect(dbUrl+database,function(err,db){		
         if(!err){
             db.collection(collection,function(err, collection) {
                 collection.find(q,f).sort(s).toArray(function(err, items) {
@@ -68,15 +86,30 @@ app.route('/api/:databse/:collection')
     var database = req.params.databse;
     var collection = req.params.collection;
     var queryObject = url.parse(req.url,true).query;
+	var a = queryObject.action;
     var q=queryObject.q?JSON.parse(queryObject.q):{};
     var item = req.body;
+	var operation;
     if(q._id){
         q._id=objectId(q._id);
     }
+	switch(a){
+		case 'push' :{
+			operation = {$push:{data:item}};
+			break;
+		}
+		case 'pull' :{
+			operation = {$pull:{data:item}}
+			break;
+		}
+		default :{
+			operation = {$set:item};
+		}
+	};	
     MongoClient.connect(dbUrl+database,function(err,db){
         if(!err){
             db.collection(collection,function(err,collection){
-                collection.update(q,{$set:item},function(err,result){
+                collection.update(q,operation,function(err,result){
                     if(!err){
                         res.send(result);
                     }else{
@@ -87,7 +120,7 @@ app.route('/api/:databse/:collection')
         }else{
             res.send('Database is not connected...');
         }
-    })
+    });
 });
 
 //Delete Record

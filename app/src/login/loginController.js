@@ -1,5 +1,5 @@
 app.controller('loginController',['$scope','$state','authService',function($scope,$state,authService){
-	'use strict';
+		'use strict';
 		$scope.loginData={
 			userName:'',
 			password:''		
@@ -8,7 +8,7 @@ app.controller('loginController',['$scope','$state','authService',function($scop
 		$scope.loading=false;		
 		$scope.signIn=function(){	
 			$scope.loading=true;
-            authService.getUser(JSON.stringify($scope.loginData)).then(function(res){
+            authService.validateUser(JSON.stringify($scope.loginData)).then(function(res){
                 $scope.loading=false;
                 if(res.data.length===1){
 					$scope.showAlert=false;
