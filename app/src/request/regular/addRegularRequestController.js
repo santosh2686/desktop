@@ -37,7 +37,7 @@ app.controller('addRegularRequestController',['$scope','$uibModalInstance','requ
 			'totalAmt':0,
 			'ownerTotal':0,
 			'profit':0
-		};		
+		};
 		
 		$scope.requestData=(record.action==='new')?newObj:record.data[0];
 		if(record.action=='edit'){

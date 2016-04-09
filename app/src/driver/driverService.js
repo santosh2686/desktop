@@ -1,4 +1,4 @@
-app.factory('driverService',['$uibModal','$filter','$q','config',function($uibModal,$filter,$q,config){
+app.factory('driverService',['$filter','$q','config',function($filter,$q,config){
 	return{
 		driver:null,
         getDriver:function(){
@@ -8,13 +8,10 @@ app.factory('driverService',['$uibModal','$filter','$q','config',function($uibMo
                 return config.getData(config.driver);	
             }
         },
-        addDriver:function(){
-            
+        addDriver:function(driver){
+            return config.postData(config.driver,driver);
         },
-        editDriver:function(){
-            
-        },
-        viewDriver:function(){
+        updateDriver:function(){
             
         },
         deleteDriver:function(){

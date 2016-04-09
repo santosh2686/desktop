@@ -49,50 +49,14 @@
 
 /*New Request*/
 .new-request{
-    span.view-value{
-        text-transform: capitalize;
-        font-size: 13px;
-    }
-    label{
-        font-size:12px;
-        width: 100%;
-        margin:0;
-        &.time-label{
-            margin: 0;
-            line-height: 0;
-        }       
-    }
-    .btn{
-        padding: 4px 12px;
+     .btn{
          &.calc-btn{
             @media #{$desktop}{
-                margin-top:15px;
+                margin-top:20px;
             }
             @media #{$tablet_landscape}{
-                margin-top:15px;
+                margin-top:20px;
             }
-        }
-    }
-    .form-control{
-        height: 30px;
-        padding: 4px 12px;
-        font-size: 13px;
-        box-shadow: none;            
-    }
-    .section-title{
-        font-size: 14px;
-        font-weight: 800;
-        margin-bottom: 10px;
-        text-transform: uppercase;
-        border-bottom: 1px solid $auth-border;
-        padding-top: 5px;
-    }
-    .request-footer{
-        overflow: hidden;
-        border-top: 1px solid $auth-border;
-        padding: 10px 0 0 0;
-        .btn{
-            min-width:125px;
         }
     }
 }

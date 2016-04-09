@@ -10,7 +10,7 @@ app.factory('requestService',['$uibModal','$filter','$q','config',function($uibM
 			}
 		},
 		filterRequest:function(type,id){
-			return $filter('filter')(this.request[type],{'_id':{'$oid':id}});
+			return $filter('filter')(this.request[type],{'_id':config.local?id:{'$oid':id}});
 		},
 		getRequest:function(type,sort){            
             return (this.request[type])?$q.resolve({data:this.request[type]}):config.getData(config[type],sort);

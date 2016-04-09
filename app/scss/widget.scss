@@ -9,6 +9,45 @@
             padding:8px 12px;   
             cursor: pointer;
         }
+         .form-control{
+            height: 30px;
+            padding: 4px 12px;
+            font-size: 13px;
+            box-shadow: none;            
+        }
+        span.view-value{
+            text-transform: capitalize;
+            font-size: 13px;
+        }
+        label{
+            font-size:12px;
+            width: 100%;
+            margin:0;
+            &.time-label{
+                margin: 0;
+                line-height: 0;
+            }       
+        }
+         .btn{
+            padding: 4px 12px;
+        }
+
+        .section-title{
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            border-bottom: 1px solid $auth-border;
+            padding-top: 5px;
+        }
+        .modal-footer{
+            overflow: hidden;
+            border-top: 1px solid $auth-border;
+            padding: 10px 0 0 0;
+            .btn{
+                min-width:125px;
+            }
+        }
 	}
     border:1px solid $auth_border;
     margin-bottom: 10px;

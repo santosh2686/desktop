@@ -9,7 +9,7 @@
                 <h3 class="pull-left">Driver List</h3>
                 <div class="pull-right">
                     <span class="count">Total Request : <strong data-ng-bind="data.length"></strong></span> 
-                    <button class="btn btn-primary" data-ng-click="newRequest('request/regular/add-regular-request.html','addRegularRequestController')">New Driver</button>
+    <button class="btn btn-primary" data-ng-click="addDriver()">New Driver</button>
                 </div>
             </div>
             <div class="grid">
@@ -18,7 +18,7 @@
                     Please Wait...
                 </div>
                 <div data-ng-if="data.length===0 && !loading" class="loader">0 Record Found.</div>
-                <div data-ng-if="data.length>1" data-grid gridconfig="gridConfig" datasource="data" view="view()" edit="edit()" delete="delete()"></div>
+                <div data-ng-if="data.length>0" data-grid gridconfig="gridConfig" datasource="data" view="view()" edit="edit()" delete="delete()"></div>
             </div>
         </div>
     </div>
