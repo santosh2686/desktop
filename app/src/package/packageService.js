@@ -5,19 +5,19 @@ app.factory('packageService',['$uibModal','$filter','$q','config',function($uibM
             'out':null,
             'fix':null
         },
+        filterRecord:function(type,id){
+			return $filter('filter')(this.package[type],{'_id':config.local?id:{'$oid':id}});
+		},
         getPackage:function(type){
             return (this.package[type])?$q.resolve({data:this.package[type]}):config.getData(config.package,'q={"name":"'+type+'"}');
         },
-        addPackage:function(){
+        addPackage:function(type){
             
         },
-        editPackage:function(){
+        updatePackage:function(type,id){
             
         },
-        viewPackage:function(){
-            
-        },
-        deletePackage:function(){
+        deletePackage:function(type,id){
             
         }
 	}

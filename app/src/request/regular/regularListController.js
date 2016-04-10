@@ -34,7 +34,7 @@ app.controller('regularListController',['$scope','requestService','config','mess
         }
     });
     
-    requestService.getRequest('regular','s={"startTrip.date":-1}').then(success);    
+    requestService.getRequest('regular','s={"startTrip.date":-1}').then(success);
     
 	$scope.newRequest=function(template,controller){
 		requestService.newRequest('regular',template,controller);

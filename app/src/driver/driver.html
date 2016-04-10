@@ -18,7 +18,7 @@
                     Please Wait...
                 </div>
                 <div data-ng-if="data.length===0 && !loading" class="loader">0 Record Found.</div>
-                <div data-ng-if="data.length>0" data-grid gridconfig="gridConfig" datasource="data" view="view()" edit="edit()" delete="delete()"></div>
+                <div data-ng-if="data.length>0" data-grid gridconfig="gridConfig" data-datasource="data" data-view="view(data)" data-edit="edit(data)" data-delete="delete(data)"></div>
             </div>
         </div>
     </div>

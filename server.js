@@ -93,11 +93,10 @@ app.route('/api/:databse/:collection')
 	var a = queryObject.action;
     var q=queryObject.q?JSON.parse(queryObject.q):{};
     var item = req.body;
-	var operation;
     if(q._id){
         q._id=objectId(q._id);
     }
-	switch(a){
+	/*switch(a){
 		case 'push' :{
 			operation = {$push:{data:item}};
 			break;
@@ -109,11 +108,11 @@ app.route('/api/:databse/:collection')
 		default :{
 			operation = {$set:item};
 		}
-	};	
+	};*/
     MongoClient.connect(dbUrl+database,function(err,db){
         if(!err){
             db.collection(collection,function(err,collection){
-                collection.update(q,operation,function(err,result){
+                collection.update(q,item,function(err,result){
                     if(!err){
                         res.send(result);
                     }else{

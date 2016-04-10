@@ -15,24 +15,38 @@ app.directive('responsiveGrid',['$timeout',function($timeout){
 }]);
 
 /*Grid Directive*/
-app.directive('grid',function(){
+app.directive('grid',['config',function(config){
     return{
         restrict:'AE',
         templateUrl:'common/grid.html',
         replace:true,
         scope: {
               datasource: '=',
-              gridconfig:'=',
-              view: '&',
-              edit: '&',
-              delete: '&'
+              gridconfig: '=',
+              viewData: '&view',
+              editData: '&edit',
+              deleteData: '&delete'
         },
         controller:['$scope',function($scope){
-            $scope.gridData=$scope.gridconfig;
-            $scope.data=$scope.datasource;
-            $scope.viewData=$scope.view;
-            $scope.editData=$scope.edit;
-            $scope.deleteData=$scope.delete;
+            $scope.localEnv=config.local;
+            $scope.gridData=$scope.gridconfig;            
+            $scope.$watch('datasource',function(){
+                $scope.data=$scope.datasource;
+            });
         }]
+    }
+}]);
+
+/*Input Validators*/
+app.directive('number',function(){
+    var REGEX = /^\-?\d+$/;
+    return{
+        restrict:'A',
+        require:'ngModel',
+        link:function($sc,$el,$attr,$ctrl){
+            $ctrl.$validators.number=function(modelValue, viewValue){
+                return REGEX.test(viewValue);
+            }
+        }
     }
 });

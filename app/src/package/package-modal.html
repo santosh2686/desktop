@@ -38,7 +38,7 @@
                         <label>Joining date</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="driver.joinDate | date:'dd-MMM-yyyy'"></span>
                            <p data-ng-if="!hideView" class="input-group">
-                             <input type="text" class="form-control" ng-model="driver.joinDate" show-button-bar="false" show-weeks="false" uib-datepicker-popup="dd-MMM-yyyy" readonly is-open="calendar" ng-required="true" close-text="Close" />
+                             <input type="text" class="form-control" ng-model="driver.joinDate" show-button-bar="false" show-weeks="false" uib-datepicker-popup="dd-MMM-yyyy" is-open="calendar" ng-required="true" close-text="Close" />
                               <span class="input-group-btn">
                                 <button type="button" class="btn btn-default" ng-click="openCalendar()"><i class="glyphicon glyphicon-calendar"></i></button>
                               </span>
@@ -51,7 +51,7 @@
                     <div class="form-group">
                         <label>Salary</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="driver.salary"></span>
-                        <input data-ng-if="!hideView" number required type="text" class="form-control" data-ng-model='driver.salary'/>
+                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='driver.salary'/>
                     </div>
                 </div>
                 <div class="col-md-3">

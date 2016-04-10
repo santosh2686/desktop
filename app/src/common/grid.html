@@ -20,13 +20,13 @@
             </td>
             <td class="td-actions">
                 <div class="btn-group">
-                    <button title="View" class="btn btn-primary" data-ng-click="viewData()">
+                    <button title="View" class="btn btn-primary" data-ng-click="viewData({data:localEnv?d._id:d._id.$oid})">
                         <i class="fa fa-eye"></i>
                     </button>
-                    <button title="Edit" class="btn btn-success" data-ng-click="editData()">
+                    <button title="Edit" class="btn btn-success" data-ng-click="editData({data:localEnv?d._id:d._id.$oid})">
                         <i class="fa fa-edit"></i>
                     </button>
-                    <button title="Delete" class="btn btn-danger" data-ng-click="deleteData()">
+                    <button title="Delete" class="btn btn-danger" data-ng-click="deleteData({data:localEnv?d._id:d._id.$oid})">
                         <i class="fa fa-trash"></i>
                     </button>
                 </div>

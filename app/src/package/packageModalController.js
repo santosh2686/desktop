@@ -1,29 +1,24 @@
-app.controller('driverModalController',
-               ['$scope','$rootScope','$uibModalInstance','driverService','messageService','record',
-                function($scope,$rootScope,$uibModalInstance,driverService,messageService,record){
+app.controller('packageModalController',
+               ['$scope','$rootScope','$uibModalInstance','packageService','messageService','record',
+                function($scope,$rootScope,$uibModalInstance,packageService,messageService,record){
     'use strict';
-    $scope.driver=angular.copy(record.data);
+    $scope.package=angular.copy(record.data);
     $scope.action=record.action;
-    $scope.driver.joinDate=$scope.action==='new'?new Date():new Date($scope.driver.joinDate);
     if($scope.action==='edit'){
-        var recordId = $scope.driver._id; 
+        var recordId = $scope.package._id; 
     }
-    $scope.calendar=false;
     $scope.loading=false;
-    $scope.hideView=($scope.action==='view');    
-	$scope.openCalendar=function(){
-         $scope.calendar=!$scope.calendar;
-    };
+    $scope.hideView=($scope.action==='view');
     $scope.closeModal=function(){
         $uibModalInstance.close();
     };
     $scope.submitRequest=function(){
         $scope.loading=true;
         if(record.action==='new'){
-            driverService.addDriver($scope.driver).then(function(){
+            packageService.addPackage($scope.package).then(function(){
                $scope.closeModal();
-               driverService.driver=null;
-               $rootScope.$emit('driver');
+               packageService.package=null;
+               $rootScope.$emit('package');
                messageService.showMessage({
                     'type':'success',
                     'title':'Driver',
@@ -37,11 +32,11 @@ app.controller('driverModalController',
                 });
             });
         }else{
-            delete $scope.driver._id;
-            driverService.updateDriver(recordId,$scope.driver).then(function(){
+            delete $scope.package._id;
+            packageService.updatePackage(recordId,$scope.driver).then(function(){
                 $scope.closeModal();
-                driverService.driver=null;
-                $rootScope.$emit('driver');
+                packageService.driver=null;
+                $rootScope.$emit('package');
                 messageService.showMessage({
                     'type':'success',
                     'title':'Driver',

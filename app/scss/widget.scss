@@ -13,7 +13,10 @@
             height: 30px;
             padding: 4px 12px;
             font-size: 13px;
-            box-shadow: none;            
+            box-shadow: none;             
+        }
+        textarea.form-control{
+            height: auto;
         }
         span.view-value{
             text-transform: capitalize;
@@ -372,11 +375,32 @@
 
 /*notification*/
 div.notification{
+    span{
+        display:block;
+        &:before{
+            font-family: FontAwesome; 
+            font-size: 22px;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+        &.success{
+            &:before{
+              content:"\f058";
+              color: $green_color;
+            }
+        }
+        &.error{
+            &:before{
+                content:"\f057";
+                color: $red_color;
+            }
+        }
+    }
 p{
     text-align: center;
     padding-top: 10px;
     .btn{
-    width: 100px;
+        width: 100px;
     }
 }
 }
