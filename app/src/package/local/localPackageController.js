@@ -1,4 +1,4 @@
-app.controller('localPackageController',['$scope','packageService','gridMap',function($scope,packageService,gridMap){
+app.controller('localPackageController',['$scope','$uibModal','packageService','gridMap',function($scope,$uibModal,packageService,gridMap){
     $scope.data=[];
     $scope.gridConfig=gridMap.PACKAGE;
 	$scope.loading=true;
@@ -8,9 +8,30 @@ app.controller('localPackageController',['$scope','packageService','gridMap',fun
             packageService.package.local=res.data;
         }
         $scope.loading=false;
-	};
-    packageService.getPackage('local').then(success);
-    
+	},
+    init=function(){
+        packageService.getPackage('local').then(success);
+    },
+    packageModal=function(action,data){
+        $uibModal.open({
+              templateUrl: 'package/package-modal.html',
+              controller: 'packageModalController',
+              size: 'lg',
+              resolve:{
+                record:function(){
+                    return {
+                        'action':action,
+                        'type':'local',
+                        'data':data
+                    };
+                }
+              }
+          });
+    };    
+    init();
+    $scope.newPackage=function(){
+        packageModal('new',{});
+    }    
     $scope.view=function(){
         console.log('VIEW');
     }

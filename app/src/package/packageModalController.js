@@ -4,9 +4,7 @@ app.controller('packageModalController',
     'use strict';
     $scope.package=angular.copy(record.data);
     $scope.action=record.action;
-    if($scope.action==='edit'){
-        var recordId = $scope.package._id; 
-    }
+    $scope.type=record.type;
     $scope.loading=false;
     $scope.hideView=($scope.action==='view');
     $scope.closeModal=function(){
@@ -15,38 +13,38 @@ app.controller('packageModalController',
     $scope.submitRequest=function(){
         $scope.loading=true;
         if(record.action==='new'){
-            packageService.addPackage($scope.package).then(function(){
+            packageService.updatePackage('{"name":"'+$scope.type+'"}',$scope.package).then(function(){
                $scope.closeModal();
-               packageService.package=null;
+               packageService.package[$scope.type]=null;
                $rootScope.$emit('package');
                messageService.showMessage({
                     'type':'success',
-                    'title':'Driver',
-                    'text':'New driver added successfully.'
+                    'title':'Package',
+                    'text':'New '+$scope.type+' package added successfully.'
                });
             },function(){
                 messageService.showMessage({
                     'type':'error',
-                    'title':'Driver',
-                    'text':'Driver not added successfully. Please try again.'
+                    'title':'Package',
+                    'text':$scope.type+' package not added successfully. Please try again.'
                 });
             });
         }else{
             delete $scope.package._id;
-            packageService.updatePackage(recordId,$scope.driver).then(function(){
+            packageService.updatePackage('{"name":"'+$scope.type+'"}',$scope.package).then(function(){
                 $scope.closeModal();
-                packageService.driver=null;
+                packageService.package[$scope.type]=null;
                 $rootScope.$emit('package');
                 messageService.showMessage({
                     'type':'success',
-                    'title':'Driver',
-                    'text':'Driver updated successfully.'
+                    'title':'Package',
+                    'text':'New '+$scope.type+' package updated successfully.'
                 });
             },function(err){
                 messageService.showMessage({
                     'type':'error',
-                    'title':'Driver',
-                    'text':'Driver not updated successfully. Please try again.'
+                    'title':'Package',
+                    'text':$scope.type+' package not updated successfully. Please try again.'
                 });
             });
         }        
