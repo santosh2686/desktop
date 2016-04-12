@@ -13,10 +13,10 @@ app.controller('packageModalController',
     $scope.submitRequest=function(){
         $scope.loading=true;
         if(record.action==='new'){
-            packageService.updatePackage('{"name":"'+$scope.type+'"}',$scope.package).then(function(){
+            packageService.addPackage('{"name":"'+$scope.type+'"}',$scope.package).then(function(){
                $scope.closeModal();
                packageService.package[$scope.type]=null;
-               $rootScope.$emit('package');
+               $rootScope.$emit($scope.type+'Package');
                messageService.showMessage({
                     'type':'success',
                     'title':'Package',
@@ -34,7 +34,7 @@ app.controller('packageModalController',
             packageService.updatePackage('{"name":"'+$scope.type+'"}',$scope.package).then(function(){
                 $scope.closeModal();
                 packageService.package[$scope.type]=null;
-                $rootScope.$emit('package');
+                $rootScope.$emit($scope.type+'Package');
                 messageService.showMessage({
                     'type':'success',
                     'title':'Package',

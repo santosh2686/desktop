@@ -5,22 +5,22 @@ app.factory('packageService',['$uibModal','$filter','$q','config',function($uibM
             'out':null,
             'fix':null
         },
-        filterRecord:function(type,id){
-			return $filter('filter')(this.package[type],{'_id':config.local?id:{'$oid':id}});
+        filterRecord:function(type,id){		
+			return $filter('filter')(this.package[type][0].data,{'_id':config.local?id:{'$oid':id}});
 		},
         getPackage:function(type){
             return (this.package[type])?$q.resolve({data:this.package[type]}):config.getData(config.package,'q={"name":"'+type+'"}');
         },
-        addPackage:function(package){
-            //return config.postData(config.package,package);
+        addPackage:function(filter,item){
+			item._id = config.local?config.guid():{'$oid':config.guid()};
+			return config.updateData(config.package,filter,{$push:{data:item}});
         },
         updatePackage:function(filter,item){
-            //return config.updateData(config.package,package);
-             //var filter=config.local?'{"_id":"'+id+'"}':'{"_id":{"$oid":"'+id.$oid+'"}}';
             return config.updateData(config.package,filter,{$push:{data:item}});
         },
-        deletePackage:function(type,id){
-            
+        deletePackage:function(filter,id){
+			var item = {'_id':config.local?id:{'$oid':id}};
+             return config.updateData(config.package,filter,{$pull:{data:item}});
         }
 	}
 }]);

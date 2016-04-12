@@ -1,4 +1,4 @@
-app.controller('fixPackageController',['$scope','$uibModal','packageService','gridMap',function($scope,$uibModal,packageService,gridMap){
+app.controller('fixPackageController',['$scope','$rootScope','$uibModal','packageService','messageService','gridMap',function($scope,$rootScope,$uibModal,packageService,messageService,gridMap){
     $scope.data=[];
 	$scope.gridConfig=gridMap.PACKAGE;
 	$scope.loading=true;
@@ -27,19 +27,34 @@ app.controller('fixPackageController',['$scope','$uibModal','packageService','gr
                 }
               }
           });
-    };    
-    init();    
+    };
+	$rootScope.$on('fixPackage',function(){
+        init();
+    });
+    init();
     $scope.newPackage=function(){
         packageModal('new',{});    
+    } 
+	$scope.view=function(id){
+		packageModal('view',packageService.filterRecord('fix',id)[0]);
     }
-    
-    $scope.view=function(){
-        console.log('VIEW');
+    $scope.edit=function(id){
+       packageModal('edit',packageService.filterRecord('fix',id)[0]);
     }
-    $scope.edit=function(){
-        console.log('EDIT');
-    }
-    $scope.delete=function(){
-        console.log('DELETE');
+    $scope.delete=function(id){
+       var pkgName = packageService.filterRecord('fix',id)[0].packageCode;
+		  packageService.deletePackage('{"name":"fix"}',id).then(function(){
+				 messageService.showMessage({
+					'type':'success',
+					'title':'Package',
+					'text':'Package '+pkgName+' Deleted successfully.'
+				});
+		  },function(){
+				 messageService.showMessage({
+					'type':'error',
+					'title':'Package',
+					'text':'Package '+pkgName+' can not be deleted at this time. Please try again.'
+				});
+		  });
     }
 }]); 

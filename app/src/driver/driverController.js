@@ -50,6 +50,12 @@ app.controller('driverController',
                 'title':'Driver',
                 'text':'Driver '+driverName+' Deleted successfully.'
             });
-        });
+        },function(){
+			 messageService.showMessage({
+                'type':'error',
+                'title':'Driver',
+                'text':'Driver '+driverName+' can not be deleted at this time. Please try again.'
+            });
+		});
     }
 }]);
