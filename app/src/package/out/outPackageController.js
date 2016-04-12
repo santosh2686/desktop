@@ -44,6 +44,8 @@ app.controller('outPackageController',['$scope','$rootScope','$uibModal','packag
     $scope.delete=function(id){
        var pkgName = packageService.filterRecord('out',id)[0].packageCode;
 		  packageService.deletePackage('{"name":"out"}',id).then(function(){
+                 packageService.package["out"]=null;
+                 init();
 				 messageService.showMessage({
 					'type':'success',
 					'title':'Package',

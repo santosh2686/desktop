@@ -1,0 +1,73 @@
+<div class="widget">
+	<div class="widget-header">
+    	<div class="pull-left">
+            Add {{type}} Package
+    	</div>
+        <div class="pull-right">
+        	<span class="modal-close" data-ng-click="closeModal()">
+            	<i class="fa fa-close"></i>
+            </span>
+        </div>
+    </div>
+    <div class="widget-content">
+        <form name="packageForm" novalidate="novalidate">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Package Code</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="package.packageCode"></span>
+                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='package.packageCode'/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Basic Amount</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="package.basicAmt"></span>
+                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='package.basicAmt'/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Minimum KM</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="package.kmRate.minKm"></span>
+                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='package.kmRate.minKm'/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Extra KM rate </label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="package.kmRate.extraKm"></span>
+                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='package.kmRate.extraKm'/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Minimum Hours </label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="package.hrRate.minHr"></span>
+                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='package.hrRate.minHr'/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Extra Hour rate</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="package.hrRate.extraHr"></span>
+                        <input data-ng-if="!hideView" type="text" class="form-control" data-ng-model='package.hrRate.extraHr'/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Comments</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="package.comments"></span>
+                        <textarea data-ng-if="!hideView" class="form-control" data-ng-model='package.comments'></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                    <button class="btn btn-danger pull-left" data-ng-click="closeModal()">Close</button>
+                    <button data-ng-if="action!=='view'" class="btn btn-success pull-right" data-ng-disabled="!packageForm.$dirty || !packageForm.$valid || loading" data-ng-click="submitRequest()">{{loading?"Please Wait...":"Submit"}}</button>
+                </div>
+        </form>
+    </div>
+</div>

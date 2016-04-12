@@ -44,6 +44,8 @@ app.controller('localPackageController',['$scope','$rootScope','$uibModal','pack
     $scope.delete=function(id){
 		var pkgName = packageService.filterRecord('local',id)[0].packageCode;
 		  packageService.deletePackage('{"name":"local"}',id).then(function(){
+                 packageService.package["local"]=null;
+                 init();
 				 messageService.showMessage({
 					'type':'success',
 					'title':'Package',

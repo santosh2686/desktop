@@ -30,8 +30,8 @@ app.controller('packageModalController',
                 });
             });
         }else{
-            delete $scope.package._id;
-            packageService.updatePackage('{"name":"'+$scope.type+'"}',$scope.package).then(function(){
+            packageService.updatePackage('{"name":"'+$scope.type+'","data._id":"'+$scope.package._id+'"}',$scope.package)
+            .then(function(){
                 $scope.closeModal();
                 packageService.package[$scope.type]=null;
                 $rootScope.$emit($scope.type+'Package');

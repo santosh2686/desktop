@@ -1,4 +1,4 @@
-app.controller('otherVehicleController',['$scope','vehicleService','gridMap',function($scope,vehicleService,gridMap){
+app.controller('otherVehicleController',['$scope','$rootScope','$uibModal','vehicleService','messageService','gridMap',function($scope,$rootScope,$uibModal,vehicleService,messageService,gridMap){
     $scope.data=[];
     $scope.gridConfig=gridMap.VEHICLE.OTHER;
 	$scope.loading=true;
@@ -7,17 +7,57 @@ app.controller('otherVehicleController',['$scope','vehicleService','gridMap',fun
 		if(!vehicleService.vehicle.other){
             vehicleService.vehicle.other=res.data;
         }
-	    $scope.loading=false;
-	};
-    vehicleService.getVehicle('other').then(success);
+	   $scope.loading=false;
+	},
+    init=function(){
+        vehicleService.getVehicle('other').then(success);
+    },
+    vehicleModal=function(action,data){
+        $uibModal.open({
+              templateUrl: 'vehicle/vehicle-modal.html',
+              controller: 'vehicleModalController',
+              size: 'lg',
+              resolve:{
+                record:function(){
+                    return {
+                        'action':action,
+                        'type':'other',
+                        'data':data
+                    };
+                }
+              }
+          });
+    };
+	$rootScope.$on('otherVehicle',function(){
+        init();
+    });
+    init();    
     
-    $scope.view=function(){
-        console.log('VIEW');
+    $scope.newVehicle=function(){
+        vehicleModal('new',{});    
+    } 
+	$scope.view=function(id){
+		vehicleModal('view',vehicleService.filterRecord('other',id)[0]);
     }
-    $scope.edit=function(){
-        console.log('EDIT');
+    $scope.edit=function(id){
+       vehicleModal('edit',vehicleService.filterRecord('other',id)[0]);
     }
-    $scope.delete=function(){
-        console.log('DELETE');
+    $scope.delete=function(id){
+       var vehName = vehicleService.filterRecord('other',id)[0].vehicleName;
+		  vehicleService.deleteVehicle('{"name":"other"}',id).then(function(){
+                 vehicleService.vehicle["other"]=null;
+                 init();
+				 messageService.showMessage({
+					'type':'success',
+					'title':'Vehicle',
+					'text':'Vehicle '+vehName+' Deleted successfully.'
+				});
+		  },function(){
+				 messageService.showMessage({
+					'type':'error',
+					'title':'Vehicle',
+					'text':'vehicle '+vehName+' can not be deleted at this time. Please try again.'
+				});
+		  });
     }
 }]);

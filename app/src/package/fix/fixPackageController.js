@@ -44,6 +44,8 @@ app.controller('fixPackageController',['$scope','$rootScope','$uibModal','packag
     $scope.delete=function(id){
        var pkgName = packageService.filterRecord('fix',id)[0].packageCode;
 		  packageService.deletePackage('{"name":"fix"}',id).then(function(){
+                 packageService.package["fix"]=null;
+                 init();
 				 messageService.showMessage({
 					'type':'success',
 					'title':'Package',

@@ -16,7 +16,7 @@ app.factory('packageService',['$uibModal','$filter','$q','config',function($uibM
 			return config.updateData(config.package,filter,{$push:{data:item}});
         },
         updatePackage:function(filter,item){
-            return config.updateData(config.package,filter,{$push:{data:item}});
+            return config.updateData(config.package,filter,{$set:{"data.$":item}});
         },
         deletePackage:function(filter,id){
 			var item = {'_id':config.local?id:{'$oid':id}};
