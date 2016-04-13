@@ -1,7 +1,7 @@
 <div class="widget">
 	<div class="widget-header">
     	<div class="pull-left">
-            Add {{type}} Package
+            Add {{type}} Vehicle
     	</div>
         <div class="pull-right">
         	<span class="modal-close" data-ng-click="closeModal()">
@@ -10,63 +10,177 @@
         </div>
     </div>
     <div class="widget-content">
-        <form name="packageForm" novalidate="novalidate">
+        <form name="vehicleForm" novalidate="novalidate">
+             <div class="row">
+            	<div class="col-md-3">
+                	 <div class="form-group">
+                        <label>Owner Name</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.vehicleOwner"></span>
+                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.vehicleOwner' required/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Vehicle Name</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.vehicleName"></span>
+                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.vehicleName' required/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                     <div class="form-group">
+                        <label>Vehicle No.</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.vehicleNo"></span>
+                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.vehicleNo' required/>
+                	</div>
+                </div>
+                <div class="col-md-3">
+                	<div class="form-group">											
+                   		<label>Vehicle Type</label>                       
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.vehicleType"></span>
+                            <div data-ng-if="!hideView" class="btn-group">
+                              <button class="btn btn-default" data-ng-class='{active:vehicle.vehicleType=="Car"}' data-ng-click='vehicle.vehicleType="Car"'>Car</button>
+                              <button class="btn btn-default" data-ng-class='{active:vehicle.vehicleType=="XL"}' data-ng-click='vehicle.vehicleType="XL"'>XL</button>
+                              <button class="btn btn-default" data-ng-class='{active:vehicle.vehicleType=="Bus"}' data-ng-click='vehicle.vehicleType="Bus"'>Bus</button>
+                            </div>			
+               	 	</div> 
+                </div>
+            </div>            
             <div class="row">
+            	<div class="col-md-3">
+                	 <div class="form-group">
+                        <label>No. of Seats</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.vehicleNo"></span>
+                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.seats' required/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                	<div class="form-group">											
+                        <label>AC</label>                           
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.AC"></span>
+                        <div data-ng-if="!hideView" class="btn-group">
+                          <button class="btn btn-default" data-ng-class='{active:vehicle.AC=="Yes"}' data-ng-click='vehicle.AC="Yes"'>Yes</button>
+                          <button class="btn btn-default" data-ng-class='{active:vehicle.AC=="No"}' data-ng-click='vehicle.AC="No"'>No</button>
+                        </div>			
+                    </div> 
+                </div>                
+                <div class="col-md-3" data-ng-if="type=='own'">
+                	<div class="form-group">											
+                        <label>Loan</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.selectLoan"></span>
+                        <div data-ng-if="!hideView" class="btn-group">
+                          <button class="btn btn-default" data-ng-class='{active:vehicle.selectLoan=="Yes"}' data-ng-click='vehicle.selectLoan="Yes"'>Yes</button>
+                          <button class="btn btn-default" data-ng-class='{active:vehicle.selectLoan=="No"}' data-ng-click='vehicle.selectLoan="No"'>No</button>                              
+                        </div>		
+                    </div> 
+                </div>
+                <div class="col-md-3">
+                	<div class="form-group">											
+                        <label>Monthly Fixed</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.selectFixed"></span>
+                        <div data-ng-if="!hideView" class="btn-group">
+                           <button class="btn btn-default" data-ng-class='{active:vehicle.selectFixed=="Yes"}' data-ng-click='vehicle.selectFixed="Yes"'>Yes</button>
+                          <button class="btn btn-default" data-ng-class='{active:vehicle.selectFixed=="No"}' data-ng-click='vehicle.selectFixed="No"'>No</button>    
+                        </div>			
+                    </div> 
+                </div>
+            </div>
+            <div class="section-title" data-ng-if='vehicle.selectLoan=="Yes"'>Loan Details</div>
+            <div class="row" data-ng-if='vehicle.selectLoan=="Yes"'>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label>Package Code</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="package.packageCode"></span>
-                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='package.packageCode'/>
+                        <label>Loan Disbursement Date</label>                        
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.loan.loanDisbursementDate"></span>
+                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.loan.loanDisbursementDate' required/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label>Basic Amount</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="package.basicAmt"></span>
-                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='package.basicAmt'/>
+                        <label>Loan Amount</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.loan.loanAmt"></span>
+                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.loan.loanAmt' required/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label>Minimum KM</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="package.kmRate.minKm"></span>
-                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='package.kmRate.minKm'/>
+                        <label>Loan Tenure (Year)</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.loan.loanTenure"></span>
+                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.loan.loanTenure' required/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label>Extra KM rate </label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="package.kmRate.extraKm"></span>
-                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='package.kmRate.extraKm'/>
+                        <label>EMI Amount</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.loan.emiAmt"></span>
+                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.loan.emiAmt' required/>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" data-ng-if='vehicle.selectLoan=="Yes"'>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label>Minimum Hours </label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="package.hrRate.minHr"></span>
-                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='package.hrRate.minHr'/>
+                        <label>Finance From</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.loan.financeFrom"></span>
+                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.loan.financeFrom' required/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label>Extra Hour rate</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="package.hrRate.extraHr"></span>
-                        <input data-ng-if="!hideView" type="text" class="form-control" data-ng-model='package.hrRate.extraHr'/>
+                        <label>Monthly EMI Date</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.loan.emiDate"></span>
+                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.loan.emiDate' required/>
+                    </div>
+                </div>
+            </div>            
+            <div class="section-title" data-ng-if='vehicle.selectFixed=="Yes"'>Company Details</div>
+            <div class="row" data-ng-if='vehicle.selectFixed=="Yes"'>
+                <div class="col-md-3">
+                    <label>Party Name</label>
+                    <div class="form-group">
+                          <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.fixed.companyName"></span>
+                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.fixed.companyName' required/>              
                     </div>
                 </div>
                 <div class="col-md-3">
+                    <label>Party Address</label>
                     <div class="form-group">
-                        <label>Comments</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="package.comments"></span>
-                        <textarea data-ng-if="!hideView" class="form-control" data-ng-model='package.comments'></textarea>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.fixed.companyAdd"></span>
+                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.fixed.companyAdd' required/>              
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label>Office Name</label>
+                    <div class="form-group">
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.fixed.officeName"></span>
+                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.fixed.officeName' required/>                                      
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label>Package to Party</label>
+                    <div class="form-group">
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.fixed.package"></span>
+                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.fixed.package' required/>                                      
+                    </div>
+                </div>
+            </div>
+            <div class="row" data-ng-if='vehicle.selectFixed=="Yes"'>
+                <div class="col-md-3">
+                    <label>Contract Start Date</label>
+                    <div class="form-group">
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.fixed.contractStartDate"></span>
+                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.fixed.contractStartDate' required/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label>Contract End Date</label>
+                    <div class="form-group">
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.fixed.contractEndDate"></span>
+                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.fixed.contractEndDate' required/>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                     <button class="btn btn-danger pull-left" data-ng-click="closeModal()">Close</button>
-                    <button data-ng-if="action!=='view'" class="btn btn-success pull-right" data-ng-disabled="!packageForm.$dirty || !packageForm.$valid || loading" data-ng-click="submitRequest()">{{loading?"Please Wait...":"Submit"}}</button>
+                    <button data-ng-if="action!=='view'" class="btn btn-success pull-right" data-ng-disabled="!vehicleForm.$dirty || !vehicleForm.$valid || loading" data-ng-click="submitRequest()">{{loading?"Please Wait...":"Submit"}}</button>
                 </div>
         </form>
     </div>
