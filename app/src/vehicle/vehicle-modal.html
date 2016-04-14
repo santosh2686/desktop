@@ -134,29 +134,29 @@
             <div class="section-title" data-ng-if='vehicle.selectFixed=="Yes"'>Company Details</div>
             <div class="row" data-ng-if='vehicle.selectFixed=="Yes"'>
                 <div class="col-md-3">
-                    <label>Party Name</label>
                     <div class="form-group">
-                          <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.fixed.companyName"></span>
+                        <label>Party Name</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.fixed.companyName"></span>
                         <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.fixed.companyName' required/>              
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <label>Party Address</label>
                     <div class="form-group">
+                        <label>Party Address</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.fixed.companyAdd"></span>
                         <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.fixed.companyAdd' required/>              
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <label>Office Name</label>
                     <div class="form-group">
+                        <label>Office Name</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.fixed.officeName"></span>
                         <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.fixed.officeName' required/>                                      
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <label>Package to Party</label>
                     <div class="form-group">
+                        <label>Package to Party</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.fixed.package"></span>
                         <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.fixed.package' required/>                                      
                     </div>
@@ -164,17 +164,50 @@
             </div>
             <div class="row" data-ng-if='vehicle.selectFixed=="Yes"'>
                 <div class="col-md-3">
-                    <label>Contract Start Date</label>
                     <div class="form-group">
+                        <label>Contract Start Date</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.fixed.contractStartDate"></span>
-                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.fixed.contractStartDate' required/>
+                       <p data-ng-if="!hideView" class="input-group">
+                             <input type="text" class="form-control" ng-model="vehicle.fixed.contractStartDate" show-button-bar="false" show-weeks="false" uib-datepicker-popup="dd-MMM-yyyy" is-open="calendar.ctStartDate" ng-required="true" close-text="Close" />
+                              <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openCalendar('ctStartDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                              </span>
+                            </p>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <label>Contract End Date</label>
                     <div class="form-group">
+                        <label>Contract End Date</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.fixed.contractEndDate"></span>
-                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.fixed.contractEndDate' required/>
+                        <p data-ng-if="!hideView" class="input-group">
+                             <input type="text" class="form-control" ng-model="vehicle.fixed.contractEndDate" show-button-bar="false" show-weeks="false" uib-datepicker-popup="dd-MMM-yyyy" is-open="calendar.ctEndDate" ng-required="true" close-text="Close" />
+                              <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openCalendar('ctEndDate')"><i class="glyphicon glyphicon-calendar"></i></button>
+                              </span>
+                            </p>
+                    </div>
+                </div>
+            </div>
+            <div class="section-title" data-ng-if='type=="own"'>Vehicle Documents</div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        
                     </div>
                 </div>
             </div>

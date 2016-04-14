@@ -7,6 +7,16 @@ app.controller('vehicleModalController',
     $scope.type=record.type;
     $scope.loading=false;
     $scope.hideView=($scope.action==='view');
+                    
+    $scope.calendar={
+        ctEndDate:false,
+        end:false
+    }
+
+    $scope.openCalendar= function(type) {
+         $scope.calendar[type]= true;
+    };                
+                    
     $scope.closeModal=function(){
         $uibModalInstance.close();
     };

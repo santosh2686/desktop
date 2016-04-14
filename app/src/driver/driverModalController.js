@@ -8,11 +8,13 @@ app.controller('driverModalController',
     if($scope.action==='edit'){
         var recordId = $scope.driver._id; 
     }
-    $scope.calendar=false;
+    $scope.calendar={
+        open:false
+    };
     $scope.loading=false;
     $scope.hideView=($scope.action==='view');    
 	$scope.openCalendar=function(){
-         $scope.calendar=!$scope.calendar;
+         $scope.calendar.open=true;
     };
     $scope.closeModal=function(){
         $uibModalInstance.close();
