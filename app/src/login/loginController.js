@@ -12,11 +12,14 @@ app.controller('loginController',['$scope','$state','authService',function($scop
                 $scope.loading=false;
                 if(res.data.length===1){
 					$scope.showAlert=false;
-					sessionStorage.setItem('id',res.data[0]._id.$oid);	
+					authService.session=true;
+                    sessionStorage.setItem('id',res.data[0]._id.$oid);	
 					$state.go('dashboard');		
 				}else{
 					$scope.showAlert=true;
 				}
+            },function(){
+                authService.session=false;
             });
 		}
 }]);
