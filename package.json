@@ -1,5 +1,5 @@
 {
-  "name": "Travel Application",
+  "name": "Client",
   "version": "1.0.0",
   "description": "Travel",
   "node-main": "server.js",
@@ -12,8 +12,8 @@
     "toolbar": false,
     "width": 1024,
     "height": 768,
-    "icon":"icon.png",
-	"frame":true
+    "icon": "icon.png",
+    "frame": true
   },
   "license": "ISC",
   "devDependencies": {
@@ -23,6 +23,8 @@
     "gulp-bower-src": "^0.1.0",
     "gulp-coffee": "^2.3.1",
     "gulp-concat": "^2.6.0",
+    "gulp-develop-server": "^0.5.1",
+    "gulp-exec": "^2.1.2",
     "gulp-filter": "^3.0.1",
     "gulp-flatten": "^0.2.0",
     "gulp-inject": "^3.0.0",

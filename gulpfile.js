@@ -12,7 +12,9 @@ gulpBowerFiles = require('gulp-bower-files'),
 gulpFilter = require('gulp-filter'),
 wiredep = require('wiredep').stream,
 minifyHTML = require('gulp-minify-html'),
-order = require('gulp-order');
+order = require('gulp-order'),
+exec = require('gulp-exec'),
+server = require( 'gulp-develop-server' );
 
 //Convert SASS to CSS
 gulp.task('sass',function(){
@@ -84,20 +86,29 @@ gulp.task('watch',function(){
 	gulp.watch('app/src/**/*.html',['template']);
 });
 gulp.task('bower',sequence('bower-copy','bower-inject'));
-gulp.task('build',sequence(['sass','javascript','template'],'inject','bower','watch'));
+gulp.task('build',sequence(['sass','javascript','template'],'inject','bower','watch','server:start'));
 
-/*
 //Start the node server and mongodb
-gulp.task('server', function (cb) {
-  exec('node lib/app.js', function (err, stdout, stderr) {
+/*gulp.task('server', function (cb) {
+  exec('node server.js', function (err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
     cb(err);
   });
-  exec('mongod --dbpath ./data', function (err, stdout, stderr) {
+  exec('mongod --dbpath ./database', function (err, stdout, stderr) {
     console.log(stdout);
     console.log(stderr);
     cb(err);
   });
-})
-*/
+})*/
+
+// run server 
+gulp.task('server:start', function(){
+    server.listen({path:'server.js'});
+});
+
+// restart server if app.js changed 
+gulp.task( 'server:restart', function() {
+    gulp.watch( [ 'server.js' ], server.restart );
+});
+
