@@ -10,6 +10,21 @@ app.controller('partyModalController',
     $scope.closeModal=function(){
         $uibModalInstance.close();
     };
+	
+	if($scope.type=='operator'){
+		$scope.party.vehicle=[{
+					'name':'',
+					'number':''
+					}];
+					
+		$scope.addNewVehicle=function(){
+			$scope.party.vehicle.push({'name':'','number':''});
+		};		
+		$scope.removeVehicle=function(index){
+			$scope.party.vehicle.splice(index,1);
+		};
+	}
+	
     $scope.submitRequest=function(){
         $scope.loading=true;
         if(record.action==='new'){

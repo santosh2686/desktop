@@ -1,4 +1,4 @@
-app.controller('clientController',['$scope','partyService','gridMap',function($scope,partyService,gridMap){
+app.controller('clientController',['$scope','$rootScope','$uibModal','partyService','messageService','gridMap',function($scope,$rootScope,$uibModal,partyService,messageService,gridMap){
     $scope.data=[];
 	$scope.gridConfig=gridMap.PARTY.CLIENT;
     $scope.loading=true;
@@ -8,16 +8,55 @@ app.controller('clientController',['$scope','partyService','gridMap',function($s
             partyService.party.client=res.data;
         }
         $scope.loading=false;
-	};
-    partyService.getParty('client').then(success);
-    
-    $scope.view=function(){
-        console.log('VIEW');
+	},
+    init=function(){
+        partyService.getParty('client').then(success);
+    },
+    partyModal=function(action,data){
+        $uibModal.open({
+              templateUrl: 'party/party-modal.html',
+              controller: 'partyModalController',
+              size: 'lg',
+              resolve:{
+                record:function(){
+                    return {
+                        'action':action,
+                        'type':'client',
+                        'data':data
+                    };
+                }
+              }
+          });
+    };
+   $rootScope.$on('clientParty',function(){
+        init();
+    });	
+    init();
+    $scope.newParty=function(){
+        partyModal('new',{});
+    }    
+    $scope.view=function(id){
+		partyModal('view',partyService.filterRecord('client',id)[0]);
     }
-    $scope.edit=function(){
-        console.log('EDIT');
+    $scope.edit=function(id){
+       partyModal('edit',partyService.filterRecord('client',id)[0]);
     }
-    $scope.delete=function(){
-        console.log('DELETE');
+    $scope.delete=function(id){
+		var partyName = partyService.filterRecord('client',id)[0].name;
+		  partyService.deleteParty('{"name":"client"}',id).then(function(){
+                 partyService.party["client"]=null;
+                 init();
+				 messageService.showMessage({
+					'type':'success',
+					'title':'Party',
+					'text':'Party '+partyName+' deleted successfully.'
+				});
+		  },function(){
+				 messageService.showMessage({
+					'type':'error',
+					'title':'Party',
+					'text':'Party '+partyName+' can not be deleted at this time. Please try again.'
+				});
+		  });
     }
 }]);

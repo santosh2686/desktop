@@ -1,4 +1,4 @@
-app.controller('operatorController',['$scope','partyService','gridMap',function($scope,partyService,gridMap){
+app.controller('operatorController',['$scope','$rootScope','$uibModal','partyService','messageService','gridMap',function($scope,$rootScope,$uibModal,partyService,messageService,gridMap){
     $scope.data=[];
     $scope.gridConfig=gridMap.PARTY.OPERATOR;
 	$scope.loading=true;
@@ -8,16 +8,55 @@ app.controller('operatorController',['$scope','partyService','gridMap',function(
             partyService.party.operator=res.data;
         }
         $scope.loading=false;
-	};
-    partyService.getParty('operator').then(success);
-    
-    $scope.view=function(){
-        console.log('VIEW');
+	},
+    init=function(){
+        partyService.getParty('operator').then(success);
+    },
+    partyModal=function(action,data){
+        $uibModal.open({
+              templateUrl: 'party/party-modal.html',
+              controller: 'partyModalController',
+              size: 'lg',
+              resolve:{
+                record:function(){
+                    return {
+                        'action':action,
+                        'type':'operator',
+                        'data':data
+                    };
+                }
+              }
+          });
+    };
+    $rootScope.$on('operatorParty',function(){
+        init();
+    });	
+    init();
+    $scope.newOperator=function(){
+        partyModal('new',{});
+    }    
+    $scope.view=function(id){
+		partyModal('view',partyService.filterRecord('operator',id)[0]);
     }
-    $scope.edit=function(){
-        console.log('EDIT');
+    $scope.edit=function(id){
+       partyModal('edit',partyService.filterRecord('operator',id)[0]);
     }
-    $scope.delete=function(){
-        console.log('DELETE');
+    $scope.delete=function(id){
+		var partyName = partyService.filterRecord('operator',id)[0].name;
+		  partyService.deleteParty('{"name":"operator"}',id).then(function(){
+                 partyService.party["operator"]=null;
+                 init();
+				 messageService.showMessage({
+					'type':'success',
+					'title':'Operator',
+					'text':'Operator '+partyName+' deleted successfully.'
+				});
+		  },function(){
+				 messageService.showMessage({
+					'type':'error',
+					'title':'Operator',
+					'text':'Operator '+partyName+' can not be deleted at this time. Please try again.'
+				});
+		  });
     }
 }]);

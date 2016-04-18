@@ -3,7 +3,7 @@
         <h3 class="pull-left">Regular Operator</h3>
         <div class="pull-right">
             <span class="count">Total Records : <strong data-ng-bind="data.length"></strong></span> 
-            <button class="btn btn-primary">New Operator</button>
+            <button class="btn btn-primary" data-ng-click="newOperator()">New Operator</button>
         </div>
     </div>
     <div class="grid">
@@ -12,6 +12,6 @@
             Please Wait...
         </div>
         <div data-ng-if="data.length===0 && !loading" class="loader">0 Record Found.</div>
-        <div data-ng-if="data.length>1" data-grid gridconfig="gridConfig" datasource="data" view="view()" edit="edit()" delete="delete()"></div>
+        <div data-ng-if="data.length>0" data-grid gridconfig="gridConfig" datasource="data" view="view(data)" edit="edit(data)" delete="delete(data)"></div>
     </div>
 </div>
