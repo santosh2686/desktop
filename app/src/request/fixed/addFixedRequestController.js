@@ -3,46 +3,27 @@ app.controller('addFixedRequestController',['$scope','$uibModalInstance','reques
 		$scope.request=true;
 		var currDate=new Date(),
 		newObj={
-			'requestType': 'local',
-			'selectClient':'party',
-			'vehicleSelect':'own',
-			'startTrip':{
-				'date':currDate
-			},
-			'endTrip':{
-				'date': currDate
-			},
+			'vehicleSelect':'daily',
+			'requestType':'local',
+			'regularVehicle':'own',
+			'nightHaltAmt':0,
+            'date':currDate,
+			'diverAllowanceAmt':0,
 			'openingKm':0,
 			'closingKm':0,
 			'totalKm':0,
+			'startTime':'',
 			'totalHr':0,
-			'totalDays':0,			
-			'vehicle': {
-				'AC': 'Yes'
-			},
-			'inDirect':{
-				'AC':'Yes'
-			},
-			'operator':{
-				'AC':'Yes'
-			},
-			'agency':{
-				'AC': 'Yes'
-			},
-			'driverAllowance':0,
-			'advanceAmt':0,
-			'driverOverTime':0,
+			'extraHr':0,
 			'tollAmt':0,
 			'parkingAmt':0,
 			'totalAmt':0,
-			'ownerTotal':0,
-			'profit':0
-		};		
+			'driverOverTime':0
+		};
 		
 		$scope.requestData=(record.action==='new')?newObj:record.data[0];
 		if(record.action=='edit'){
-			$scope.requestData.startTrip.date=new Date($scope.requestData.startTrip.date);
-			$scope.requestData.endTrip.date=new Date($scope.requestData.endTrip.date);
+			$scope.requestData.date=new Date($scope.requestData.date);
 		}
 		$scope.hideView=(record.action==='view');
 		
@@ -53,10 +34,7 @@ app.controller('addFixedRequestController',['$scope','$uibModalInstance','reques
 			$uibModalInstance.close();
 		};
 	
-		$scope.calendar={
-			start:false,
-			end:false
-		}
+		$scope.calendar={}
 		
 		$scope.openCalendar= function(type) {
 			 $scope.calendar[type]= true;

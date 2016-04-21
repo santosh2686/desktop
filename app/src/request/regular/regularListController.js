@@ -1,4 +1,5 @@
-app.controller('regularListController',['$scope','requestService','config','messageService','vehicleService','driverService',function($scope,requestService,config,messageService,vehicleService,driverService){
+app.controller('regularListController',['$scope','$q','requestService','config','messageService','vehicleService','driverService',
+                                        function($scope,$q,requestService,config,messageService,vehicleService,driverService){
 	$scope.data=[];
     $scope.localEnv=config.local;
     $scope.loading=true;
@@ -18,23 +19,21 @@ app.controller('regularListController',['$scope','requestService','config','mess
             requestService.request.regular=res.data;
         }
 		pagination();
-	};
-    
-	vehicleService.getVehicle('own').then(function(res){
-        $scope.vehicleList=res.data[0].data;
+	},
+    init=function(){
+        requestService.getRequest('regular','s={"startTrip.date":-1}').then(success);
+    };    
+    $q.all([vehicleService.getVehicle('own'),driverService.getDriver()]).then(function(res){
+        $scope.vehicleList=res[0].data[0].data;
         if(!vehicleService.vehicle.own){
-            vehicleService.vehicle.own=res.data;
+            vehicleService.vehicle.own=res[0].data;
         }
-    });
-    
-    driverService.getDriver().then(function(res){
-        $scope.driverList=res.data;
+        $scope.driverList=res[1].data;
         if(!driverService.driver){
-            driverService.driver=res.data;
+            driverService.driver=res[1].data;
         }
-    });
-    
-    requestService.getRequest('regular','s={"startTrip.date":-1}').then(success);
+        init();
+    });    
     
 	$scope.newRequest=function(template,controller){
 		requestService.newRequest('regular',template,controller);

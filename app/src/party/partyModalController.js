@@ -11,24 +11,23 @@ app.controller('partyModalController',
         $uibModalInstance.close();
     };
 	
-	if($scope.type=='operator'){
+	if($scope.type=='operator' && $scope.action==='new'){
 		$scope.party.vehicle=[{
 					'name':'',
 					'number':''
 					}];
-					
-		$scope.addNewVehicle=function(){
-			$scope.party.vehicle.push({'name':'','number':''});
-		};		
-		$scope.removeVehicle=function(index){
-			$scope.party.vehicle.splice(index,1);
-		};
 	}
+    $scope.addNewVehicle=function(){
+        $scope.party.vehicle.push({'name':'','number':''});
+    };		
+    $scope.removeVehicle=function(index){
+        $scope.party.vehicle.splice(index,1);
+    };
 	
     $scope.submitRequest=function(){
         $scope.loading=true;
-        if(record.action==='new'){
-            partyService.addParty('{"name":"'+$scope.type+'"}',$scope.party).then(function(){
+        if($scope.action==='new'){
+            partyService.addParty('{"name":"'+$scope.type+'"}',JSON.parse(angular.toJson($scope.party))).then(function(){
                $scope.closeModal();
                partyService.party[$scope.type]=null;
                $rootScope.$emit($scope.type+'Party');
@@ -45,7 +44,7 @@ app.controller('partyModalController',
                 });
             });
         }else{
-            partyService.updateParty('{"name":"'+$scope.type+'","data._id":"'+$scope.party._id+'"}',$scope.party)
+            partyService.updateParty('{"name":"'+$scope.type+'","data._id":"'+$scope.party._id+'"}',JSON.parse(angular.toJson($scope.party)))
             .then(function(){
                 $scope.closeModal();
                 partyService.party[$scope.type]=null;

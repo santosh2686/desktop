@@ -1,7 +1,7 @@
 <div class="widget">
 	<div class="widget-header">
     	<div class="pull-left">
-        	Add Regular request
+        	Add Fixed request
         </div>
         <div class="pull-right">
         	<span class="modal-close" data-ng-click="closeModal()">
@@ -29,21 +29,9 @@
                       <button data-ng-class="{active:requestData.requestType=='out'}" class="btn btn-default" data-ng-click='requestData.requestType="out"'>Out Station</button>
                             </div>
                         </div>            	
-                    </div>
-                    
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Customer</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.selectClient"></span>
-                            <div data-ng-if="!hideView" class="btn-group btn-group-sm">                	
-                                <button data-ng-class="{active:requestData.selectClient=='party'}" class="btn btn-default" data-ng-click='requestData.selectClient="party"'>Party</button>
-                      <button data-ng-class="{active:requestData.selectClient=='operator'}" class="btn btn-default" data-ng-click='requestData.selectClient="operator"'>Operator</button>
-                      <button data-ng-class="{active:requestData.selectClient=='user'}" class="btn btn-default" data-ng-click='requestData.selectClient="user"'>Other</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-3" data-ng-if='requestData.selectClient=="party"'>
+                    </div>                    
+					
+					<div class="col-md-3">
                       <div class="form-group">
                         <label>Select Party</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.partyName"></span>
@@ -53,236 +41,147 @@
                         </select>
                       </div>
                     </div>
-                    
-                    <div class="col-md-3" data-ng-if='requestData.selectClient=="operator"'>
-                      <div class="form-group">
-                        <label>Select Operator</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.operatorName"></span>
-                        <select data-ng-if="!hideView" required class="form-control" data-ng-model='requestData.operatorName'>
-                            <option>Operator 1</option>
-                            <option>Operator 2</option>
-                        </select>
-                      </div>
+					
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Regular vehicle</label>
+                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.regularVehicle"></span>
+                            <div data-ng-if="!hideView" class="btn-group btn-group-sm">
+								<button data-ng-class="{active:requestData.regularVehicle=='own'}" class="btn btn-default" data-ng-click='requestData.regularVehicle="own"'>Own</button>
+								<button data-ng-class="{active:requestData.regularVehicle=='indirect'}" class="btn btn-default" data-ng-click='requestData.regularVehicle="indirect"'>Indirect</button>
+							</div>
+                        </div>
                     </div>
                     
                     <div class="col-md-3">
-                        <div class="form-group">
-                            <label>User Name</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.userName"></span>
-                            <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='requestData.userName'/>
-                          </div>
-                    </div>
-                    <div class="col-md-3" data-ng-if='requestData.selectClient=="user"'>
-                        <div class="form-group">
-                            <label>User Mail</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.userEmail"></span>
-                            <input data-ng-if="!hideView" type="email" class="form-control" data-ng-model='requestData.userEmail'/>
-                          </div>
+                      <div class="form-group">
+                        <label>Dialy Vehicle</label>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.vehicle"></span>
+                        <select class="form-control" data-ng-model="requestData.vehicle" data-ng-if='regularVehicleList.length>1'>
+								<option data-ng-repeat="v in regularVehicleList">{{v.vehicleName}},{{v.vehicleNo}}</option> 
+						</select>
+						 <strong data-ng-if='regularVehicleList.length==1'>
+							{{regularVehicleList[0].vehicleName}},{{regularVehicleList[0].vehicleNo}}
+						 </strong>
+                      </div>
                     </div>
                 </div>
                 
                 <div class="row">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>User Contact</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.userContact"></span>
-                            <input data-ng-if="!hideView" required type="tel" class="form-control" data-ng-model='requestData.userContact'/>
-                          </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Pickup Location</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.pickupLocation"></span>
-                            <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='requestData.pickupLocation' />
-                          </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Place</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.dropLocation"></span>
-                            <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='requestData.dropLocation'/>
-                          </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Vehicle Provided</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.vehicleSelect"></span>
-                        <select data-ng-if="!hideView" required class="form-control" data-ng-model='requestData.vehicleSelect'>
-                             <option value="own">Own</option>
-                            <option value="indirect">Indirect</option>
-                            <option value="operator">Operator</option>
-                            <option value="other">Other</option>
-                        </select>
-                      </div>
-                    </div>
-                </div>
-                
-                <div class="section-title">
+					<div class="col-md-3">
+						<div class="form-group">
+							<label>User Name</label>
+							<input class="form-control" type="text" data-ng-model='requestData.user'/>
+						</div>	
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">											
+							<label>Vehicle Provided</label>
+							<select class="form-control" data-ng-model='requestData.vehicleSelect'>
+								<option value="daily">Daily</option>
+								<option value="own">Own</option>
+								<option value="indirect">Indirect</option>
+								<option value="operator">Operator</option>
+								<option value="other">Other</option>
+							</select>	
+						</div>
+					 </div>
+					
+					<div class="col-md-3" data-ng-if="(requestData.regularVehicle=='own' && requestData.vehicleSelect=='daily') || (requestData.regularVehicle=='own' && requestData.vehicleSelect=='own') || (requestData.regularVehicle=='indirect' && requestData.vehicleSelect=='own')">
+						<div class="form-group">											
+							<label>Select Driver</label>
+								<select class="form-control" data-ng-model="requestData.driver">
+									<option data-ng-repeat="d in driverList">{{d.name}}</option>
+								</select>
+						</div> 		
+					</div>					
+					<div class="col-md-3" data-ng-if='requestData.requestType=="out"'>
+						<div class="form-group">											
+							<label>Location</label>
+							<input class="form-control" type="text" data-ng-model='requestData.location'/>
+						</div>
+					</div>
+				</div>
+				
+                <div class="section-title" data-ng-if="requestData.vehicleSelect!=='daily'">
                     Vehicle & Package Details
                 </div>
-                 <!-- own Vehicle-->
-                <div class="row" data-ng-if="requestData.vehicleSelect=='own'">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Select Vehicle</label>
-                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.vehicle.vehicle"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.vehicle.vehicle">
-                        		<option>Option 1</option>
-                                <option>Option 2</option>                			
-                            </select>
-                          </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                        	<label>AC</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.vehicle.AC"></span>
-                            <div data-ng-if="!hideView" class="btn-group btn-group-sm">                	
-                                <button class="btn btn-default" data-ng-class='{active:requestData.vehicle.AC=="Yes"}' data-ng-click='requestData.vehicle.AC="Yes"'>Yes</button>
-                      <button class="btn btn-default" data-ng-class='{active:requestData.vehicle.AC=="No"}' data-ng-click='requestData.vehicle.AC="No"'>No</button>
-                            </div>   	
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Select Package</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.vehicle.partyPackage"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.vehicle.partyPackage">
-                        		<option>Option 1</option>
-                                <option>Option 2</option>                			
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Select Driver</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.vehicle.driver"></span>
-                        <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.vehicle.driver">
-                            <option>option 1</option>
-                            <option>option 2</option>
-                        </select>
-                      </div>
-                    </div>
-                </div>
+				<!-- own Vehicle-->
+               <div class="row" data-ng-if="requestData.vehicleSelect=='own'">	
+					<div class="col-md-3">
+						<div class="form-group">											
+							<label>Select Vehicle</label>
+								<select  class="form-control" data-ng-model="requestData.own.vehicle">
+									<option class="form-control" data-ng-repeat="v in vehicleList">{{v.vehicleName}},{{v.vehicleNo}}</option>                
+								</select>
+						</div> 		
+					</div>
+				</div>
                 
                 <!-- Indirect Vehicle-->
-                <div class="row" data-ng-if="requestData.vehicleSelect=='indirect'">
-                	<div class="col-md-3">
-                    	<div class="form-group">
-                        	<label>Select Vehicle</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.inDirect.vehicle"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model='requestData.inDirect.vehicle'>
-                                <option>option 1</option>
-                                <option>option 2</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                    	<div class="form-group">
-                        	<label>AC</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.inDirect.AC"></span>
-                            <div data-ng-if="!hideView" class="btn-group btn-group-sm">                	
-                                <button class="btn btn-default" data-ng-class='{active:requestData.inDirect.AC=="Yes"}' data-ng-click='requestData.inDirect.AC="Yes"'>Yes</button>
-                  <button class="btn btn-default" data-ng-class='{active:requestData.inDirect.AC=="No"}' data-ng-click='requestData.inDirect.AC="No"'>No</button>
-                            </div> 
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                    	<div class="form-group">
-	                       <label>Package From Owner</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.inDirect.ownerPackage"></span>
-                           <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.inDirect.ownerPackage">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                           </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                    	<div class="form-group">
-                            <label>Package To Party</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.inDirect.partyPackage"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.inDirect.partyPackage">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row" data-ng-if="requestData.vehicleSelect=='indirect'">
-                	<div class="col-md-3">
-                    	<div class="form-group">
-                      		<label>Driver Name</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.inDirect.driver"></span>
-                            <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model="requestData.inDirect.driver"/> 
-                        </div>
-                    </div>
-                </div>
+                <div class="row" data-ng-if="requestData.vehicleSelect=='indirect'">	
+					<div class="col-md-3">
+						<div class="form-group">											
+							<label>Select Vehicle</label>
+							<select class="form-control" data-ng-model="requestData.inDirect.vehicle">
+								<option data-ng-repeat="v in oVehicleList">{{v.vehicleName}},{{v.vehicleNo}}</option>                
+							</select>
+						</div> 		
+					</div>
+					
+				   <div class="col-md-3">
+						<div class="form-group">											
+							<label>Package From Owner</label>
+						   <select class="form-control" data-ng-model="requestData.inDirect.ownerPackage">
+								<option data-ng-repeat="p in packageList">{{p.packageCode}}</option>
+						   </select>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">											
+							<label>Driver Name</label>
+								<input class="form-control" type="text" data-ng-model="requestData.inDirect.driver"/>
+						</div>
+					</div>
+				</div>
+				
                 
                 <!-- Operator Vehicle-->
-                <div class="row" data-ng-if="requestData.vehicleSelect=='operator'">
-                	<div class="col-md-3">
-                    	<div class="form-group">
-                      		<label>Select Operator</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.operator.operatorName"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.operator.operatorName">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                    	<div class="form-group">
-                        	<label>Select Vehicle</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.operator.vehicleName"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="operatorVehicleName">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                            </select>
-                        </div>
-                    </div>
-                   
-                    <div class="col-md-3">
-                    	<div class="form-group">
-                        	<label>AC</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.operator.AC"></span>
-                            <div data-ng-if="!hideView" class="btn-group btn-group-sm">                	
-                                <button class="btn btn-default" data-ng-class='{active:requestData.operator.AC=="Yes"}' data-ng-click='requestData.operator.AC="Yes"'>Yes</button>
-                  <button class="btn btn-default" data-ng-class='{active:requestData.operator.AC=="No"}' data-ng-click='requestData.operator.AC="No"'>No</button>
-                            </div> 
-                        </div>
-                    </div>
-                     <div class="col-md-3">
-                    	<div class="form-group">
-                        	<label>Driver Name</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.operator.driver"></span>
-                            <input data-ng-if="!hideView" required type="text" data-ng-model="requestData.operator.driver"/>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row" data-ng-if="requestData.vehicleSelect=='operator'">
-                	<div class="col-md-3">
-                    	<div class="form-group">
-                      		<label>Package From Operator</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.operator.operatorPackage"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.operator.operatorPackage">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                    	<div class="form-group">
-                      		<label>Package To Party</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.operator.partyPackage"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.operator.partyPackage">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                            </select>
-                        </div>
-                    </div>
-                 </div>
-                
+                <div class="row" data-ng-if="requestData.vehicleSelect=='operator'">	
+					<div class="col-md-3">
+						<div class="form-group">											
+						   <label>Select Operator</label>
+						   <select class="form-control" data-ng-model='requestData.operator.operatorName'>
+								<option data-ng-repeat="o in operatorList">{{o.name}}</option>
+							</select>		
+						</div> 		
+					</div>
+					<div class="col-md-3">
+						<div class="form-group">											
+							<label>Select Vehicle</label>
+							<select class="form-control" data-ng-model='operatorVehicleName'>
+								<option data-ng-repeat="v in operatorVehicleList">{{v.name}},{{v.number}}</option>
+							</select>			
+						</div>
+					</div>
+				 
+					<div class="col-md-3">
+						<div class="form-group">											
+							<label>Driver Name</label>
+								<input class="form-control" type="text" data-ng-model="requestData.operator.driver"/>
+						</div>
+					</div>
+					
+					<div class="col-md-3">
+						<div class="form-group">											
+							<label>Package From Operator</label>
+							   <select class="form-control" data-ng-model="requestData.operator.operatorPackage">
+									<option data-ng-repeat="o in packageList">{{o.packageCode}}</option>
+							   </select>
+						</div>
+					</div>
+				</div>
+				
                 <!-- Other Agency Vehicle-->
                 <div class="row" data-ng-if="requestData.vehicleSelect=='other'">
                 	<div class="col-md-3">
@@ -316,31 +215,11 @@
                 </div>
                 
                 <div class="row" data-ng-if="requestData.vehicleSelect=='other'">
-                	<div class="col-md-3">
-                    	<div class="form-group">
-                        	<label>AC</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.agency.AC"></span>
-                            <div data-ng-if="!hideView" class="btn-group btn-group-sm">                	
-                                <button class="btn btn-default" data-ng-class='{active:requestData.agency.AC=="Yes"}' data-ng-click='requestData.agency.AC="Yes"'>Yes</button>
-                      <button class="btn btn-default" data-ng-class='{active:requestData.agency.AC=="No"}' data-ng-click='requestData.agency.AC="No"'>No</button>
-                            </div> 
-                        </div>
-                    </div>
                     <div class="col-md-3">
                     	<div class="form-group">
                         	<label>Package From Agency</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.agency.agencyPackage"></span>
                             <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.agency.agencyPackage">
-                                <option>option-1</option>
-                                <option>option-2</option>
-                           </select>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                    	<div class="form-group">
-                        	<label>Package From Party</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.agency.partyPackage"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.agency.partyPackage">
                                 <option>option-1</option>
                                 <option>option-2</option>
                            </select>
@@ -354,9 +233,7 @@
                         </div>
                     </div>
                 </div>
-                
-                
-                <div class="request-footer">
+                <div class="modal-footer">
                     <button class="btn btn-danger pull-left" data-ng-click="closeModal()">Close</button>
                     <button class="btn btn-primary pull-right" data-ng-click="switchView()">Next</button>
                 </div>
@@ -366,26 +243,15 @@
         <div class="time-detail" data-ng-if="!request">
         	<form name="time-form" novalidate="novalidate">
             	<div class="row">
-                	<div class="col-md-3">
-                        <div class="form-group">
-                            <label>Start Date</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.startTrip.date | date:'dd-MMM-yyyy'"></span>
-                           <p data-ng-if="!hideView" class="input-group">
-                             <input type="text" class="form-control" ng-model="requestData.startTrip.date" show-button-bar="false" show-weeks="false" uib-datepicker-popup="dd-MMM-yyyy" is-open="calendar.start" ng-required="true" close-text="Close" />
-                              <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-click="openCalendar('start')"><i class="glyphicon glyphicon-calendar"></i></button>
-                              </span>
-                            </p>
-                        </div>
-                    </div>
+                	
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>End Date</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.endTrip.date | date:'dd-MMM-yyyy'"></span>
+                            <label>Date</label>
+                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.date | date:'dd-MMM-yyyy'"></span>
                             <p data-ng-if="!hideView" class="input-group">
-                             <input type="text" class="form-control" ng-model="requestData.endTrip.date" show-button-bar="false" show-weeks="false" uib-datepicker-popup="dd-MMM-yyyy" is-open="calendar.end" ng-required="true" close-text="Close" />
+                             <input type="text" class="form-control" ng-model="requestData.date" show-button-bar="false" show-weeks="false" uib-datepicker-popup="dd-MMM-yyyy" is-open="calendar.date" ng-required="true" close-text="Close" />
                               <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-click="openCalendar('end')"><i class="glyphicon glyphicon-calendar"></i></button>
+                                <button type="button" class="btn btn-default" ng-click="openCalendar('date')"><i class="glyphicon glyphicon-calendar"></i></button>
                               </span>
                             </p>
                         </div>
@@ -405,6 +271,13 @@
                             <input data-ng-if="!hideView" type="text" class="form-control" data-ng-model='requestData.closingKm' />
                         </div>
                     </div>
+					 <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Total KM</label>
+                            <button data-ng-if="!hideView" type="button" data-ng-disabled='requestData.closingKm<=0 || requestData.openingKm<=0' class="btn btn-primary calc-btn"><i class="fa fa-calculator"></i> KM</button>
+          <span class="view-value" data-ng-bind="requestData.totalKm"></span>                       
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="row">
@@ -422,27 +295,28 @@
                             <uib-timepicker data-ng-if="!hideView" ng-model="requestData.endTrip.time" show-meridian="true"></uib-timepicker>
                         </div>
                     </div>
-                     <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Total KM</label>
-                            <button data-ng-if="!hideView" type="button" data-ng-disabled='requestData.closingKm<=0 || requestData.openingKm<=0' class="btn btn-primary calc-btn"><i class="fa fa-calculator"></i> KM</button>
-          <span class="view-value" data-ng-bind="requestData.totalKm"></span>                       
-                        </div>
-                    </div>
-                    <div class="col-md-3" data-ng-if="requestData.requestType=='local'">
+                    
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label>Total Hours</label>
                             <button data-ng-if="!hideView" type="button" class="btn btn-primary calc-btn" data-ng-disabled="!requestData.startTrip.date || !requestData.startTrip.time || !requestData.endTrip.date || !requestData.endTrip.time"><i class="fa fa-calculator"></i> Hr</button>
                             <span class="view-value" data-ng-bind="requestData.totalHr"></span>                       
                         </div>
                     </div>
-                    <div class="col-md-3" data-ng-if="requestData.requestType=='out'">
+					 <div class="col-md-3">
+						<div class="form-group">											
+							<label>Extra Hours</label>
+							<span class="view-value" data-ng-bind="requestData.extraHr"></span>  
+						</div>
+					</div>
+                    <!--<div class="col-md-3" data-ng-if="requestData.requestType=='out'">
                         <div class="form-group">
                             <label>Total Days</label>
                             <button data-ng-if="!hideView" type="button" class="btn btn-primary calc-btn" data-ng-disabled="!requestData.startTrip.date || !requestData.startTrip.time || !requestData.endTrip.date || !requestData.endTrip.time"><i class="fa fa-calculator"></i> Days</button>
                             <span class="view-value" data-ng-bind="requestData.totalDays"></span>                        
                         </div>
-                    </div>
+                    </div>-->
+					
                 </div>
                 
                 <div class="section-title">
@@ -450,14 +324,14 @@
                	</div>
                 
                 <div class="row">
-                	<div class="col-md-3">
+                	<div class="col-md-3" data-ng-if="requestData.requestType=='out'">
                         <div class="form-group">
                             <label>Advance Amt from client</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.advanceAmt"></span>     
                             <input data-ng-if="!hideView" type="text" class="form-control" data-ng-model='requestData.advanceAmt'/>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-3" data-ng-if="requestData.requestType=='out'">
                         <div class="form-group">
                             <label>Driver Allowance</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.driverAllowance"></span>

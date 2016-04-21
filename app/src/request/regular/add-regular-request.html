@@ -47,10 +47,12 @@
                       <div class="form-group">
                         <label>Select Party</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.partyName"></span>
-                        <select data-ng-if="!hideView" required class="form-control" data-ng-model='requestData.partyName'>
-                            <option>option 1</option>
-                            <option>option 2</option>
-                        </select>
+						
+						<select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.partyName'>
+						  <option value="">Select Party</option>
+						  <option ng-repeat="p in partyList" value="{{p.name}}">{{p.name}}</option>
+						</select>
+						
                       </div>
                     </div>
                     
@@ -58,10 +60,10 @@
                       <div class="form-group">
                         <label>Select Operator</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.operatorName"></span>
-                        <select data-ng-if="!hideView" required class="form-control" data-ng-model='requestData.operatorName'>
-                            <option>Operator 1</option>
-                            <option>Operator 2</option>
-                        </select>
+                        <select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.operatorName'>
+						  <option value="">Select Operator</option>
+						  <option ng-repeat="p in operatorList" value="{{p.name}}">{{p.name}}</option>
+						</select>
                       </div>
                     </div>
                     
@@ -126,10 +128,12 @@
                         <div class="form-group">
                             <label>Select Vehicle</label>
                              <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.vehicle.vehicle"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.vehicle.vehicle">
-                        		<option>Option 1</option>
-                                <option>Option 2</option>                			
-                            </select>
+							<select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.vehicle.vehicle'>
+								  <option value="">Select Vehicle</option>
+								  <option ng-repeat="v in vehicleList" value="{{v.vehicleName}} {{v.vehicleNo}}">{{v.vehicleName}} {{v.vehicleNo}}</option>
+							</select>
+							
+							
                           </div>
                     </div>
                     <div class="col-md-3">
@@ -146,20 +150,20 @@
                         <div class="form-group">
                             <label>Select Package</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.vehicle.partyPackage"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.vehicle.partyPackage">
-                        		<option>Option 1</option>
-                                <option>Option 2</option>                			
-                            </select>
+							<select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.vehicle.partyPackage'>
+								  <option value="">Select Package</option>
+								  <option ng-repeat="p in packageList" value="{{p.packageCode}}">{{p.packageCode}}</option>
+							</select>
                         </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Select Driver</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.vehicle.driver"></span>
-                        <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.vehicle.driver">
-                            <option>option 1</option>
-                            <option>option 2</option>
-                        </select>
+                        <select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.vehicle.driver'>
+						  <option value="">Select Driver</option>
+						  <option ng-repeat="d in driverList" value="{{d.name}}">{{d.name}}</option>
+						</select>
                       </div>
                     </div>
                 </div>
@@ -190,20 +194,20 @@
                     	<div class="form-group">
 	                       <label>Package From Owner</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.inDirect.ownerPackage"></span>
-                           <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.inDirect.ownerPackage">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                           </select>
+							<select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.inDirect.ownerPackage'>
+								  <option value="">Select Package</option>
+								  <option ng-repeat="p in packageList" value="{{p.packageCode}}">{{p.packageCode}}</option>
+							</select>
                         </div>
                     </div>
                     <div class="col-md-3">
                     	<div class="form-group">
                             <label>Package To Party</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.inDirect.partyPackage"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.inDirect.partyPackage">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                            </select>
+                            <select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.inDirect.partyPackage'>
+								  <option value="">Select Package</option>
+								  <option ng-repeat="p in packageList" value="{{p.packageCode}}">{{p.packageCode}}</option>
+							</select>
                         </div>
                     </div>
                 </div>
@@ -265,20 +269,20 @@
                     	<div class="form-group">
                       		<label>Package From Operator</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.operator.operatorPackage"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.operator.operatorPackage">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                            </select>
+                            <select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.operator.operatorPackage'>
+								  <option value="">Select Package</option>
+								  <option ng-repeat="p in packageList" value="{{p.packageCode}}">{{p.packageCode}}</option>
+							</select>
                         </div>
                     </div>
                     <div class="col-md-3">
                     	<div class="form-group">
                       		<label>Package To Party</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.operator.partyPackage"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.operator.partyPackage">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                            </select>
+                            <select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.operator.partyPackage'>
+								  <option value="">Select Package</option>
+								  <option ng-repeat="p in packageList" value="{{p.packageCode}}">{{p.packageCode}}</option>
+							</select>
                         </div>
                     </div>
                  </div>
@@ -330,20 +334,20 @@
                     	<div class="form-group">
                         	<label>Package From Agency</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.agency.agencyPackage"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.agency.agencyPackage">
-                                <option>option-1</option>
-                                <option>option-2</option>
-                           </select>
+                            <select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.agency.agencyPackage'>
+								  <option value="">Select Package</option>
+								  <option ng-repeat="p in packageList" value="{{p.packageCode}}">{{p.packageCode}}</option>
+							</select>
                         </div>
                     </div>
                     <div class="col-md-3">
                     	<div class="form-group">
                         	<label>Package From Party</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.agency.partyPackage"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.agency.partyPackage">
-                                <option>option-1</option>
-                                <option>option-2</option>
-                           </select>
+                             <select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.agency.partyPackage'>
+								  <option value="">Select Package</option>
+								  <option ng-repeat="p in packageList" value="{{p.packageCode}}">{{p.packageCode}}</option>
+							</select>
                         </div>
                     </div>
                     <div class="col-md-3">

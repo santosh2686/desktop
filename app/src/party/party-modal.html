@@ -50,8 +50,22 @@
                     </div>
                 </div>                         
             </div>
-			<div class="section-title" data-ng-if="type=='operator'">Add Operator Vehicles</div>
-			<div class="operator-vehicle" data-ng-repeat="v in party.vehicle" data-ng-if="type=='operator'">
+			<div class="section-title" data-ng-if="type=='operator'">Operator Vehicles</div>
+			<div class="operator-vehicle-list" data-ng-if="hideView && type=='operator'">
+			    <table>
+			        <tr>
+			            <th>Sr. No</th>
+			            <th>Name</th>
+			            <th>Number</th>
+			        </tr>
+			        <tr data-ng-repeat="v in party.vehicle">
+			            <td>{{$index+1}}</td>
+			            <td>{{v.name}}</td>
+			            <td>{{v.number}}</td>
+			        </tr>
+			    </table>
+			</div>
+			<div class="operator-vehicle" data-ng-repeat="v in party.vehicle" data-ng-show="!hideView" data-ng-if="type=='operator'">
 				<input type="text" class="form-control" placeholder="NAME" data-ng-model="party.vehicle[$index].name"/>
 				<input type="text" class="form-control" placeholder="NUMBER" data-ng-model="party.vehicle[$index].number"/>
 				<button type="button" class="btn btn-success" data-ng-click="addNewVehicle()" data-ng-if="$last"><i class="fa fa-plus"></i></button>
