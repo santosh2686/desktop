@@ -37,6 +37,7 @@ app.controller('partyModalController',
                     'text':'New '+$scope.type+' party added successfully.'
                });
             },function(){
+                $scope.closeModal();
                 messageService.showMessage({
                     'type':'error',
                     'title':'Party',
@@ -55,6 +56,7 @@ app.controller('partyModalController',
                     'text':'New '+$scope.type+' party updated successfully.'
                 });
             },function(err){
+                $scope.closeModal();
                 messageService.showMessage({
                     'type':'error',
                     'title':'Party',

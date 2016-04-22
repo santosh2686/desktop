@@ -15,6 +15,16 @@ app.factory('requestService',['$uibModal','$filter','$q','config',function($uibM
 		getRequest:function(type,sort){            
             return (this.request[type])?$q.resolve({data:this.request[type]}):config.getData(config[type],sort);
 		},
+        addRequest:function(type,data){
+            return config.postData(config[type],data);
+        },
+        updateRequest:function(type,id,data){
+            var filter=config.local?'{"_id":"'+id+'"}':'{"_id":{"$oid":"'+id.$oid+'"}}';
+            return config.updateData(config[type],filter,{$set:data});
+        },
+        deleteRequest:function(type,id){
+            return config.deleteData(config[type],id);
+        },
 		newRequest:function(type,template,controller){
 			var modalInstance = $uibModal.open({
 			  templateUrl: template,

@@ -1,5 +1,5 @@
-app.controller('regularListController',['$scope','$q','requestService','config','messageService','vehicleService','driverService',
-                                        function($scope,$q,requestService,config,messageService,vehicleService,driverService){
+app.controller('regularListController',['$scope','$rootScope','$q','requestService','config','messageService','vehicleService','driverService',
+                                        function($scope,$rootScope,$q,requestService,config,messageService,vehicleService,driverService){
 	$scope.data=[];
     $scope.localEnv=config.local;
     $scope.loading=true;
@@ -33,7 +33,10 @@ app.controller('regularListController',['$scope','$q','requestService','config',
             driverService.driver=res[1].data;
         }
         init();
-    });    
+    }); 
+     $rootScope.$on('regularRequest',function(){
+        init();
+    });	
     
 	$scope.newRequest=function(template,controller){
 		requestService.newRequest('regular',template,controller);
@@ -48,7 +51,21 @@ app.controller('regularListController',['$scope','$q','requestService','config',
 	};
 	
 	$scope.deleteRequest=function(id){
-		console.log(id);
+        requestService.deleteRequest('regular',id).then(function(res){
+            requestService.request.regular=null;
+            init();
+            messageService.showMessage({
+                'type':'success',
+                'title':'Regular Request',
+                'text':'Regular Request Deleted successfully.'
+            });
+        },function(){
+			 messageService.showMessage({
+                'type':'error',
+                'title':'Regular Request',
+                'text':'Regular Request can not be deleted at this time. Please try again.'
+            });
+		});
 	};
 	
 	$scope.exportData=function(){

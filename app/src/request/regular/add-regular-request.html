@@ -132,8 +132,6 @@
 								  <option value="">Select Vehicle</option>
 								  <option ng-repeat="v in vehicleList" value="{{v.vehicleName}} {{v.vehicleNo}}">{{v.vehicleName}} {{v.vehicleNo}}</option>
 							</select>
-							
-							
                           </div>
                     </div>
                     <div class="col-md-3">
@@ -174,10 +172,10 @@
                     	<div class="form-group">
                         	<label>Select Vehicle</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.inDirect.vehicle"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model='requestData.inDirect.vehicle'>
-                                <option>option 1</option>
-                                <option>option 2</option>
-                            </select>
+                            <select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.inDirect.vehicle'>
+								  <option value="">Select Vehicle</option>
+								  <option ng-repeat="v in oVehicleList" value="{{v.vehicleName}} {{v.vehicleNo}}">{{v.vehicleName}} {{v.vehicleNo}}</option>
+							</select>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -228,20 +226,20 @@
                     	<div class="form-group">
                       		<label>Select Operator</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.operator.operatorName"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.operator.operatorName">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                            </select>
+                           <select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.operator.operatorName'>
+								  <option value="">Select Operator</option>
+								  <option ng-repeat="o in operatorList" value="{{o.name}}">{{o.name}}</option>
+							</select>
                         </div>
                     </div>
                     <div class="col-md-3">
                     	<div class="form-group">
                         	<label>Select Vehicle</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.operator.vehicleName"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="operatorVehicleName">
-                                <option>option 1</option>
-                                <option>option 2</option>
-                            </select>
+                            <select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.operator.vehicleName'>
+								  <option value="">Select Vehicle</option>
+								  <option ng-repeat="o in operatorVehicleList" value="{{o.name}} {{o.number}}">{{o.name}} {{o.number}}</option>
+							</select>
                         </div>
                     </div>
                    
@@ -429,21 +427,21 @@
                      <div class="col-md-3">
                         <div class="form-group">
                             <label>Total KM</label>
-                            <button data-ng-if="!hideView" type="button" data-ng-disabled='requestData.closingKm<=0 || requestData.openingKm<=0' class="btn btn-primary calc-btn"><i class="fa fa-calculator"></i> KM</button>
+                            <button data-ng-click="calculateTotalKm()" data-ng-if="!hideView" type="button" data-ng-disabled='requestData.closingKm<=0 || requestData.openingKm<=0' class="btn btn-primary calc-btn"><i class="fa fa-calculator"></i> KM</button>
           <span class="view-value" data-ng-bind="requestData.totalKm"></span>                       
                         </div>
                     </div>
                     <div class="col-md-3" data-ng-if="requestData.requestType=='local'">
                         <div class="form-group">
                             <label>Total Hours</label>
-                            <button data-ng-if="!hideView" type="button" class="btn btn-primary calc-btn" data-ng-disabled="!requestData.startTrip.date || !requestData.startTrip.time || !requestData.endTrip.date || !requestData.endTrip.time"><i class="fa fa-calculator"></i> Hr</button>
+                            <button data-ng-click="calculateTotalHr()" data-ng-if="!hideView" type="button" class="btn btn-primary calc-btn" data-ng-disabled="!requestData.startTrip.date || !requestData.startTrip.time || !requestData.endTrip.date || !requestData.endTrip.time"><i class="fa fa-calculator"></i> Hr</button>
                             <span class="view-value" data-ng-bind="requestData.totalHr"></span>                       
                         </div>
                     </div>
                     <div class="col-md-3" data-ng-if="requestData.requestType=='out'">
                         <div class="form-group">
                             <label>Total Days</label>
-                            <button data-ng-if="!hideView" type="button" class="btn btn-primary calc-btn" data-ng-disabled="!requestData.startTrip.date || !requestData.startTrip.time || !requestData.endTrip.date || !requestData.endTrip.time"><i class="fa fa-calculator"></i> Days</button>
+                            <button data-ng-click="calculateTotalDays()" data-ng-if="!hideView" type="button" class="btn btn-primary calc-btn" data-ng-disabled="!requestData.startTrip.date || !requestData.startTrip.time || !requestData.endTrip.date || !requestData.endTrip.time"><i class="fa fa-calculator"></i> Days</button>
                             <span class="view-value" data-ng-bind="requestData.totalDays"></span>                        
                         </div>
                     </div>
@@ -483,6 +481,37 @@
                         </div>
                     </div>
                 </div>
+				 <div class="section-title"></div>
+				<div class="trip-calculation">
+					<div class="form-action">
+						 <button type="button" data-ng-if='requestData.requestType=="local"' 
+						 data-ng-disabled='requestData.totalKm<=0 || requestData.totalHr<=0' class="btn btn-info" data-ng-click='calculate()'>Calculate</button>
+						 <button type="button" data-ng-if='requestData.requestType=="out"' 
+						 data-ng-disabled='requestData.totalKm<=0 || requestData.totalDays<=0' class="btn btn-info" data-ng-click='calculate()'>Calculate</button>    
+					</div>
+					<div class="calc-data">
+						<table>
+							<tr>
+								<td>Trip Amount : </td>
+								<td>
+									<i class="fa fa-rupee"> </i> <span>{{requestData.totalAmt | number:'2'}}</span>/-
+								</td>
+							</tr>
+							<tr data-ng-if='requestData.driverOverTime>0 && requestData.requestType=="local" && requestData.vehicleSelect=="own"'>
+								<td>Driver Over Time : </td>
+								<td>
+									<i class="fa fa-rupee"> </i> <span>{{requestData.driverOverTime | number:'2'}}</span>/-
+								</td>
+							</tr>
+							<tr>
+								<td>Trip Profit : </td>
+								<td>
+									<i class="fa fa-rupee"> </i> <span>{{(requestData.profit) | number:'2'}}</span>/-
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
                 <div class="modal-footer">
                     <button class="btn btn-default active pull-left" data-ng-click="switchView()">Back</button>
                     <button class="btn btn-success pull-right" data-ng-click="submitRequest()">Submit</button>

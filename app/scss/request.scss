@@ -60,3 +60,21 @@
         }
     }
 }
+
+/*Trip Calculation*/
+div.trip-calculation{
+    clear: both; 
+    text-align: right; 
+    overflow: hidden;
+    .btn{
+        width: 125px;
+    }
+    table{
+        float: right;
+        margin: 10px 0;
+        td{
+            font-weight: bold;
+            padding-left:10px;
+        }
+    }
+}
