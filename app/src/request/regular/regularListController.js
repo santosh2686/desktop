@@ -1,21 +1,25 @@
-app.controller('regularListController',['$scope','$rootScope','$q','requestService','config','messageService','vehicleService','driverService',
-                                        function($scope,$rootScope,$q,requestService,config,messageService,vehicleService,driverService){
+app.controller('regularListController',['$scope','$rootScope','$q','$filter','requestService','config','messageService','vehicleService','driverService',
+                                        function($scope,$rootScope,$q,$filter,requestService,config,messageService,vehicleService,driverService){
 	$scope.data=[];
     $scope.localEnv=config.local;
-    $scope.loading=true;
+    $scope.loading=true;      
+    $scope.currMonth=new Date().getMonth();
+    $scope.monthList=config.months;
+    var initialData;
 	$scope.filter={
 		'type':'vehicle'
 	}
+    $scope.filter.month=$scope.monthList[$scope.currMonth];
 	var pagination=function(){
-		$scope.loading=false;
-		$scope.totalItems=$scope.data.length;
+		$scope.loading=false;		$scope.totalItems=$scope.data.length;
 		$scope.currentPage=requestService.request.pager.currentPage;
 		$scope.itemsPerPage=requestService.request.pager.itemsPerPage;
 		$scope.maxSize=requestService.request.pager.maxSize;
 	},
 	success=function(res){
 		$scope.data=res.data;
-		if(!requestService.request.regular){
+		initialData = angular.copy($scope.data);
+        if(!requestService.request.regular){
             requestService.request.regular=res.data;
         }
 		pagination();
@@ -34,9 +38,24 @@ app.controller('regularListController',['$scope','$rootScope','$q','requestServi
         }
         init();
     }); 
-     $rootScope.$on('regularRequest',function(){
+    $rootScope.$on('regularRequest',function(){
         init();
     });	
+                                            
+    $scope.applyFilter=function(){
+        if($scope.filter.type==='vehicle'){
+				$scope.data=$filter('filter')(initialData,{"vehicleSelect":"own","vehicle":{"vehicle":$scope.filter.vehicle},"month":$scope.filter.month});
+			}else if($scope.filter.type==='driver'){
+				$scope.data=$filter('filter')(initialData,{"vehicleSelect":"own","vehicle":{"driver":$scope.filter.driver},"month":$scope.filter.month});				
+			}
+    };
+    $scope.clearFilter=function(){
+        $scope.data=initialData;
+        $scope.filter.type='vehicle';
+        $scope.filter.vehicle="";
+        $scope.filter.driver="";
+        $scope.filter.month=$scope.monthList[$scope.currMonth];
+    }
     
 	$scope.newRequest=function(template,controller){
 		requestService.newRequest('regular',template,controller);

@@ -3,7 +3,7 @@
         <h3 class="pull-left">Driver Expense</h3>
         <div class="pull-right">
             <span class="count">Total Records : <strong data-ng-bind="data.length"></strong></span> 
-            <button class="btn btn-primary">New Expense</button>
+            <button class="btn btn-primary" data-ng-click="newExpense()">New Expense</button>
         </div>
     </div>
     <div class="grid-actionbar" data-ng-if="data.length>0 && !loading">

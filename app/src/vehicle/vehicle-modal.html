@@ -153,7 +153,10 @@
                     <div class="form-group">
                         <label>Party Name</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.fixed.companyName"></span>
-                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.fixed.companyName' required/>              
+                        <select required class="form-control" data-ng-if="!hideView" data-ng-model='vehicle.fixed.companyName'>
+						  <option value="">Select Party</option>
+						  <option ng-repeat="p in partyList" value="{{p.name}}">{{p.name}}</option>
+						</select>            
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -173,8 +176,11 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Package to Party</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.fixed.package"></span>
-                        <input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='vehicle.fixed.package' required/>                                      
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="vehicle.fixed.package"></span>    
+						<select required class="form-control" data-ng-if="!hideView" data-ng-model='vehicle.fixed.package'>
+								  <option value="">Select Package</option>
+								  <option ng-repeat="p in packageList" value="{{p.packageCode}}">{{p.packageCode}}</option>
+							</select>						
                     </div>
                 </div>
             </div>

@@ -35,10 +35,10 @@
                       <div class="form-group">
                         <label>Select Party</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.partyName"></span>
-                        <select data-ng-if="!hideView" required class="form-control" data-ng-model='requestData.partyName'>
-                            <option>option 1</option>
-                            <option>option 2</option>
-                        </select>
+						<select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.partyName'>
+						  <option value="">Select Party</option>
+						  <option ng-repeat="p in partyList" value="{{p.name}}">{{p.name}}</option>
+						</select>
                       </div>
                     </div>
 					
@@ -58,6 +58,7 @@
                         <label>Dialy Vehicle</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.vehicle"></span>
                         <select class="form-control" data-ng-model="requestData.vehicle" data-ng-if='regularVehicleList.length>1'>
+								<option value="">Select Vehicle</option>
 								<option data-ng-repeat="v in regularVehicleList">{{v.vehicleName}},{{v.vehicleNo}}</option> 
 						</select>
 						 <strong data-ng-if='regularVehicleList.length==1'>
@@ -71,13 +72,15 @@
 					<div class="col-md-3">
 						<div class="form-group">
 							<label>User Name</label>
-							<input class="form-control" type="text" data-ng-model='requestData.user'/>
+							<span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.user"></span>
+							<input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='requestData.user'/>
 						</div>	
 					</div>
 					<div class="col-md-3">
 						<div class="form-group">											
 							<label>Vehicle Provided</label>
-							<select class="form-control" data-ng-model='requestData.vehicleSelect'>
+							<span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.vehicleSelect"></span>							
+							<select data-ng-if="!hideView" class="form-control" data-ng-model='requestData.vehicleSelect'>
 								<option value="daily">Daily</option>
 								<option value="own">Own</option>
 								<option value="indirect">Indirect</option>
@@ -89,8 +92,10 @@
 					
 					<div class="col-md-3" data-ng-if="(requestData.regularVehicle=='own' && requestData.vehicleSelect=='daily') || (requestData.regularVehicle=='own' && requestData.vehicleSelect=='own') || (requestData.regularVehicle=='indirect' && requestData.vehicleSelect=='own')">
 						<div class="form-group">											
-							<label>Select Driver</label>
-								<select class="form-control" data-ng-model="requestData.driver">
+								<label>Select Driver</label>
+								<span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.driver"></span>							
+								<select data-ng-if="!hideView" class="form-control" data-ng-model="requestData.driver">
+									<option value="">Select Driver</option>
 									<option data-ng-repeat="d in driverList">{{d.name}}</option>
 								</select>
 						</div> 		
@@ -98,7 +103,8 @@
 					<div class="col-md-3" data-ng-if='requestData.requestType=="out"'>
 						<div class="form-group">											
 							<label>Location</label>
-							<input class="form-control" type="text" data-ng-model='requestData.location'/>
+							<span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.location"></span>							
+							<input data-ng-if="!hideView" class="form-control" type="text" data-ng-model='requestData.location'/>
 						</div>
 					</div>
 				</div>
@@ -112,6 +118,7 @@
 						<div class="form-group">											
 							<label>Select Vehicle</label>
 								<select  class="form-control" data-ng-model="requestData.own.vehicle">
+									<option value="">Select Vehicle</option>
 									<option class="form-control" data-ng-repeat="v in vehicleList">{{v.vehicleName}},{{v.vehicleNo}}</option>                
 								</select>
 						</div> 		
@@ -124,6 +131,7 @@
 						<div class="form-group">											
 							<label>Select Vehicle</label>
 							<select class="form-control" data-ng-model="requestData.inDirect.vehicle">
+								<option value="">Select Vehicle</option>
 								<option data-ng-repeat="v in oVehicleList">{{v.vehicleName}},{{v.vehicleNo}}</option>                
 							</select>
 						</div> 		
@@ -133,6 +141,7 @@
 						<div class="form-group">											
 							<label>Package From Owner</label>
 						   <select class="form-control" data-ng-model="requestData.inDirect.ownerPackage">
+								<option value="">Select Package</option>
 								<option data-ng-repeat="p in packageList">{{p.packageCode}}</option>
 						   </select>
 						</div>
@@ -152,6 +161,7 @@
 						<div class="form-group">											
 						   <label>Select Operator</label>
 						   <select class="form-control" data-ng-model='requestData.operator.operatorName'>
+								<option value="">Select Operator</option>
 								<option data-ng-repeat="o in operatorList">{{o.name}}</option>
 							</select>		
 						</div> 		
@@ -160,6 +170,7 @@
 						<div class="form-group">											
 							<label>Select Vehicle</label>
 							<select class="form-control" data-ng-model='operatorVehicleName'>
+								<option value="">Select Vehicle</option>
 								<option data-ng-repeat="v in operatorVehicleList">{{v.name}},{{v.number}}</option>
 							</select>			
 						</div>
@@ -176,6 +187,7 @@
 						<div class="form-group">											
 							<label>Package From Operator</label>
 							   <select class="form-control" data-ng-model="requestData.operator.operatorPackage">
+									<option value="">Select Package</option>
 									<option data-ng-repeat="o in packageList">{{o.packageCode}}</option>
 							   </select>
 						</div>
@@ -219,10 +231,10 @@
                     	<div class="form-group">
                         	<label>Package From Agency</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.agency.agencyPackage"></span>
-                            <select data-ng-if="!hideView" required class="form-control" data-ng-model="requestData.agency.agencyPackage">
-                                <option>option-1</option>
-                                <option>option-2</option>
-                           </select>
+                             <select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.agency.agencyPackage'>
+								  <option value="">Select Package</option>
+								  <option ng-repeat="p in packageList" value="{{p.packageCode}}">{{p.packageCode}}</option>
+							</select>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -271,44 +283,46 @@
                             <input data-ng-if="!hideView" type="text" class="form-control" data-ng-model='requestData.closingKm' />
                         </div>
                     </div>
-					 <div class="col-md-3">
-                        <div class="form-group">
-                            <label>Total KM</label>
-                            <button data-ng-if="!hideView" type="button" data-ng-disabled='requestData.closingKm<=0 || requestData.openingKm<=0' class="btn btn-primary calc-btn"><i class="fa fa-calculator"></i> KM</button>
-          <span class="view-value" data-ng-bind="requestData.totalKm"></span>                       
-                        </div>
-                    </div>
+					<div class="col-md-3">
+						<div class="form-group">											
+							<label>Extra Hours</label>
+							<span class="view-value" data-ng-bind="requestData.extraHr"></span>  
+						</div>
+					</div>
                 </div>
                 
                 <div class="row">
                 	<div class="col-md-3">
                         <div class="form-group">
                             <label class="time-label">Start Time</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.startTrip.time | date:'shortTime'"></span>
-                            <uib-timepicker data-ng-if="!hideView" ng-model="requestData.startTrip.time" show-meridian="true"></uib-timepicker>
+                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.startTime | date:'shortTime'"></span>
+                            <uib-timepicker data-ng-if="!hideView" ng-model="requestData.startTime" show-meridian="true"></uib-timepicker>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="time-label">End Time</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.endTrip.time | date:'shortTime'"></span>     
-                            <uib-timepicker data-ng-if="!hideView" ng-model="requestData.endTrip.time" show-meridian="true"></uib-timepicker>
+                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.endTime | date:'shortTime'"></span>     
+                            <uib-timepicker data-ng-if="!hideView" ng-model="requestData.endTime" show-meridian="true"></uib-timepicker>
                         </div>
                     </div>
-                    
+                     <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Total KM</label>
+                            <button data-ng-click="calculateTotalKm()" data-ng-if="!hideView" type="button" data-ng-disabled='requestData.closingKm<=0 || requestData.openingKm<=0' class="btn btn-primary calc-btn">
+								<i class="fa fa-calculator"></i> KM
+							</button>
+							<span class="view-value" data-ng-bind="requestData.totalKm"></span>                       
+                        </div>
+                    </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Total Hours</label>
-                            <button data-ng-if="!hideView" type="button" class="btn btn-primary calc-btn" data-ng-disabled="!requestData.startTrip.date || !requestData.startTrip.time || !requestData.endTrip.date || !requestData.endTrip.time"><i class="fa fa-calculator"></i> Hr</button>
+                            <button data-ng-click="calculateTotalHr()" data-ng-if="!hideView" type="button" class="btn btn-primary calc-btn" data-ng-disabled="!requestData.date || !requestData.startTime || !requestData.endTime"><i class="fa fa-calculator"></i> Hr</button>
                             <span class="view-value" data-ng-bind="requestData.totalHr"></span>                       
                         </div>
                     </div>
-					 <div class="col-md-3">
-						<div class="form-group">											
-							<label>Extra Hours</label>
-							<span class="view-value" data-ng-bind="requestData.extraHr"></span>  
-						</div>
-					</div>
+					 
                     <!--<div class="col-md-3" data-ng-if="requestData.requestType=='out'">
                         <div class="form-group">
                             <label>Total Days</label>
@@ -355,7 +369,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-default active pull-left" data-ng-click="switchView()">Back</button>
-                    <button class="btn btn-success pull-right" data-ng-click="submitRequest()">Submit</button>
+                    <button data-ng-if="action!=='view'" class="btn btn-success pull-right" data-ng-click="submitRequest()" data-ng-disabled="loading">{{loading?"Please Wait...":"Submit"}}</button>
                 </div>
             </form>
         </div>

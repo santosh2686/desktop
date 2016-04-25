@@ -1,0 +1,10 @@
+app.controller('addVehicleExpenseController',['$scope','expenseService',function($scope,expenseService){
+    $scope.expense={
+        expenseName:"",
+        paymentMode:"cash"
+    }
+    $scope.calendar={};
+    $scope.openCalendar=function(){
+        $scope.calendar.open=true;    
+    }
+}]);

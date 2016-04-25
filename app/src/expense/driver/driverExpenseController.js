@@ -1,4 +1,5 @@
-app.controller('driverExpenseController',['$scope','expenseService','requestService','driverService',function($scope,expenseService,requestService,driverService){
+app.controller('driverExpenseController',['$scope','expenseService','requestService','driverService','$uibModal',
+                                          function($scope,expenseService,requestService,driverService,$uibModal){
     $scope.data=[];
 	$scope.loading=true;
     var pagination=function(){
@@ -23,4 +24,19 @@ app.controller('driverExpenseController',['$scope','expenseService','requestServ
         }
     });
     expenseService.getExpense('driverExpense').then(success);
+    $scope.newExpense=function(){
+        $uibModal.open({
+          templateUrl: 'expense/driver/add-driver-expense.html',
+          controller: 'addDriverExpenseController',
+          size: 'lg',
+          resolve:{
+            record:function(){
+                return {
+                    'action':'new',
+                    'data':{}
+                };
+            }
+          }
+      });
+    }
 }]);

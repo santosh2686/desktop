@@ -1,6 +1,6 @@
 app.controller('vehicleModalController',
-               ['$scope','$rootScope','$uibModalInstance','vehicleService','messageService','record',
-                function($scope,$rootScope,$uibModalInstance,vehicleService,messageService,record){
+               ['$scope','$q','$rootScope','$uibModalInstance','vehicleService','packageService','partyService','messageService','record',
+                function($scope,$q,$rootScope,$uibModalInstance,vehicleService,packageService,partyService,messageService,record){
     'use strict';
     $scope.vehicleView=true;
     var currDate=new Date();
@@ -14,8 +14,7 @@ app.controller('vehicleModalController',
         $scope.vehicle.vehicleType="Car";
         $scope.vehicle.AC='Yes';
         $scope.vehicle.selectLoan='No';
-        $scope.vehicle.selectFixed='No';
-        
+        $scope.vehicle.selectFixed='No';       
        
         $scope.vehicle.fixed={
             'contractStartDate':currDate,
@@ -60,6 +59,20 @@ app.controller('vehicleModalController',
             };
         }
     }
+    
+    $q.all([packageService.getPackage('fix'),partyService.getParty('client')]).then(function(res){
+        console.log();
+        /*Package List*/
+        $scope.packageList=res[0].data[0].data;
+        if(!packageService.package.fix){
+            packageService.package.fix=res[0].data;
+        }
+        /*Client List*/
+        $scope.partyList=res[1].data[0].data;
+        if(!partyService.party.client){
+            partyService.party.client=res[1].data;
+        }
+    });
                     
     if($scope.action==='edit'){
         if($scope.vehicle.selectLoan=='Yes'){

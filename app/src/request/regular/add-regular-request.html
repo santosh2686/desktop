@@ -26,7 +26,7 @@
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.requestType=='out'?'Out Station':'Local'"></span>
                             <div data-ng-if="!hideView" class="btn-group btn-group-sm">            	
                                 <button data-ng-class="{active:requestData.requestType=='local'}" class="btn btn-default" data-ng-click='requestData.requestType="local"'>Local</button>
-                      <button data-ng-class="{active:requestData.requestType=='out'}" class="btn btn-default" data-ng-click='requestData.requestType="out"'>Out Station</button>
+								<button data-ng-class="{active:requestData.requestType=='out'}" class="btn btn-default" data-ng-click='requestData.requestType="out"'>Out Station</button>
                             </div>
                         </div>            	
                     </div>
@@ -484,9 +484,9 @@
 				 <div class="section-title"></div>
 				<div class="trip-calculation">
 					<div class="form-action">
-						 <button type="button" data-ng-if='requestData.requestType=="local"' 
+						 <button type="button" data-ng-if='requestData.requestType=="local" && action!=="view"' 
 						 data-ng-disabled='requestData.totalKm<=0 || requestData.totalHr<=0' class="btn btn-info" data-ng-click='calculate()'>Calculate</button>
-						 <button type="button" data-ng-if='requestData.requestType=="out"' 
+						 <button type="button" data-ng-if='requestData.requestType=="out" && action!=="view"' 
 						 data-ng-disabled='requestData.totalKm<=0 || requestData.totalDays<=0' class="btn btn-info" data-ng-click='calculate()'>Calculate</button>    
 					</div>
 					<div class="calc-data">
@@ -514,7 +514,7 @@
 				</div>
                 <div class="modal-footer">
                     <button class="btn btn-default active pull-left" data-ng-click="switchView()">Back</button>
-                    <button class="btn btn-success pull-right" data-ng-click="submitRequest()">Submit</button>
+                    <button data-ng-if="action!=='view'" class="btn btn-success pull-right" data-ng-click="submitRequest()" data-ng-disabled="loading">{{loading?"Please Wait...":"Submit"}}</button>
                 </div>
             </form>
         </div>

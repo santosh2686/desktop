@@ -144,7 +144,7 @@ app.controller('addRegularRequestController',
 			$scope.requestData.endTrip.date=new Date($scope.requestData.endTrip.date);
             var recordId = $scope.requestData._id;
 		}
-		$scope.hideView=(record.action==='view');
+		$scope.hideView=record.action==='view';
 		
 		$scope.switchView=function(){
 			$scope.request=!$scope.request;	
@@ -275,10 +275,11 @@ app.controller('addRegularRequestController',
 			}
 		}
         $scope.submitRequest=function(){
-            /*if($scope.requestData.vehicleSelect==='operator'){
+            $scope.loading=true;
+            if($scope.requestData.vehicleSelect==='operator'){
                 $scope.requestData.operator.vehicleName=$scope.operatorVehicleName.split(',')[0];
                 $scope.requestData.operator.vehicleNo=$scope.operatorVehicleName.split(',')[1];
-			}*/
+			}
             $scope.requestData.month=$filter('date')($scope.requestData.startTrip.date,"MMM");
 			$scope.requestData.year=$filter('date')($scope.requestData.startTrip.date,"yyyy");
             if($scope.action==='new'){

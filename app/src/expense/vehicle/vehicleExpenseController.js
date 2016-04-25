@@ -1,4 +1,5 @@
-app.controller('vehicleExpenseController',['$scope','expenseService','requestService','vehicleService',function($scope,expenseService,requestService,vehicleService){
+app.controller('vehicleExpenseController',['$scope','$uibModal','expenseService','requestService','vehicleService',
+                                           function($scope,$uibModal,expenseService,requestService,vehicleService){
     $scope.data=[];
 	$scope.loading=true;
     var pagination=function(){
@@ -23,4 +24,19 @@ app.controller('vehicleExpenseController',['$scope','expenseService','requestSer
         }
     });    
     expenseService.getExpense('vehicleExpense').then(success);
+    $scope.newExpense=function(){
+        $uibModal.open({
+          templateUrl: 'expense/vehicle/add-vehicle-expense.html',
+          controller: 'addVehicleExpenseController',
+          size: 'lg',
+          resolve:{
+            record:function(){
+                return {
+                    'action':'new',
+                    'data':{}
+                };
+            }
+          }
+      });
+    }
 }]);

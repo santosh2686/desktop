@@ -51,7 +51,7 @@
                     <div class="form-group">
                         <label>Salary</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="driver.salary"></span>
-                        <input data-ng-if="!hideView" number required type="text" class="form-control" data-ng-model='driver.salary'/>
+                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='driver.salary'/>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -72,7 +72,7 @@
             <div class="modal-footer">
                     <button class="btn btn-danger pull-left" data-ng-click="closeModal()">Close</button>
                     <button data-ng-if="action!=='view'" class="btn btn-success pull-right" data-ng-disabled="!driverForm.$dirty || !driverForm.$valid || loading" data-ng-click="submitRequest()">{{loading?"Please Wait...":"Submit"}}</button>
-                </div>
+            </div>
         </form>
     </div>
 </div>
