@@ -22,7 +22,8 @@
     "angular-bootstrap": "angular-ui-bootstrap-bower#1.1.2",
     "footable": "^2.0.3",
     "ExplorerCanvas": "excanvas#*",
-    "Chart.js": "^1.0.2"
+    "Chart.js": "^1.0.2",
+    "jspdf-autotable": "2.0.16"
   },
   "devDependencies": {}
 }

@@ -52,7 +52,7 @@ gulp.task('bower-copy',function(){
 });
 
 gulp.task('bower-minify',function(){
-	util.log('Minfication of  bower components');
+	util.log('Minification of  bower components');
 	return gulp.src('dist/bower_components/**/*.js')
 	.pipe(uglify())
 	.pipe(gulp.dest("dist/bower_components"));
@@ -84,7 +84,7 @@ gulp.task('watch',function(){
 	gulp.watch('app/src/**/*.js',['javascript']);	
 	gulp.watch('app/src/**/*.html',['template']);
 });
-gulp.task('bower',sequence('bower-copy','bower-inject'));
+gulp.task('bower',sequence('bower-copy','bower-inject','bower-minify'));
 gulp.task('build',sequence(['sass','javascript','template'],'inject','bower','watch','server:start'));
 
 

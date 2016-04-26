@@ -1,5 +1,5 @@
-app.controller('regularListController',['$scope','$rootScope','$q','$filter','requestService','config','messageService','vehicleService','driverService',
-                                        function($scope,$rootScope,$q,$filter,requestService,config,messageService,vehicleService,driverService){
+app.controller('regularListController',['$scope','$rootScope','$q','$filter','requestService','config','messageService','vehicleService','driverService','pdfService',
+                                        function($scope,$rootScope,$q,$filter,requestService,config,messageService,vehicleService,driverService,pdfService){
 	$scope.data=[];
     $scope.localEnv=config.local;
     $scope.loading=true;      
@@ -86,13 +86,18 @@ app.controller('regularListController',['$scope','$rootScope','$q','$filter','re
             });
 		});
 	};
+                                            
+        $scope.processForpdf=function(data){
+			var rowData=[];
+			for(var i=0;i<data.length;i++){
+				var rowItem=[i+1,$filter('date')(data[i].startTrip.date,'dd-MMM-yyyy'),data[i].selectClient==='party'?data[i].partyName:data[i].selectClient==='operator'?data[i].operatorName:data[i].userName,data[i].requestType==='local'?'Local':'Out Station',$filter('date')(data[i].endTrip.date,'dd-MMM-yyyy'),data[i].vehicleSelect==='own'?data[i].vehicle.driver:data[i].vehicleSelect==='indirect'?data[i].inDirect.driver:data[i].vehicleSelect==='operator'?data[i].operator.driver:data[i].agency.driver,data[i].vehicleSelect==='own'?data[i].vehicle.vehicle:data[i].vehicleSelect==='indirect'?data[i].inDirect.vehicle:data[i].vehicleSelect==='operator'?data[i].operator.vehicleName:data[i].agency.vehicleName,data[i].totalKm+' KM',$filter('number')(data[i].totalAmt,'2')+'/-'];
+				rowData.push(rowItem);
+			}
+			return rowData;
+		};
 	
 	$scope.exportData=function(){
-		messageService.showMessage({
-			title:'Regular Request',
-			text:'Your loan has been approved and will let you know in couple of days...',
-			type:'success'
-		});
-	}
-		
+        var columns=['Sr. No','Start Date','Client Name','Request Type','End Date','Driver Name','Vehicle','Total KM','Total Amt'];
+			pdfService.buildPDF(columns,$scope.processForpdf($scope.data),'Regular Requests','Regular_Requests',8);		
+	};	
 }]);

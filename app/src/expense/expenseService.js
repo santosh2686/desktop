@@ -4,20 +4,21 @@ app.factory('expenseService',['$uibModal','$filter','$q','config',function($uibM
             'vehicleExpense':null,
             'driverExpense':null,
         },
+        filterRecord:function(type,id){
+            return $filter('filter')(this.expense[type],{'_id':config.local?id:{'$oid':id}});
+        },
         getExpense:function(type){
             return this.expense[type]?$q.resolve({data:this.expense[type]}):config.getData(config[type],'s={"date":-1}');
         },
-        addExpense:function(){
-            
+        addExpense:function(type,data){
+            return config.postData(config[type],data);
         },
-        editExpense:function(){
-
+        updateExpense:function(type,id,data){
+            var filter=config.local?'{"_id":"'+id+'"}':'{"_id":{"$oid":"'+id.$oid+'"}}';
+            return config.updateData(config[type],filter,{$set:data});
         },
-        viewExpense:function(){
-
-        },
-        deleteExpense:function(){
-
+        deleteExpense:function(type,id){
+                return config.deleteData(config[type],id);
         }
 	}
 }]);

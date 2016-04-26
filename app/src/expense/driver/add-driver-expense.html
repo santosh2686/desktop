@@ -8,12 +8,12 @@
         </div>
     </div>
     <div class="widget-content">
-		<form name="driverForm">
+		<form name="driverExpenseForm">
 			<div class="row">
 				<div class="col-md-3">
                     <div class="form-group">
                         <label>Date</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="expense.date"></span>
+                        <span data-ng-if="hideView" class="view-value" data-ng-bind="expense.date | date:'dd-MMM-yyyy'"></span>
                         <p data-ng-if="!hideView" class="input-group">
 						  <input type="text" class="form-control" ng-model="expense.date" show-button-bar="false" show-weeks="false" uib-datepicker-popup="dd-MMM-yyyy" readonly is-open="calendar.open" ng-required="true" close-text="Close" />
 						  <span class="input-group-btn">
@@ -52,13 +52,13 @@
                     <div class="form-group">
                         <label>Comments</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="expense.comments"></span>
-                        <textarea data-ng-if="!hideView" required type="number" class="form-control" data-ng-model='expense.comments'></textarea>
+                        <textarea data-ng-if="!hideView" class="form-control" data-ng-model='expense.comments'></textarea>
                     </div>
                 </div>
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-danger pull-left" data-ng-click="closeModal()">Close</button>
-				<button data-ng-if="action!=='view'" class="btn btn-success pull-right" data-ng-disabled="!driverForm.$dirty || !driverForm.$valid || loading" data-ng-click="submitRequest()">{{loading?"Please Wait...":"Submit"}}</button>
+				<button data-ng-if="action!=='view'" class="btn btn-success pull-right" data-ng-disabled="!driverExpenseForm.$dirty || !driverExpenseForm.$valid || loading" data-ng-click="submitRequest()">{{loading?"Please Wait...":"Submit"}}</button>
             </div>
 		</form>
 	</div>

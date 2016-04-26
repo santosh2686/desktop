@@ -1,4 +1,4 @@
-app.controller('allListController',['$scope','$rootScope','$q','$filter','config','requestService','vehicleService','driverService','partyService','messageService',function($scope,$rootScope,$q,$filter,config,requestService,vehicleService,driverService,partyService,messageService){
+app.controller('allListController',['$scope','$rootScope','$q','$filter','config','requestService','vehicleService','driverService','partyService','messageService','pdfService',function($scope,$rootScope,$q,$filter,config,requestService,vehicleService,driverService,partyService,messageService,pdfService){
     $scope.data=[];
     $scope.localEnv=config.local;
 	$scope.loading=true;
@@ -66,32 +66,28 @@ app.controller('allListController',['$scope','$rootScope','$q','$filter','config
             initialData = angular.copy($scope.data);
             pagination()
     };
-    
     init();
-    
     $rootScope.$on('fixedRequest',function(){
         init();
     });
     $rootScope.$on('regularRequest',function(){
         init();
     });
-    
-    
-      $scope.applyFilter=function(){
-          switch($scope.filter.type){
-           case 'party':{
-					$scope.data=$filter('filter')(initialData,{"client":$scope.filter.party,"month":$scope.filter.month});
-					break;
-				}
-				case 'vehicle':{
-					$scope.data=$filter('filter')(initialData,{"vehicle":$scope.filter.vehicle,"month":$scope.filter.month});					
-					break;
-				}
-				case 'driver':{
-					$scope.data=$filter('filter')(initialData,{"driver":$scope.filter.driver,"month":$scope.filter.month});
-					break;
-				}
-          }
+    $scope.applyFilter=function(){
+      switch($scope.filter.type){
+       case 'party':{
+                $scope.data=$filter('filter')(initialData,{"client":$scope.filter.party,"month":$scope.filter.month});
+                break;
+            }
+            case 'vehicle':{
+                $scope.data=$filter('filter')(initialData,{"vehicle":$scope.filter.vehicle,"month":$scope.filter.month});					
+                break;
+            }
+            case 'driver':{
+                $scope.data=$filter('filter')(initialData,{"driver":$scope.filter.driver,"month":$scope.filter.month});
+                break;
+            }
+      }
     };
     $scope.clearFilter=function(){
         $scope.data=initialData;
@@ -100,14 +96,11 @@ app.controller('allListController',['$scope','$rootScope','$q','$filter','config
         $scope.filter.vehicle="";
         $scope.filter.driver="";
         $scope.filter.month=$scope.monthList[$scope.currMonth];
-    }
-    
-	
+    };
 	$scope.viewRequest=function(type,id){
         var ctrl = (type=='regular')?'addRegularRequestController':'addFixedRequestController';
         requestService.viewRequest(type,'request/'+type+'/add-'+type+'-request.html',ctrl,id);
-	};
-	
+	};	
 	$scope.editRequest=function(type,id){
         var ctrl = (type=='regular')?'addRegularRequestController':'addFixedRequestController';
         requestService.editRequest(type,'request/'+type+'/add-'+type+'-request.html',ctrl,id);
@@ -128,6 +121,17 @@ app.controller('allListController',['$scope','$rootScope','$q','$filter','config
                 'text':type+' Request can not be deleted at this time. Please try again.'
             });
 		});
-	};
-    
+	};    
+    $scope.processForAllpdf=function(data){
+			var rowData=[];
+			for(var i=0;i<data.length;i++){
+				var rowItem=[i+1,$filter('date')(data[i].date,'dd-MMM-yyyy'),data[i].request,data[i].requestType,data[i].client,data[i].vehicle,data[i].driver,data[i].totalKm+' KM'];
+				rowData.push(rowItem);
+			}
+			return rowData;
+    };
+    $scope.exportData=function(){
+        var columns=['Sr. No','Date','Request','Request Type','Cliet Name','Vehicle','Driver','Total KM'];
+        pdfService.buildPDF(columns,$scope.processForAllpdf($scope.data),'All Requests','All_Requests');
+    };   
 }]);

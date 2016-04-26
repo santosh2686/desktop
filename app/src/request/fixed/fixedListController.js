@@ -1,4 +1,5 @@
-app.controller('fixedListController',['$scope','$rootScope','$filter','requestService','config','partyService','messageService',function($scope,$rootScope,$filter,requestService,config,partyService,messageService){
+app.controller('fixedListController',['$scope','$rootScope','$filter','requestService','config','partyService','messageService','pdfService',
+                                      function($scope,$rootScope,$filter,requestService,config,partyService,messageService,pdfService){
     $scope.data=[];
     $scope.localEnv=config.local;
 	$scope.loading=true;
@@ -79,5 +80,19 @@ app.controller('fixedListController',['$scope','$rootScope','$filter','requestSe
             });
 		});
 	};
+                                          
+    $scope.processForFixedpdf=function(data){
+			var rowData=[];
+			for(var i=0;i<data.length;i++){
+				var rowItem=[i+1,$filter('date')(data[i].date,'dd-MMM-yyyy'),data[i].partyName,data[i].requestType==='local'?'Local':'Out Station',data[i].vehicleSelect,data[i].vehicleSelect==="daily"?data[i].vehicle:data[i].vehicleSelect==="own"?data[i].own.vehicle:data[i].vehicleSelect==="indirect"?data[i].inDirect.vehicle:data[i].vehicleSelect==="operator"?data[i].operator.vehicleName+','+data[i].operator.vehicleNo:data[i].agency.vehicleName+','+data[i].agency.vehicleNo,(data[i].vehicleSelect==="daily" || data[i].vehicleSelect==="own")?data[i].driver:data[i].vehicleSelect==="indirect"?data[i].inDirect.driver:data[i].vehicleSelect==="operator"?data[i].operator.driver:data[i].agency.driver,data[i].totalKm+' KM',data[i].extraHr];
+				rowData.push(rowItem);
+			}			
+			return rowData;
+		};
+                                          
+        $scope.exportData=function(){
+            var columns=['Sr. No','Date','Client Name','Request Type','Vehicle Provided','Vehicle','Driver','Total KM','Extra HR'];
+            pdfService.buildPDF(columns,$scope.processForFixedpdf($scope.data),'Fixed Requests','Fixed_Requests');				
+        }                                 
 
 }]);
