@@ -1,33 +1,4 @@
 app.constant('gridMap',{
-    'DRIVER':[{
-                "name":"Driver Name",
-                "map":"name"
-            },{
-                "name":"Driver Address",
-                "hideOn":"phone,tablet",
-                "map":"address"
-            },{
-                "name":"Driver Contact",
-                "map":"contact",
-                "type":"phone"
-            },{
-                "name":"Licence No.",
-                "hideOn":"phone,tablet",
-                "map":"lincenceNo"
-            },{
-                "name":"Joining Date",
-                "hideOn":"phone",
-                "map":"joinDate",
-                "type":"date"
-            },{
-                "name":"Salary",
-                "type":"amount",
-                "map":"salary"
-            },{
-                "name":"Comments",
-                "hideOn":"phone,tablet",
-                "map":"comments"
-            }],
     'PACKAGE':[{
             "name":"Package Code",
             "hideOn":"phone",

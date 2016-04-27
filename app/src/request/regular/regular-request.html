@@ -97,9 +97,9 @@
             <td><i class="fa fa-rupee"></i> {{r.profit | number:'2'}}/-</td>
             <td class="td-actions">            	
             	<div class="btn-group">
-                	<button title="View" data-ng-click="viewRequest('request/regular/add-regular-request.html','addRegularRequestController',localEnv?r._id:r._id.$oid)" class="btn btn-primary"><i class="fa fa-eye"></i></button>
-                    <button title="Edit" data-ng-click="editRequest('request/regular/add-regular-request.html','addRegularRequestController',localEnv?r._id:r._id.$oid)" class="btn btn-success"><i class="fa fa-edit"></i></button>
-                    <button title="Delete" data-ng-click="deleteRequest(localEnv?r._id:r._id.$oid)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                	<button type="button" title="View" data-ng-click="viewRequest('request/regular/add-regular-request.html','addRegularRequestController',localEnv?r._id:r._id.$oid)" class="btn btn-primary"><i class="fa fa-eye"></i></button>
+                    <button type="button" title="Edit" data-ng-click="editRequest('request/regular/add-regular-request.html','addRegularRequestController',localEnv?r._id:r._id.$oid)" class="btn btn-success"><i class="fa fa-edit"></i></button>
+                    <button type="button" title="Delete" data-ng-click="deleteRequest(localEnv?r._id:r._id.$oid)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                 </div>
             </td>
             </tr>

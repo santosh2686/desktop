@@ -11,7 +11,8 @@ app.controller('regularListController',['$scope','$rootScope','$q','$filter','re
 	}
     $scope.filter.month=$scope.monthList[$scope.currMonth];
 	var pagination=function(){
-		$scope.loading=false;		$scope.totalItems=$scope.data.length;
+		$scope.loading=false;		
+        $scope.totalItems=$scope.data.length;
 		$scope.currentPage=requestService.request.pager.currentPage;
 		$scope.itemsPerPage=requestService.request.pager.itemsPerPage;
 		$scope.maxSize=requestService.request.pager.maxSize;

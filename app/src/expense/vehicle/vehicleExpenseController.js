@@ -42,6 +42,30 @@ function($scope,$rootScope,$filter,expenseService,requestService,vehicleService,
     },
     init=function(){
         expenseService.getExpense('vehicleExpense').then(success);
+    },
+    setFuelData=function(row){
+        if(row.expenseName=='fuel'){
+            return row.expenseName.toUpperCase() +', Fule Rate : '+row.fuelRate+'\n Current KM : '+row.currKm;
+        }else{
+            return row.expenseName.toUpperCase();
+        }
+    },
+    setPayMode=function(row){
+        if(row.paymentMode=='credit'){
+            return 'CREDIT \n CARD NO: '+row.credit.cardName;
+        }if(row.paymentMode=='cheque'){
+            return 'CHEQUE \n BANK NAME: '+row.cheque.bankName;
+        }else{
+            return row.paymentMode.toUpperCase();
+        }
+    },
+    buildData=function(data){
+			var rowData=[];
+			for(var i=0;i<data.length;i++){
+				var rowItem=[i+1,$filter('date')(data[i].date,'dd-MMM-yyyy'),setFuelData(data[i]),data[i].location,data[i].vehicle,$filter('number')(data[i].expenseAmt,'2')+'/-',setPayMode(data[i]),data[i].comments];
+				rowData.push(rowItem);
+			}
+			return rowData;
     };
                                                
     init();
@@ -90,17 +114,9 @@ function($scope,$rootScope,$filter,expenseService,requestService,vehicleService,
         });
     };
     
-    $scope.buildData=function(data){
-			var rowData=[];
-			for(var i=0;i<data.length;i++){
-				var rowItem=[i+1,$filter('date')(data[i].date,'dd-MMM-yyyy'),data[i].expenseName,data[i].location,data[i].vehicle,$filter('number')(data[i].expenseAmt,'2')+'/-',data[i].paymentMode,data[i].comments];
-				rowData.push(rowItem);
-			}
-			return rowData;
-    };
+    
     $scope.exportData=function(){
-        console.log($scope.data);
         var columns=['Sr. No','Date','Expense Type','Location','Vehicle','Expense Amount','Payment Mode','Comments'];
-        pdfService.buildPDF(columns,$scope.buildData($scope.data),'Vehicle Expenses','Vehicle_expense',5);
+        pdfService.buildPDF(columns,buildData($scope.data),'Vehicle Expenses','Vehicle_expense',5);
     };
 }]);

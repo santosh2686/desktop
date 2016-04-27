@@ -1,9 +1,9 @@
 app.controller('driverController',
-               ['$scope','$rootScope','driverService','messageService','gridMap','$uibModal',
-               function($scope,$rootScope,driverService,messageService,gridMap,$uibModal){
+               ['$scope','$rootScope','driverService','messageService','config','$uibModal',
+               function($scope,$rootScope,driverService,messageService,config,$uibModal){
     $scope.data=[];
-    $scope.gridConfig=gridMap.DRIVER;
-	$scope.loading=true;    
+	$scope.loading=true;
+    $scope.localEnv = config.local;
     var init=function(){
         driverService.getDriver().then(success);
     },
@@ -24,7 +24,9 @@ app.controller('driverController',
     },
     success=function(res){
 		$scope.data=res.data;
-        driverService.driver=res.data;
+        if(!driverService.driver){
+            driverService.driver=res.data;
+        }
         $scope.loading=false;
 	};    
     $rootScope.$on('driver',function(){
@@ -34,13 +36,13 @@ app.controller('driverController',
     $scope.addDriver=function(){
        driverModal('new',{});
     }
-    $scope.view=function(id){
+    $scope.viewRequest=function(id){
         driverModal('view',driverService.filterRecord(id)[0]);
     }
-    $scope.edit=function(id){
+    $scope.editRequest=function(id){
       driverModal('edit',driverService.filterRecord(id)[0]);
     }
-    $scope.delete=function(id){
+    $scope.deleteRequest=function(id){
         var driverName = driverService.filterRecord(id)[0].name;
        driverService.deleteDriver(id).then(function(res){
             driverService.driver=null;

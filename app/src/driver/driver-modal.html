@@ -50,7 +50,9 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Salary</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="driver.salary"></span>
+                        <span data-ng-if="hideView" class="view-value">
+                            <i class="fa fa-rupee"></i> {{driver.salary | number:'2'}}/-
+                        </span>
                         <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='driver.salary'/>
                     </div>
                 </div>
