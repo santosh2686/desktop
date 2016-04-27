@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Travel",
   "node-main": "server.js",
-  "main": "http://localhost:8080/#/dashboard",
+  "main": "http://localhost:9090/#/dashboard",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
