@@ -7,8 +7,8 @@ app.factory('expenseService',['$uibModal','$filter','$q','config',function($uibM
         filterRecord:function(type,id){
             return $filter('filter')(this.expense[type],{'_id':config.local?id:{'$oid':id}});
         },
-        getExpense:function(type){
-            return this.expense[type]?$q.resolve({data:this.expense[type]}):config.getData(config[type],'s={"date":-1}');
+        getExpense:function(type,query){
+            return this.expense[type]?$q.resolve({data:this.expense[type]}):config.getData(config[type],query);
         },
         addExpense:function(type,data){
             return config.postData(config[type],data);

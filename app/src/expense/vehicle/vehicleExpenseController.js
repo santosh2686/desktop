@@ -41,7 +41,7 @@ function($scope,$rootScope,$filter,expenseService,requestService,vehicleService,
       });
     },
     init=function(){
-        expenseService.getExpense('vehicleExpense').then(success);
+        expenseService.getExpense('vehicleExpense','s={"date":-1}').then(success);
     },
     setFuelData=function(row){
         if(row.expenseName=='fuel'){

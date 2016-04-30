@@ -23,21 +23,21 @@
                     <div class="form-group">
                         <label>Basic Amount</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="package.basicAmt"></span>
-                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='package.basicAmt'/>
+                        <input data-ng-if="!hideView" required type="number" class="form-control" data-ng-model='package.basicAmt'/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Minimum KM</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="package.kmRate.minKm"></span>
-                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='package.kmRate.minKm'/>
+                        <input data-ng-if="!hideView" required type="number" class="form-control" data-ng-model='package.kmRate.minKm'/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Extra KM rate </label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="package.kmRate.extraKm"></span>
-                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='package.kmRate.extraKm'/>
+                        <input data-ng-if="!hideView" required type="number" class="form-control" data-ng-model='package.kmRate.extraKm'/>
                     </div>
                 </div>
             </div>
@@ -46,14 +46,14 @@
                     <div class="form-group">
                         <label>Minimum Hours </label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="package.hrRate.minHr"></span>
-                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='package.hrRate.minHr'/>
+                        <input data-ng-if="!hideView" required type="number" class="form-control" data-ng-model='package.hrRate.minHr'/>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
                         <label>Extra Hour rate</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="package.hrRate.extraHr"></span>
-                        <input data-ng-if="!hideView" type="text" class="form-control" data-ng-model='package.hrRate.extraHr'/>
+                        <input data-ng-if="!hideView" type="number" class="form-control" data-ng-model='package.hrRate.extraHr'/>
                     </div>
                 </div>
                 <div class="col-md-3">

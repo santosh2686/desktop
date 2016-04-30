@@ -12,8 +12,8 @@ app.factory('requestService',['$uibModal','$filter','$q','config',function($uibM
 		filterRequest:function(type,id){
 			return $filter('filter')(this.request[type],{'_id':config.local?id:{'$oid':id}});
 		},
-		getRequest:function(type,sort){            
-            return (this.request[type])?$q.resolve({data:this.request[type]}):config.getData(config[type],sort);
+		getRequest:function(type,query){            
+            return (this.request[type])?$q.resolve({data:this.request[type]}):config.getData(config[type],query);
 		},
         addRequest:function(type,data){
             return config.postData(config[type],data);

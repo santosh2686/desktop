@@ -39,7 +39,7 @@ function($scope,$rootScope,$filter,expenseService,requestService,driverService,m
           }
       });
     },init=function(){
-        expenseService.getExpense('driverExpense').then(success);
+        expenseService.getExpense('driverExpense','s={"date":-1}').then(success);
     };
     init();
     $rootScope.$on('driverExpense',function(){

@@ -9,7 +9,6 @@ app.controller('vehicleSummaryController',
                 $scope.vehicleList=res.data[0].data;
                 if(sessionStorage.getItem('veh')){
                     $scope.vehicleSelect=sessionStorage.getItem('veh');
-                    sessionStorage.removeItem('veh');
                 }else{
                     $scope.vehicleSelect=$scope.vehicleList[0].vehicleName+' '+$scope.vehicleList[0].vehicleNo;
                 }
@@ -38,7 +37,7 @@ app.controller('vehicleSummaryController',
 			chartData.income.push(totalProfit);
         },
         getExpense=function(){            
-            expenseService.getExpense('vehicleExpense','q={"vehicle":"'+$scope.vehicle+'"}&f={"expenseAmt":1,"month":1}').then(function(res){
+            expenseService.getExpense('vehicleExpense','q={"vehicle":"'+$scope.vehicleSelect+'"}&f={"expenseAmt":1,"month":1}').then(function(res){
                 for(var i=0; i<monthSet.length;i++){
 						calculateExpense($filter('filter')(res.data,{'month':monthSet[i]}));				
 				}
@@ -70,6 +69,7 @@ app.controller('vehicleSummaryController',
                     }
                 });
             });
+            sessionStorage.removeItem('veh');
         };
         init();
         $scope.redrawGraph=function(){

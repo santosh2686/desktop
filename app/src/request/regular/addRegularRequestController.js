@@ -142,6 +142,8 @@ app.controller('addRegularRequestController',
         if(record.action=='edit'){
 			$scope.requestData.startTrip.date=new Date($scope.requestData.startTrip.date);
 			$scope.requestData.endTrip.date=new Date($scope.requestData.endTrip.date);
+            $scope.requestData.startTrip.time=new Date($scope.requestData.startTrip.time);
+			$scope.requestData.endTrip.time=new Date($scope.requestData.endTrip.time);
             var recordId = $scope.requestData._id;
 		}
 		$scope.hideView=record.action==='view';
@@ -161,8 +163,7 @@ app.controller('addRegularRequestController',
     $scope.calculateTotalKm=function(){
 			$scope.requestData.totalKm=($scope.requestData.closingKm-$scope.requestData.openingKm);
 		};
-        $scope.calculateTotalHr=function(){		
-            $scope.requestData.totalHr=calculation.duration($scope.requestData.startTrip.date,$scope.requestData.endTrip.date,$scope.requestData.startTrip.time,$scope.requestData.endTrip.time)/3600000;
+        $scope.calculateTotalHr=function(){		 $scope.requestData.totalHr=calculation.duration($scope.requestData.startTrip.date,$scope.requestData.endTrip.date,$scope.requestData.startTrip.time,$scope.requestData.endTrip.time)/3600000;
             $scope.requestData.totalHr = $filter('number')($scope.requestData.totalHr,'2')
         }
         
@@ -276,10 +277,10 @@ app.controller('addRegularRequestController',
 		}
         $scope.submitRequest=function(){
             $scope.loading=true;
-            if($scope.requestData.vehicleSelect==='operator'){
+            /*if($scope.requestData.vehicleSelect==='operator'){
                 $scope.requestData.operator.vehicleName=$scope.operatorVehicleName.split(',')[0];
                 $scope.requestData.operator.vehicleNo=$scope.operatorVehicleName.split(',')[1];
-			}
+			}*/
             $scope.requestData.month=$filter('date')($scope.requestData.startTrip.date,"MMM");
 			$scope.requestData.year=$filter('date')($scope.requestData.startTrip.date,"yyyy");
             if($scope.action==='new'){

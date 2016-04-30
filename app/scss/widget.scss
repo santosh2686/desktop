@@ -230,8 +230,11 @@
             }
         }
         tfoot{
-            td{
-                           
+            tr.tableFooter td{
+                font-weight: bold;
+                text-transform: uppercase;
+                background:$green_color;
+                color: #FFF;
             }
         }
     }

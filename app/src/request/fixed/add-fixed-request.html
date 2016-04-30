@@ -59,11 +59,9 @@
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.vehicle"></span>
                         <select class="form-control" data-ng-model="requestData.vehicle" data-ng-if='regularVehicleList.length>1'>
 								<option value="">Select Vehicle</option>
-								<option data-ng-repeat="v in regularVehicleList">{{v.vehicleName}},{{v.vehicleNo}}</option> 
+								<option data-ng-repeat="v in regularVehicleList">{{v.vehicleName}} {{v.vehicleNo}}</option> 
 						</select>
-						 <strong data-ng-if='regularVehicleList.length==1'>
-							{{regularVehicleList[0].vehicleName}},{{regularVehicleList[0].vehicleNo}}
-						 </strong>
+						 <strong data-ng-if='regularVehicleList.length==1'>{{requestData.vehicle}}</strong>
                       </div>
                     </div>
                 </div>
