@@ -70,7 +70,7 @@
               </tr>
             </thead>
             <tbody>
-                <tr data-ng-repeat='d in data' data-on-last-repeat>
+                <tr data-ng-repeat='d in data' data-responsive-grid>
                     <td>{{$index+1}}</td>
                     <td data-ng-bind='d.date | date:"dd-MMM-yyyy"'></td> 
                     <td data-ng-bind="'{{d.requestType==='local'?'local':'Out Station'}}'"></td>

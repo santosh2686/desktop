@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <label>Driver Contact</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="driver.contact"></span>
-                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='driver.contact'/>
+                        <input data-ng-if="!hideView" required type="number" class="form-control" data-ng-model='driver.contact'/>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -53,7 +53,7 @@
                         <span data-ng-if="hideView" class="view-value">
                             <i class="fa fa-rupee"></i> {{driver.salary | number:'2'}}/-
                         </span>
-                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='driver.salary'/>
+                        <input data-ng-if="!hideView" required type="number" class="form-control" data-ng-model='driver.salary'/>
                     </div>
                 </div>
                 <div class="col-md-3">

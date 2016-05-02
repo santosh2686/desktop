@@ -47,6 +47,7 @@ app.route('/api/:databse/:collection')
     var q=queryObject.q?JSON.parse(queryObject.q):{};
     var f=queryObject.f?JSON.parse(queryObject.f):{};
     var s=queryObject.s?JSON.parse(queryObject.s):{};    
+    var c = queryObject.c;
     if(q._id){
         q._id=objectId(q._id);
     }
@@ -55,10 +56,17 @@ app.route('/api/:databse/:collection')
     MongoClient.connect(dbUrl+database,function(err,db){		
         if(!err){
             db.collection(collection,function(err, collection) {
-                collection.find(q,f).sort(s).toArray(function(err, items) {
-                    res.send(items);
-                    db.close();
-                });
+                if(c){
+                    collection.count(q,function(err,count){
+                        res.sendStatus(count);
+                        db.close();
+                    });
+                }else{
+                    collection.find(q,f).sort(s).toArray(function(err, items) {
+                        res.send(items);
+                        db.close();
+                    });
+                }
             });
         }else{
             res.send('Database is not connected...');
@@ -96,19 +104,6 @@ app.route('/api/:databse/:collection')
     if(q._id){
         q._id=objectId(q._id);
     }
-	/*switch(a){
-		case 'push' :{
-			operation = {$push:{data:item}};
-			break;
-		}
-		case 'pull' :{
-			operation = {$pull:{data:item}}
-			break;
-		}
-		default :{
-			operation = {$set:item};
-		}
-	};*/
     MongoClient.connect(dbUrl+database,function(err,db){
         if(!err){
             db.collection(collection,function(err,collection){
