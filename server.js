@@ -15,6 +15,10 @@ var dbUrl='mongodb://localhost:27017/';
 //Build zip file of entire files and then paste in the directory where we have nw.exe and run the following command.
 //copy /b nw.exe+app.nw app.exe 
 
+//Ref : 
+//https://www.scirra.com/tutorials/1359/distributing-using-node-webkit-for-free-windows
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 

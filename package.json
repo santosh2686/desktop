@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Travel",
   "node-main": "server.js",
-  "main": "http://localhost:9090/#/dashboard",
+  "main": "http://localhost:9090/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -54,6 +54,7 @@
     "main-bower-files": "^2.11.1",
     "mini-css": "^1.0.3",
     "mocha": "^2.4.5",
+    "nw-builder": "^2.2.0",
     "phantomjs-prebuilt": "^2.1.7",
     "sinon": "^1.17.4",
     "wiredep": "^3.0.0"
