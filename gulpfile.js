@@ -15,6 +15,24 @@ minifyHTML = require('gulp-minify-html'),
 order = require('gulp-order'),
 server = require( 'gulp-develop-server' );
 
+
+var NwBuilder = require('nw-builder');
+var nw = new NwBuilder({
+    files: './Deskapp/**/**', // use the glob format
+    platforms: ['osx32', 'osx64', 'win32', 'win64'],
+    version: '0.0.1'
+});
+
+//Create Executeables
+gulp.task('exe',function(){
+   // Build returns a promise
+    nw.build().then(function () {
+       console.log('all done!');
+    }).catch(function (error) {
+        console.error(error);
+    });
+});
+
 //Convert SASS to CSS
 gulp.task('sass',function(){
 	util.log('SASS -> CSS');
