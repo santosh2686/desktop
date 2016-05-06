@@ -106,8 +106,16 @@
             }
         }
         .pull-right{
+            .form-control{
+                margin-right: 5px;
+            }
             .count{
-             margin: 5px 5px 0 0;
+                 margin: 5px 5px 0 0;
+            }
+            .btn{
+                @media #{$mobile_portrait}{
+                    width:100%;
+                }
             }
         }
     }

@@ -46,7 +46,7 @@ app.controller('fixedPaymentController',['$scope','$q','$filter','config','vehic
     }
     
     var getPackageData=function(){
-        var packageCode = $filter('filter')(initialVehicleData,{'vehicleName':$scope.filter.vehicle.substr(0,$scope.filter.vehicle.indexOf(' ')),'vehicleNo':$scope.filter.vehicle.substr($scope.filter.vehicle.indexOf(' ')+1)})[0].fixed.package;
+        var packageCode = $filter('filter')(initialVehicleData,{'vehicleName':$scope.filter.vehicle.split(',')[0],'vehicleNo':$scope.filter.vehicle.split(',')[1]})[0].fixed.package;
         packageService.getPackage('fix').then(function(res){
             var pkg = ($filter('filter')(res.data[0].data,{'packageCode':packageCode})[0]);
             calculateTotalAmt(pkg);

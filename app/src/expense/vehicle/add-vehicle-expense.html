@@ -40,7 +40,7 @@
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="expense.vehicle"></span>
 						<select data-ng-if="!hideView" class="form-control" data-ng-model="expense.vehicle">
 							<option value="">Select Vehicle</option>
-							<option data-ng-repeat="v in vehicleList">{{v.vehicleName}} {{v.vehicleNo}}</option>
+							<option data-ng-repeat="v in vehicleList">{{v.vehicleName}},{{v.vehicleNo}}</option>
 						</select>
 					</div>
 				</div>

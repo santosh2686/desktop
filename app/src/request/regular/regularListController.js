@@ -5,12 +5,12 @@ app.controller('regularListController',['$scope','$rootScope','$q','$filter','re
     $scope.loading=true;      
     $scope.currMonth=new Date().getMonth();
     $scope.monthList=config.months;
-    var initialData;
-	$scope.filter={
+    $scope.filter={
 		'type':'vehicle'
 	}
     $scope.filter.month=$scope.monthList[$scope.currMonth];
-	var pagination=function(){
+    var initialData,
+        pagination=function(){
 		$scope.loading=false;		
         $scope.totalItems=$scope.data.length;
 		$scope.currentPage=requestService.request.pager.currentPage;
@@ -27,7 +27,7 @@ app.controller('regularListController',['$scope','$rootScope','$q','$filter','re
 	},
     init=function(){
         requestService.getRequest('regular','s={"startTrip.date":-1}').then(success);
-    };    
+    };
     $q.all([vehicleService.getVehicle('own'),driverService.getDriver()]).then(function(res){
         $scope.vehicleList=res[0].data[0].data;
         if(!vehicleService.vehicle.own){
@@ -41,8 +41,8 @@ app.controller('regularListController',['$scope','$rootScope','$q','$filter','re
     }); 
     $rootScope.$on('regularRequest',function(){
         init();
-    });	
-                                            
+    });
+    
     $scope.applyFilter=function(){
         if($scope.filter.type==='vehicle'){
 				$scope.data=$filter('filter')(initialData,{"vehicleSelect":"own","vehicle":{"vehicle":$scope.filter.vehicle},"month":$scope.filter.month});

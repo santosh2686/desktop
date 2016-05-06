@@ -1,5 +1,5 @@
 app.factory('config',['$http',function($http){
-	var localEnv=true;
+	var localEnv=false;
     return{
 			local:localEnv,
             apiKey:'NNY26lvUYux1Rz5H-7QLgNB28lsBmg0K',

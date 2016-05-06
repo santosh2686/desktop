@@ -59,7 +59,7 @@
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.vehicle"></span>
                         <select class="form-control" data-ng-model="requestData.vehicle" data-ng-if='regularVehicleList.length>1'>
 								<option value="">Select Vehicle</option>
-								<option data-ng-repeat="v in regularVehicleList">{{v.vehicleName}} {{v.vehicleNo}}</option> 
+								<option data-ng-repeat="v in regularVehicleList">{{v.vehicleName}},{{v.vehicleNo}}</option> 
 						</select>
 						 <strong data-ng-if='regularVehicleList.length==1'>{{requestData.vehicle}}</strong>
                       </div>
@@ -118,7 +118,7 @@
 							<span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.own.vehicle"></span>
                             <select data-ng-if="!hideView"  class="form-control" data-ng-model="requestData.own.vehicle">
                                 <option value="">Select Vehicle</option>
-                                <option class="form-control" data-ng-repeat="v in vehicleList">{{v.vehicleName}} {{v.vehicleNo}}</option>                
+                                <option class="form-control" data-ng-repeat="v in vehicleList">{{v.vehicleName}},{{v.vehicleNo}}</option>                
                             </select>
 						</div> 		
 					</div>
@@ -132,7 +132,7 @@
 							<span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.inDirect.vehicle"></span>
                             <select data-ng-if="!hideView" class="form-control" data-ng-model="requestData.inDirect.vehicle">
 								<option value="">Select Vehicle</option>
-								<option data-ng-repeat="v in oVehicleList">{{v.vehicleName}} {{v.vehicleNo}}</option>                
+								<option data-ng-repeat="v in oVehicleList">{{v.vehicleName}},{{v.vehicleNo}}</option>                
 							</select>
 						</div> 		
 					</div>
@@ -175,7 +175,7 @@
 							<span data-ng-if="hideView" class="view-value" data-ng-bind="operatorVehicleName"></span>
                             <select data-ng-if="!hideView" class="form-control" data-ng-model='operatorVehicleName'>
 								<option value="">Select Vehicle</option>
-								<option data-ng-repeat="v in operatorVehicleList">{{v.name}} {{v.number}}</option>
+								<option data-ng-repeat="v in operatorVehicleList">{{v.name}},{{v.number}}</option>
 							</select>			
 						</div>
 					</div>

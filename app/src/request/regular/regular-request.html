@@ -1,6 +1,6 @@
 <div class="grid-widget">
     <div class="grid-title" data-ng-if="!loading">
-        <h3 class="pull-left">Regular Request</h3>
+		<h3 class="pull-left">Regular Request</h3>
         <div class="pull-right">
             <span class="count">Total Request : <strong data-ng-bind="data.length"></strong></span> 
             <button class="btn btn-primary" data-ng-click="newRequest('request/regular/add-regular-request.html','addRegularRequestController')">New Request</button>
@@ -19,7 +19,7 @@
                   <div class="form-group" data-ng-if='filter.type=="vehicle"'>
                         <select class="form-control" data-ng-model="filter.vehicle">
                             <option value="">Select Vehicle</option>
-                            <option data-ng-repeat="v in vehicleList">{{v.vehicleName}} {{v.vehicleNo}}</option>
+                            <option data-ng-repeat="v in vehicleList">{{v.vehicleName}},{{v.vehicleNo}}</option>
                         </select>
                   </div>
                   <div class="form-group" data-ng-if='filter.type=="driver"'>
@@ -52,8 +52,6 @@
         </div>
         </div>
     </div>
-    
-    
     <div class="grid">
         <div data-ng-if="loading" class="loader">
             <i class="fa fa-refresh fa-spin"></i>

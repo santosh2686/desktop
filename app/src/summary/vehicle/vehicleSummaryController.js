@@ -1,18 +1,26 @@
 app.controller('vehicleSummaryController',
                ['$scope','$state','$filter','config','vehicleService','requestService','expenseService',
                function($scope,$state,$filter,config,vehicleService,requestService,expenseService){
-               var monthSet=config.months,
-                   chartData={local:[],out:[],income:[],expense:[]},incomeChart,expenseChart,localChart,outChart;
-        var init=function(){
+                $scope.yearList = config.years();
+
+                if(sessionStorage.getItem('year')){
+                    $scope.year=sessionStorage.getItem('year');
+                }else{
+                    $scope.year=new Date().getFullYear().toString();
+                };
+                
+                var monthSet=config.months,
+                   chartData={local:[],out:[],income:[],expense:[]},incomeChart,expenseChart,localChart,outChart,
+        init=function(){
             $scope.loading=true;
             vehicleService.getVehicle('own').then(function(res){
                 $scope.vehicleList=res.data[0].data;
                 if(sessionStorage.getItem('veh')){
                     $scope.vehicleSelect=sessionStorage.getItem('veh');
+                    
                 }else{
-                    $scope.vehicleSelect=$scope.vehicleList[0].vehicleName+' '+$scope.vehicleList[0].vehicleNo;
+                    $scope.vehicleSelect=$scope.vehicleList[0].vehicleName+','+$scope.vehicleList[0].vehicleNo;
                 }
-                
                 loadSummary()
                 if(!vehicleService.vehicle.own){
                     vehicleService.vehicle.own=res.data;
@@ -20,12 +28,12 @@ app.controller('vehicleSummaryController',
             });
         },
         loadSummary=function(){
-            requestService.getRequest('regular','q={"vehicleSelect":"own","vehicle.vehicle":"'+$scope.vehicleSelect+'"}&f={"requestType":1,"profit":1,"month":1}').then(function(res){
+            requestService.getRequest('regular','q={"year":"'+$scope.year+'", "vehicleSelect":"own","vehicle.vehicle":"'+$scope.vehicleSelect+'"}&f={"requestType":1,"profit":1,"month":1}').then(function(res){
                for(var i=0; i<monthSet.length;i++){
                     chartData.local.push($filter('filter')(res.data,{'month':monthSet[i],'requestType':'local'}).length);
                     chartData.out.push($filter('filter')(res.data,{'month':monthSet[i],'requestType':'out'}).length);
                     calculateIncome($filter('filter')(res.data,{'month':monthSet[i]}));				
-                }
+                };
                 getExpense();
             });
         },
@@ -37,7 +45,7 @@ app.controller('vehicleSummaryController',
 			chartData.income.push(totalProfit);
         },
         getExpense=function(){            
-            expenseService.getExpense('vehicleExpense','q={"vehicle":"'+$scope.vehicleSelect+'"}&f={"expenseAmt":1,"month":1}').then(function(res){
+            expenseService.getExpense('vehicleExpense','q={"year":"'+$scope.year+'", "vehicle":"'+$scope.vehicleSelect+'"}&f={"expenseAmt":1,"month":1}').then(function(res){
                 for(var i=0; i<monthSet.length;i++){
 						calculateExpense($filter('filter')(res.data,{'month':monthSet[i]}));				
 				}
@@ -70,10 +78,12 @@ app.controller('vehicleSummaryController',
                 });
             });
             sessionStorage.removeItem('veh');
+            sessionStorage.removeItem('year');
         };
         init();
         $scope.redrawGraph=function(){
             sessionStorage.setItem('veh',$scope.vehicleSelect);
+            sessionStorage.setItem('year',$scope.year);
             $state.reload();
         }
 }]);

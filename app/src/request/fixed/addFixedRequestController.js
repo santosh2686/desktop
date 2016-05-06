@@ -105,7 +105,7 @@ app.controller('addFixedRequestController',
 				}
 			}
             if($scope.regularVehicleList && $scope.regularVehicleList.length>0 && $scope.action==='new'){
-				$scope.requestData.vehicle=$scope.regularVehicleList[0].vehicleName+' '+$scope.regularVehicleList[0].vehicleNo;
+				$scope.requestData.vehicle=$scope.regularVehicleList[0].vehicleName+','+$scope.regularVehicleList[0].vehicleNo;
 			}
         });
         
@@ -265,10 +265,10 @@ app.controller('addFixedRequestController',
 		
 		$scope.submitRequest=function(){
 			$scope.loading=true;
-            /*if($scope.requestData.vehicleSelect==='operator'){
+            if($scope.requestData.vehicleSelect==='operator'){
                 $scope.requestData.operator.vehicleName=$scope.operatorVehicleName.split(',')[0];
                 $scope.requestData.operator.vehicleNo=$scope.operatorVehicleName.split(',')[1];
-			}*/
+			}
             $scope.requestData.month=$filter('date')($scope.requestData.date,"MMM");
 			$scope.requestData.year=$filter('date')($scope.requestData.date,"yyyy");
             if($scope.action==='new'){
