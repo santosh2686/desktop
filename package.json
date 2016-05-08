@@ -54,6 +54,7 @@
     "main-bower-files": "^2.11.1",
     "mini-css": "^1.0.3",
     "mocha": "^2.4.5",
+    "node-webkit-builder": "^1.0.13",
     "nw-builder": "^2.2.0",
     "phantomjs-prebuilt": "^2.1.7",
     "sinon": "^1.17.4",

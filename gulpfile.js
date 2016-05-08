@@ -16,9 +16,9 @@ order = require('gulp-order'),
 server = require( 'gulp-develop-server' );
 
 
-var NwBuilder = require('nw-builder');
+var NwBuilder = require('node-webkit-builder');
 var nw = new NwBuilder({
-    files: './Deskapp/**/**', // use the glob format
+    files: './deskapp/**/**', // use the glob format
     platforms: ['osx32', 'osx64', 'win32', 'win64'],
     version: '0.0.1'
 });

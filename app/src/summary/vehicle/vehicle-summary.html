@@ -13,7 +13,10 @@
                         <option data-ng-repeat="y in yearList">{{y}}</option>
                     </select>
                 </div>
-                <button type="button" class="btn btn-primary" data-ng-click="redrawGraph()">Go</button>
+                <button type="button" class="btn btn-primary go-btn" data-ng-click="redrawGraph()">
+                    <span data-ng-if="!loading">GO</span>
+                    <i class="fa fa-refresh fa-spin" data-ng-if="loading"></i>
+                </button>
             </form>
         </div>
     </div>
@@ -24,7 +27,7 @@
                     <div class="widget-header">
                         <div class="pull-left">
                             <i class="fa fa-database"></i>
-                            Profit
+                            Income
                         </div>
                         <div class="pull-right"></div>                
                     </div>

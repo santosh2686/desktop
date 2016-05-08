@@ -1,6 +1,6 @@
 app.controller('indirectPaymentController',['$scope','$q','$filter','config','vehicleService','requestService',
             function($scope,$q,$filter,config,vehicleService,requestService){
-    $scope.data=[];
+    $scope.data=null;
     $scope.localEnv=config.local;
     $scope.loading=false;
     $scope.currMonth=new Date().getMonth();

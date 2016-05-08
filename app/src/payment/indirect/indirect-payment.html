@@ -47,8 +47,11 @@
             <i class="fa fa-refresh fa-spin"></i>
             Please Wait...
         </div>
-        <div data-ng-if="data.length===0 && !loading" class="loader">
+        <div data-ng-if="!data && !loading" class="loader">
             Please select a vehicle for which you want to see the payment and click on "Calculate Payment" button.
+        </div>
+        <div data-ng-if="data.length==0 && !loading" class="loader">
+            0 Record Found.
         </div>
         <table data-ng-if="data.length>0">
             <thead>

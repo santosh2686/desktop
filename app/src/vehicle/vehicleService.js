@@ -8,7 +8,7 @@ app.factory('vehicleService',['$uibModal','$filter','$q','config',function($uibM
 			return $filter('filter')(this.vehicle[type][0].data,{'_id':id});
 		},
         getVehicle:function(type){
-             return (this.vehicle[type])?$q.resolve({data:this.vehicle[type]}):config.getData(config.vehicle,'q={"name":"'+type+'"}');
+             return (this.vehicle[type])?$q.resolve({data:this.vehicle[type]}):config.getData(config.vehicle,'q={"name":"'+type+'"}');  
         },
         addVehicle:function(filter,item){
 			item._id = config.guid();

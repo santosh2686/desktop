@@ -1,7 +1,7 @@
-app.controller('fixedPaymentController',['$scope','$q','$filter','config','vehicleService','partyService','requestService','packageService',
-    function($scope,$q,$filter,config,vehicleService,partyService,requestService,packageService){
+app.controller('fixedPaymentController',['$scope','$q','$filter','config','vehicleService','partyService','requestService','packageService','pdfService',
+    function($scope,$q,$filter,config,vehicleService,partyService,requestService,packageService,pdfService){
     var initialVehicleData;
-    $scope.data=[];
+    $scope.data=null;
     $scope.localEnv=config.local;
     $scope.loading=false;
     $scope.currMonth=new Date().getMonth();
@@ -24,6 +24,7 @@ app.controller('fixedPaymentController',['$scope','$q','$filter','config','vehic
     });
     
     $scope.$watch('filter.party',function(newValue,oldValue){
+        $scope.filter.vehicle="";
         if(!newValue){
             return;
         };
@@ -85,6 +86,19 @@ app.controller('fixedPaymentController',['$scope','$q','$filter','config','vehic
 				$scope.allData.parkingAmt+=$scope.data[i].parkingAmt;
 			}
 			$scope.allData.monthTotal=($scope.allData.totalKm<=$scope.allData.basicKM?$scope.allData.basicAmt:$scope.allData.basicAmt+($scope.allData.totalKm-$scope.allData.basicKM)*pkg.kmRate.extraKm)+($scope.allData.extraHr*pkg.hrRate.extraHr)+$scope.allData.DAAmt+$scope.allData.nightHaltAmt+$scope.allData.tollAmt+$scope.allData.parkingAmt;
-    }
+    },
+    processForFixedpdf=function(data){
+			var rowData=[];
+			for(var i=0;i<data.length;i++){
+				var rowItem=[i+1,$filter('date')(data[i].date,'dd-MMM-yyyy'),data[i].requestType=='local'?'Local':'Out Station',data[i].totalKm+' KM',data[i].extraHr+' Hr',$filter('number')(data[i].diverAllowanceAmt,'2')+'/-',$filter('number')(data[i].nightHaltAmt,'2')+'/-',$filter('number')(data[i].tollAmt,'2')+'/-',$filter('number')(data[i].parkingAmt,'2')+'/-'];
+				rowData.push(rowItem);
+			}			
+			return rowData;
+   };
+
+    $scope.exportData=function(){
+        var columns=['Sr. No','Date','Request Type','Trip KM','Extra Hours','Driver Allowance','Night Halt','Toll Amount','Parking Amount'];
+        pdfService.buildPDF(columns,processForFixedpdf($scope.data),'Fixed Payments','Fixed_Payments',0,'Party Name : '+$scope.filter.party+',  Vehicle Name : '+$scope.filter.vehicle+',  Month : '+$scope.filter.month+',  Year : '+$scope.filter.year+'  ::  Total Amount : '+$filter('number')($scope.allData.monthTotal,'2')+'/-');
+    };
    
 }]);

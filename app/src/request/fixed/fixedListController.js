@@ -92,7 +92,7 @@ app.controller('fixedListController',['$scope','$rootScope','$filter','requestSe
                                           
         $scope.exportData=function(){
             var columns=['Sr. No','Date','Client Name','Request Type','Vehicle Provided','Vehicle','Driver','Total KM','Extra HR'];
-            pdfService.buildPDF(columns,$scope.processForFixedpdf($scope.data),'Fixed Requests','Fixed_Requests');				
+            pdfService.buildPDF(columns,$scope.processForFixedpdf($scope.data),'Fixed Requests','Fixed_Requests');			
         }                                 
 
 }]);

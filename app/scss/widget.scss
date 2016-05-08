@@ -112,6 +112,9 @@
             .count{
                  margin: 5px 5px 0 0;
             }
+            .go-btn{
+                width: 50px;
+            }
             .btn{
                 @media #{$mobile_portrait}{
                     width:100%;

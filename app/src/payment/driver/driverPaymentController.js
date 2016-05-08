@@ -1,6 +1,6 @@
 app.controller('driverPaymentController',
-               ['$scope','$q','$filter','config','driverService','requestService','expenseService',
-                function($scope,$q,$filter,config,driverService,requestService,expenseService){
+               ['$scope','$q','$filter','config','driverService','requestService','expenseService','pdfService',
+                function($scope,$q,$filter,config,driverService,requestService,expenseService,pdfService){
     $scope.data=[];
     $scope.localEnv=config.local;
     $scope.loading=true;
@@ -81,6 +81,14 @@ fixedTotal=fixedTotal+fixedDataList[i].diverAllowanceAmt+fixedDataList[i].driver
             });
         }
         return def.promise;
+    },
+    processForpdf=function(data){
+        var rowData=[];
+			for(var i=0;i<data.length;i++){
+                var rowItem=[i+1,data[i].name,$filter('number')(data[i].salary,'2')+'/-',data[i].localRequest,data[i].outRequest,$filter('number')((data[i].allowance+data[i].fixrequestAmt),'2')+'/-',$filter('number')(data[i].advanceAmt,'2')+'/-',$filter('number')(data[i].totalSalary,'2')+'/-'];
+                rowData.push(rowItem);
+            }
+        return rowData;
     };
     $scope.calculatePayment=function(){
         $q.all([getRegularData(),getFixedData(),getExpenseData()]).then(function(data){
@@ -104,5 +112,10 @@ fixedTotal=fixedTotal+fixedDataList[i].diverAllowanceAmt+fixedDataList[i].driver
         $scope.driverList = res.data;
         $scope.calculatePayment();
     });
+                    
+    $scope.exportData=function(){
+      var columns=['Sr. No','Driver Name','Base Salary','Local Requests','Out Requests','Total D.A.','Total Advanced','Total Salary'];
+       pdfService.buildPDF(columns,processForpdf($scope.data),'Driver Salary - '+$scope.filter.month+' '+$scope.filter.year,'Driver_Salary_'+$scope.filter.month+'_'+$scope.filter.year,0);
+    };
 
 }]);

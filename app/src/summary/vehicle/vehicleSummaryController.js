@@ -28,8 +28,9 @@ app.controller('vehicleSummaryController',
             });
         },
         loadSummary=function(){
+            requestService.request.regular=null;
             requestService.getRequest('regular','q={"year":"'+$scope.year+'", "vehicleSelect":"own","vehicle.vehicle":"'+$scope.vehicleSelect+'"}&f={"requestType":1,"profit":1,"month":1}').then(function(res){
-               for(var i=0; i<monthSet.length;i++){
+                for(var i=0; i<monthSet.length;i++){
                     chartData.local.push($filter('filter')(res.data,{'month':monthSet[i],'requestType':'local'}).length);
                     chartData.out.push($filter('filter')(res.data,{'month':monthSet[i],'requestType':'out'}).length);
                     calculateIncome($filter('filter')(res.data,{'month':monthSet[i]}));				
@@ -60,6 +61,7 @@ app.controller('vehicleSummaryController',
 			chartData.expense.push(totalExpense);
         },
         updateSummary=function(){
+            $scope.loading=false;
             angular.forEach(chartData,function(item,key){                
                new Chart(document.getElementById(key),{
                     type: 'bar',

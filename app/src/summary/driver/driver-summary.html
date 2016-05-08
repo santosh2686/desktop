@@ -1,0 +1,55 @@
+<div class="grid-widget">
+    <div class="grid-title">
+        <h3 class="pull-left">Driver Summary for {{year}}</h3>
+        <div class="pull-right">
+            <form name="vehicleReport" class="form-inline">
+                <div class="form-group">
+                    <select class="form-control" data-ng-model="driverSelect">
+                        <option data-ng-repeat="d in driverList">{{d.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-control" data-ng-model="year">
+                        <option data-ng-repeat="y in yearList">{{y}}</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary go-btn" data-ng-click="redrawGraph()">
+                    <span data-ng-if="!loading">GO</span>
+                    <i class="fa fa-refresh fa-spin" data-ng-if="loading"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="chart-data">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="pull-left">
+                            <i class="fa fa-database"></i>
+                            Local Request
+                        </div>
+                        <div class="pull-right"></div>                
+                    </div>
+                    <div class="widget-content">
+                        <canvas id="local"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="widget">
+                    <div class="widget-header">
+                        <div class="pull-left">
+                            <i class="fa fa-money"></i>
+                            Out Station Request
+                        </div>
+                        <div class="pull-right"></div>                
+                    </div>
+                    <div class="widget-content">
+                        <canvas id="out"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
