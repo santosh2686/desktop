@@ -13,7 +13,8 @@ gulpFilter = require('gulp-filter'),
 wiredep = require('wiredep').stream,
 minifyHTML = require('gulp-minify-html'),
 order = require('gulp-order'),
-server = require( 'gulp-develop-server' );
+server = require( 'gulp-develop-server' ),
+karmaServer = require('karma').Server;
 
 
 var NwBuilder = require('node-webkit-builder');
@@ -21,6 +22,13 @@ var nw = new NwBuilder({
     files: './deskapp/**/**', // use the glob format
     platforms: ['osx32', 'osx64', 'win32', 'win64'],
     version: '0.0.1'
+});
+
+//Unit testing
+gulp.task('test', function (done) {
+    new karmaServer({
+        configFile: __dirname + '/karma.conf.js'
+    }, done).start();
 });
 
 //Create Executeables
