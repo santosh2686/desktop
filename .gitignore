@@ -15,6 +15,10 @@ bower_components/*
 dist/
 dist/*
 
+test/
+test/*
+
+
 coverage/
 coverage/*
 

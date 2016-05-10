@@ -17,6 +17,7 @@
   },
   "license": "ISC",
   "devDependencies": {
+    "bardjs": "^0.1.8",
     "chai": "^3.5.0",
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^1.8.0",
@@ -51,6 +52,8 @@
     "karma-jasmine": "^1.0.0",
     "karma-mocha": "^1.0.1",
     "karma-phantomjs-launcher": "^1.0.0",
+    "karma-sinon": "^1.0.5",
+    "karma-sinon-chai": "^1.2.0",
     "main-bower-files": "^2.11.1",
     "mini-css": "^1.0.3",
     "mocha": "^2.4.5",
@@ -58,6 +61,7 @@
     "nw-builder": "^2.2.0",
     "phantomjs-prebuilt": "^2.1.7",
     "sinon": "^1.17.4",
+    "sinon-chai": "^2.8.0",
     "wiredep": "^3.0.0"
   },
   "dependencies": {
