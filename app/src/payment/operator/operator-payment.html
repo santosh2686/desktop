@@ -1,0 +1,71 @@
+<div class="grid-widget">
+    <div class="grid-title">
+        <h3 class="pull-left">Operator Payment - {{filter.month}} {{filter.year}}</h3>
+    </div>
+    <div class="grid-actionbar">
+        <div class="row">
+            <div class="col-md-8">
+                <form class="form-inline" novalidate="novalidate">
+                  <div class="form-group">
+                        <select class="form-control" data-ng-model="filter.month">
+                            <option data-ng-repeat="m in monthList">{{m}}</option>
+                        </select>
+                  </div>
+                  <div class="form-group">
+                        <select class="form-control" data-ng-model="filter.year">
+                            <option data-ng-repeat="y in yearList">{{y}}</option>
+                        </select>
+                  </div>
+                  <button data-ng-click="calculatePayment()" type="button" class="btn btn-primary">
+                      Calculate Payment
+                  </button>
+                </form>
+            </div>
+            <div class="col-md-4">
+                <form class="form-inline export" data-ng-if="data.length>0">
+                    <div class="checkbox">
+                        <label>&nbsp;Export : &nbsp;</label>
+                        <button type="button" data-ng-click="exportData()" title="Export to PDF" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="grid">
+        <div data-ng-if="loading" class="loader">
+            <i class="fa fa-refresh fa-spin"></i>
+            Please Wait...
+        </div>
+        <div data-ng-if="data.length===0 && !loading" class="loader">
+            0 Record Found.
+        </div>
+        <table data-ng-if="data.length>0">
+            <thead>
+              <tr>
+                <th data-class="expand" class="srNo">Sr No.</th>   
+                <th>Operator Name</th>
+                <th data-hide="phone,tablet">Out Bound Requests</th>
+                <th data-hide="phone,tablet">In Bound Requests</th>
+                <th data-hide="phone">Payment In</th>         
+                <th data-hide="phone">Payment Out</th>
+                <th>Difference</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr data-ng-repeat='d in data' data-responsive-grid>
+                    <td>{{$index+1}}</td>
+                    <td data-ng-bind='d.name'></td>
+                    <td data-ng-bind='d.totalInReq'></td>
+                    <td data-ng-bind='d.totalOutReq'></td>
+                    <td><i class="fa fa-rupee"></i> {{d.paymentIn | number:'2'}}/-</td>
+                    <td><i class="fa fa-rupee"></i> {{d.paymentOut | number:'2'}}/-</td>
+                    <td><i class="fa fa-rupee"></i> {{d.diff | number:'2'}}/-</td>
+                    <td class="payDetail">
+                    	<button type="button" class="btn btn-primary" data-ng-click="getOperatorDetail(d._id.$oid,d.name)">Details</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
