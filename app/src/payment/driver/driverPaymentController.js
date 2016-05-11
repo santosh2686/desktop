@@ -91,6 +91,8 @@ fixedTotal=fixedTotal+fixedDataList[i].diverAllowanceAmt+fixedDataList[i].driver
         return rowData;
     };
     $scope.calculatePayment=function(){
+        $scope.data=null;
+         $scope.loading=true;
         $q.all([getRegularData(),getFixedData(),getExpenseData()]).then(function(data){
             $scope.regularData=data[0];
             $scope.fixedData=data[1];
