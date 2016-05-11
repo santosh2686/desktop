@@ -11,9 +11,7 @@ app.controller('operatorPaymentController',
     $scope.filter.year=new Date().getFullYear().toString();
     $scope.filter.month=$scope.monthList[$scope.currMonth];
     
-    var opearatorRegData=[],
-        opearatorFixData=[], 
-        getRegularData=function(){
+    var getRegularData=function(){
             var def=$q.defer();
             if(requestService.request.regular){
                 var regData=requestService.request.regular.filter(function(item){
@@ -43,7 +41,7 @@ app.controller('operatorPaymentController',
     },   
    getPaymentIn=function(item){
         var paymentIn=0;
-			var req=$filter('filter')(opearatorRegData,{'operatorName':item.name});
+			var req=$filter('filter')($scope.opearatorRegData,{'operatorName':item.name});
 			item.totalInReq = req.length;
 			for(var i=0;i<req.length;i++){
 				paymentIn=paymentIn+((req[i].totalAmt+req[i].tollAmt+req[i].parkingAmt+req[i].driverOverTime)-(req[i].advanceAmt?req[i].advanceAmt:0));
@@ -52,8 +50,8 @@ app.controller('operatorPaymentController',
     },
     getPaymentOut=function(item){
         var paymentOut=0;
-			var req=$filter('filter')(opearatorRegData,{'operator':{'operatorName':item.name}});
-			var fixReq=$filter('filter')(opearatorFixData,{'operator':{'operatorName':item.name}});
+			var req=$filter('filter')($scope.opearatorRegData,{'operator':{'operatorName':item.name}});
+			var fixReq=$filter('filter')($scope.opearatorFixData,{'operator':{'operatorName':item.name}});
 			opr.totalOutReq = req.length+fixReq.length;
 			for(var i=0;i<req.length;i++){
 				paymentOut=paymentOut+(req[i].ownerTotal+req[i].tollAmt+req[i].parkingAmt+req[i].driverOverTime);
@@ -67,11 +65,9 @@ app.controller('operatorPaymentController',
     $scope.calculatePayment=function(){
          $scope.data=null;
          $scope.loading=true;
-        $q.all([getRegularData(),getFixedData()]).then(function(res){
-                opearatorRegData=res[0].data;
-                opearatorFixData=res[1].data;
-             console.log(opearatorRegData);
-            console.log(opearatorFixData);
+        $q.all([getRegularData(),getFixedData()]).then(function(res){            
+                $scope.opearatorRegData=res[0].data;
+                $scope.opearatorFixData=res[1].data;
                 angular.forEach($scope.operatorList,function(item){
 					item.paymentIn=getPaymentIn(item);
 					item.paymentOut=getPaymentOut(item);
@@ -84,8 +80,7 @@ app.controller('operatorPaymentController',
     };
                    
     partyService.getParty('operator').then(function(res){
-        $scope.operatorList = res.data[0].data;
-        
+        $scope.operatorList = res.data[0].data;        
         $scope.calculatePayment();
     });
     
