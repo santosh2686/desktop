@@ -235,8 +235,8 @@
                     <div class="col-md-3">
                     	<div class="form-group">
                         	<label>Select Vehicle</label>
-                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.operator.vehicleName"></span>
-                            <select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.operator.vehicleName'>
+                            <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.operator.vehicle"></span>
+                            <select required class="form-control" data-ng-if="!hideView" data-ng-model="requestData.operator.vehicle">
 								  <option value="">Select Vehicle</option>
 								  <option ng-repeat="o in operatorVehicleList">{{o.name}},{{o.number}}</option>
 							</select>

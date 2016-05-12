@@ -266,8 +266,8 @@ app.controller('addFixedRequestController',
 		$scope.submitRequest=function(){
 			$scope.loading=true;
             if($scope.requestData.vehicleSelect==='operator'){
-                $scope.requestData.operator.vehicleName=$scope.operatorVehicleName.split(',')[0];
-                $scope.requestData.operator.vehicleNo=$scope.operatorVehicleName.split(',')[1];
+                $scope.requestData.operator.vehicleName=$scope.requestData.operator.vehicle.split(',')[0];
+                $scope.requestData.operator.vehicleNo=$scope.requestData.operator.vehicle.split(',')[1];
 			}
             $scope.requestData.month=$filter('date')($scope.requestData.date,"MMM");
 			$scope.requestData.year=$filter('date')($scope.requestData.date,"yyyy");
