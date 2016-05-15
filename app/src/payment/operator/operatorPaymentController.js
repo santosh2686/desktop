@@ -1,6 +1,6 @@
 app.controller('operatorPaymentController',
-               ['$scope','$q','$filter','config','partyService','requestService',
-               function($scope,$q,$filter,config,partyService,requestService){
+               ['$scope','$q','$filter','config','partyService','requestService','pdfService',
+               function($scope,$q,$filter,config,partyService,requestService,pdfService){
     $scope.data=[];
     $scope.localEnv=config.local;
     $scope.loading=true;
@@ -62,6 +62,14 @@ app.controller('operatorPaymentController',
 				paymentOut=paymentOut+fixReq[i].totalAmt+fixReq[i].tollAmt+fixReq[i].parkingAmt+fixReq[i].driverOverTime;
 			}
 			return paymentOut;
+    },
+    processForpdf=function(data){
+        var rowData=[];
+        for(var i=0;i<data.length;i++){
+            var rowItem=[i+1,data[i].name,data[i].totalInReq,data[i].totalOutReq,$filter('number')(data[i].paymentIn,'2')+'/-',$filter('number')(data[i].paymentOut,'2')+'/-', $filter('number')(data[i].diff,'2')+'/-'];
+            rowData.push(rowItem);
+        }
+        return rowData;
     };
     
     $scope.calculatePayment=function(){
@@ -75,14 +83,18 @@ app.controller('operatorPaymentController',
 					item.paymentOut=getPaymentOut(item);
 					item.diff=item.paymentIn-item.paymentOut;
 				});  
-              $scope.data=$scope.operatorList;
-              console.log($scope.operatorList);
+                $scope.data=$scope.operatorList;
                 $scope.loading=false;
         });
     };
     $scope.getOperatorDetail=function(id,name){
         console.log(id);
         console.log(name);
+    };
+                   
+    $scope.exportData=function(){
+        var columns=['Sr.No','Operator Name','Out Bound Requests','In Bound Requests','Payment In','Payment Out','Difference'];
+        pdfService.buildPDF(columns,processForpdf($scope.data),'Operator Payment - '+$scope.filter.month+' '+$scope.filter.year,'Operator_Payment_'+$scope.filter.month+'_'+$scope.filter.year,0);
     };
                    
     partyService.getParty('operator').then(function(res){

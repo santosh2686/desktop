@@ -99,6 +99,6 @@ app.controller('regularListController',['$scope','$rootScope','$q','$filter','re
 	
 	$scope.exportData=function(){
         var columns=['Sr. No','Start Date','Client Name','Request Type','End Date','Driver Name','Vehicle','Total KM','Total Amt'];
-			pdfService.buildPDF(columns,$scope.processForpdf($scope.data),'Regular Requests','Regular_Requests',8);		
+			pdfService.buildPDF(columns,$scope.processForpdf($scope.data),'Regular Requests','Regular_Requests',8);	
 	};	
 }]);

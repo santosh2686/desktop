@@ -1,5 +1,6 @@
-app.controller('indirectPaymentController',['$scope','$q','$filter','config','vehicleService','requestService',
-            function($scope,$q,$filter,config,vehicleService,requestService){
+app.controller('indirectPaymentController',
+            ['$scope','$q','$filter','config','vehicleService','requestService','pdfService',
+            function($scope,$q,$filter,config,vehicleService,requestService,pdfService){
     $scope.data=null;
     $scope.localEnv=config.local;
     $scope.loading=false;
@@ -47,7 +48,20 @@ app.controller('indirectPaymentController',['$scope','$q','$filter','config','ve
 			for(var i=0; i<$scope.data.length; i++){
 				$scope.indirectTotal=$scope.indirectTotal+$scope.data[i].totalAmt+$scope.data[i].tollAmt+$scope.data[i].parkingAmt;
 			}
+    },
+    processForpdf=function(data){
+        var rowData=[];
+        for(var i=0;i<data.length;i++){
+            var rowItem=[i+1,$filter('date')(data[i].date?data[i].date:data[i].startTrip.date,'dd-MMM-yyyy'),data[i].requestType==='local'?'Local':'Out Station',$filter('number')(data[i].totalAmt,'2')+'/-',$filter('number')(data[i].tollAmt,'2')+'/-',$filter('number')(data[i].parkingAmt,'2')+'/-', $filter('number')((data[i].totalAmt+data[i].tollAmt+data[i].parkingAmt),'2')+'/-'];
+            rowData.push(rowItem); 
+        }
+        return rowData;
     };
+     $scope.exportData=function(){
+      var columns=['Sr. No','Date','Request Type','Trip Amount','Toll Amount','Parking Amount','Total Amount'];
+       pdfService.buildPDF(columns,processForpdf($scope.data),'Indirect Payment - '+$scope.filter.month+' '+$scope.filter.year,'Indirect_Payment_'+$scope.filter.month+'_'+$scope.filter.year,0,'Party Name : '+$scope.filter.vehicle+', Month : '+$scope.filter.month+',  Year : '+$scope.filter.year+'  ::  Total Amount : '+$filter('number')($scope.indirectTotal,'2')+'/-');
+    };
+                
     $scope.calculatePayment=function(){
         $scope.data=[];
         $scope.loading=true;

@@ -13,7 +13,7 @@
         <div class="request-flow">
         	<ul>
             	<li data-ng-class={"active":request}>1. Request Details</li>
-                <li data-ng-class={"active":!request}>2. Time & Material <span class="hidden-xs">Details</span></li>
+                <li data-ng-class={"active":!request}>2. Time &amp; Material <span class="hidden-xs">Details</span></li>
             </ul>
         </div>
         
@@ -55,7 +55,7 @@
                     
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Dialy Vehicle</label>
+                        <label>Daily Vehicle</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.vehicle"></span>
                         <select class="form-control" data-ng-model="requestData.vehicle" data-ng-if='regularVehicleList.length>1'>
 								<option value="">Select Vehicle</option>
@@ -108,7 +108,7 @@
 				</div>
 				
                 <div class="section-title" data-ng-if="requestData.vehicleSelect!=='daily'">
-                    Vehicle & Package Details
+                    Vehicle &amp; Package Details
                 </div>
 				<!-- own Vehicle-->
                <div class="row" data-ng-if="requestData.vehicleSelect=='own'">	
@@ -213,7 +213,7 @@
                     	<div class="form-group">
                         	<label>Agency Contact</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.agency.agencyContact"></span>
-                			<input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='requestData.agency.agencyContact' />
+                			<input data-ng-if="!hideView" required type="number" class="form-control" data-ng-model='requestData.agency.agencyContact' />
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -278,7 +278,7 @@
                         <div class="form-group">
                             <label>Opening KM</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.openingKm"></span>
-                            <input data-ng-if="!hideView" type="text" class="form-control" data-ng-model='requestData.openingKm'/>
+                            <input data-ng-if="!hideView" type="number" class="form-control" data-ng-model='requestData.openingKm'/>
                         </div>
                     </div>
                    
@@ -286,7 +286,7 @@
                         <div class="form-group">
                             <label>Closing KM</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.closingKm"></span>
-                            <input data-ng-if="!hideView" type="text" class="form-control" data-ng-model='requestData.closingKm' />
+                            <input data-ng-if="!hideView" type="number" class="form-control" data-ng-model='requestData.closingKm' />
                         </div>
                     </div>
 					<div class="col-md-3">
@@ -348,28 +348,28 @@
                         <div class="form-group">
                             <label>Advance Amt from client</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.advanceAmt"></span>     
-                            <input data-ng-if="!hideView" type="text" class="form-control" data-ng-model='requestData.advanceAmt'/>
+                            <input data-ng-if="!hideView" type="number" class="form-control" data-ng-model='requestData.advanceAmt'/>
                         </div>
                     </div>
                     <div class="col-md-3" data-ng-if="requestData.requestType=='out'">
                         <div class="form-group">
                             <label>Driver Allowance</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.driverAllowance"></span>
-                            <input data-ng-if="!hideView" type="text" class="form-control" data-ng-model='requestData.driverAllowance' />
+                            <input data-ng-if="!hideView" type="number" class="form-control" data-ng-model='requestData.driverAllowance' />
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Toll Amt</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.tollAmt"></span>
-                            <input data-ng-if="!hideView" type="text" class="form-control" data-ng-model='requestData.tollAmt' />
+                            <input data-ng-if="!hideView" type="number" class="form-control" data-ng-model='requestData.tollAmt' />
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Parking Amt</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.parkingAmt"></span>
-                            <input data-ng-if="!hideView" type="text" class="form-control" data-ng-model='requestData.parkingAmt' />
+                            <input data-ng-if="!hideView" type="number" class="form-control" data-ng-model='requestData.parkingAmt' />
                         </div>
                     </div>
                 </div>
