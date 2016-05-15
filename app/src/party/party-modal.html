@@ -1,7 +1,7 @@
 <div class="widget">
 	<div class="widget-header">
     	<div class="pull-left">
-            Add {{type}}
+            {{action}} {{type}}
     	</div>
         <div class="pull-right">
         	<span class="modal-close" data-ng-click="closeModal()">
@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <label>Party Contact</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="party.contact"></span>
-                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='party.contact'/>
+                        <input data-ng-if="!hideView" required type="number" class="form-control" data-ng-model='party.contact'/>
                     </div>
                 </div>
                 <div class="col-md-3">

@@ -1,7 +1,7 @@
 <div class="widget">
 	<div class="widget-header">
     	<div class="pull-left">
-            Add {{type}} Package
+            {{action}} {{type}} Package
     	</div>
         <div class="pull-right">
         	<span class="modal-close" data-ng-click="closeModal()">
@@ -44,7 +44,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <label>Minimum Hours </label>
+                        <label>Minimum Hours</label>
                         <span data-ng-if="hideView" class="view-value" data-ng-bind="package.hrRate.minHr"></span>
                         <input data-ng-if="!hideView" required type="number" class="form-control" data-ng-model='package.hrRate.minHr'/>
                     </div>

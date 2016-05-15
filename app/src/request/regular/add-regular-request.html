@@ -1,7 +1,7 @@
 <div class="widget">
 	<div class="widget-header">
     	<div class="pull-left">
-        	Add Regular request
+        	{{action}} Regular request
         </div>
         <div class="pull-right">
         	<span class="modal-close" data-ng-click="closeModal()">
@@ -78,7 +78,7 @@
                         <div class="form-group">
                             <label>User Mail</label>
                             <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.userEmail"></span>
-                            <input data-ng-if="!hideView" type="email" class="form-control" data-ng-model='requestData.userEmail'/>
+                            <input data-ng-if="!hideView" type="text" class="form-control" data-ng-model='requestData.userEmail'/>
                           </div>
                     </div>
                 </div>
