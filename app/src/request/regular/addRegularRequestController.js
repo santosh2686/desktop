@@ -100,43 +100,40 @@ app.controller('addRegularRequestController',
                     $scope.operatorList=res[4].data[0].data;
                     if(!partyService.party.operator){
                         partyService.party.operator=res[4].data;
-                    }
-                });
+                    };
+                
+                    $scope.$watch('requestData.operator.operatorName',function(newVal,oldVal){
+                        $scope.requestData.operator.vehicle="";
+                        if(newVal){
+                            $scope.operatorVehicleList=$filter('filter')($scope.operatorList,{'name':newVal})[0].vehicle;
+                        }
+                    });
+                    $scope.$watch('requestData.requestType', function(newVal, oldVal){
+                        packageService.getPackage(newVal).then(function(res){
+                            $scope.packageList=res.data[0].data;
+                            /*$scope.requestData.vehicle.partyPackage="";
+                            $scope.requestData.inDirect.ownerPackage="";
+                            $scope.requestData.inDirect.partyPackage="";
 
+                            $scope.requestData.agency.agencyPackage="";
+                            $scope.requestData.agency.partyPackage="";
+
+                            $scope.requestData.operator.operatorPackage="";
+                            $scope.requestData.operator.partyPackage="";*/
+
+                            if(!packageService.package[newVal]){
+                                packageService.package[newVal]=res.data;
+                            }
+                        });
+                   });	
+
+                
+                });
         };
 		
         if($scope.action!=='view'){
             loadDependencies();
-            $scope.$watch('requestData.operator.operatorName',function(newVal,oldVal){
-                $scope.requestData.operator.vehicleName="";
-                if(newVal){
-                    $scope.operatorVehicleList=$filter('filter')($scope.operatorList,{'name':newVal})[0].vehicle;
-                }
-                /*if($scope.operatorVehicleList){
-                    $scope.operatorVehicleName=$scope.operatorVehicleList[0].name+','+$scope.operatorVehicleList[0].number;
-                }*/
-            });
-
-
-            $scope.$watch('requestData.requestType', function(newVal, oldVal){
-                packageService.getPackage(newVal).then(function(res){
-                    $scope.packageList=res.data[0].data;
-                    /*$scope.requestData.vehicle.partyPackage="";
-                    $scope.requestData.inDirect.ownerPackage="";
-                    $scope.requestData.inDirect.partyPackage="";
-
-                    $scope.requestData.agency.agencyPackage="";
-                    $scope.requestData.agency.partyPackage="";
-
-                    $scope.requestData.operator.operatorPackage="";
-                    $scope.requestData.operator.partyPackage="";*/
-
-                    if(!packageService.package[newVal]){
-                        packageService.package[newVal]=res.data;
-                    }
-                });
-           });	
-        }
+        };
                     
         $scope.requestData=($scope.action==='new')?newObj:record.data[0];
         if(record.action=='edit'){

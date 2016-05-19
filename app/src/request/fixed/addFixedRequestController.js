@@ -88,51 +88,51 @@ app.controller('addFixedRequestController',
                     if(!partyService.party.operator){
                         partyService.party.operator=res[4].data;
                     }
-                });
-        };
-    if($scope.action!=='view'){
-            loadDependencies();
-        
-            $scope.$watch('[requestData.regularVehicle,requestData.partyName]',function(newVal,oldVal){
-				switch($scope.requestData.regularVehicle){
-				case 'indirect':{
-					$scope.regularVehicleList=$filter('filter')($scope.oVehicleList,{'selectFixed':'Yes','fixed':{'companyName':$scope.requestData.partyName}});
-					break;
-				}
-				default:{
-					$scope.regularVehicleList=$filter('filter')($scope.vehicleList,{'selectFixed':'Yes','fixed':{'companyName':$scope.requestData.partyName}});
-					break;
-				}
-			}
-            if($scope.regularVehicleList && $scope.regularVehicleList.length>0 && $scope.action==='new'){
-				$scope.requestData.vehicle=$scope.regularVehicleList[0].vehicleName+','+$scope.regularVehicleList[0].vehicleNo;
-			}
-        });
-        
-            $scope.$watch('requestData.operator.operatorName',function(newVal,oldVal){
-                $scope.requestData.operator.vehicleName="";
-                if(newVal){
-                    $scope.operatorVehicleList=$filter('filter')($scope.operatorList,{'name':newVal})[0].vehicle;
-                }
-            });
 
-            $scope.$watch('requestData.requestType', function(newVal, oldVal){
-                packageService.getPackage(newVal).then(function(res){
-                    $scope.packageList=res.data[0].data;
-                    $scope.requestData.inDirect.ownerPackage="";
-                    $scope.requestData.inDirect.partyPackage="";
-
-                    $scope.requestData.agency.agencyPackage="";
-                    $scope.requestData.agency.partyPackage="";
-
-                    $scope.requestData.operator.operatorPackage="";
-                    $scope.requestData.operator.partyPackage="";
-
-                    if(!packageService.package[newVal]){
-                        packageService.package[newVal]=res.data;
+                    $scope.$watch('[requestData.regularVehicle,requestData.partyName]',function(newVal,oldVal){
+                        switch($scope.requestData.regularVehicle){
+                        case 'indirect':{
+                            $scope.regularVehicleList=$filter('filter')($scope.oVehicleList,{'selectFixed':'Yes','fixed':{'companyName':$scope.requestData.partyName}});
+                            break;
+                        }
+                        default:{
+                            $scope.regularVehicleList=$filter('filter')($scope.vehicleList,{'selectFixed':'Yes','fixed':{'companyName':$scope.requestData.partyName}});
+                            break;
+                        }
+                    }
+                    if($scope.regularVehicleList && $scope.regularVehicleList.length>0 && $scope.action==='new'){
+                        $scope.requestData.vehicle=$scope.regularVehicleList[0].vehicleName+','+$scope.regularVehicleList[0].vehicleNo;
                     }
                 });
-           });	
+
+                    $scope.$watch('requestData.operator.operatorName',function(newVal,oldVal){
+                        $scope.requestData.operator.vehicle="";
+                        if(newVal){
+                            $scope.operatorVehicleList=$filter('filter')($scope.operatorList,{'name':newVal})[0].vehicle;
+                        }
+                    });
+
+                    $scope.$watch('requestData.requestType', function(newVal, oldVal){
+                        packageService.getPackage(newVal).then(function(res){
+                            $scope.packageList=res.data[0].data;
+                            $scope.requestData.inDirect.ownerPackage="";
+                            $scope.requestData.inDirect.partyPackage="";
+
+                            $scope.requestData.agency.agencyPackage="";
+                            $scope.requestData.agency.partyPackage="";
+
+                            $scope.requestData.operator.operatorPackage="";
+                            $scope.requestData.operator.partyPackage="";
+
+                            if(!packageService.package[newVal]){
+                                packageService.package[newVal]=res.data;
+                            }
+                        });
+                   });
+                });
+        };
+        if($scope.action!=='view'){
+            loadDependencies();
         }
 		
 		$scope.requestData=(record.action==='new')?newObj:record.data[0];

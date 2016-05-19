@@ -21,10 +21,7 @@ app.controller('driverPaymentController',
             var allowanceList = $filter('filter')($scope.regularData,{'vehicle':{'driver':driver}});
 			var allowanceTotal=0;
             for(var i=0;i<allowanceList.length;i++){
-                if(driver=="Mr Samir"){
-                    console.log(allowanceList[i]);
-                }
-				allowanceTotal=allowanceTotal+allowanceList[i].driverAllowance+allowanceList[i].driverOverTime;
+                allowanceTotal=allowanceTotal+allowanceList[i].driverAllowance+allowanceList[i].driverOverTime;
 			}
 			return allowanceTotal;
     },
