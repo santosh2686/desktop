@@ -1,1 +1,8 @@
 # Travel
+
+## Installation
+
+```
+npm install
+
+```
