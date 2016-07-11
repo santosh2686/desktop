@@ -5,7 +5,7 @@
   "node-main": "server.js",
   "main": "http://localhost:9090/",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node node_modules/gulp/bin/gulp.js build",
   },
   "author": "Santosh",
   "window": {
