@@ -9,7 +9,6 @@ minifyCss = require('gulp-minify-css'),
 templateCache = require('gulp-angular-templatecache'),
 sequence = require('gulp-sequence'),
 gulpBowerFiles = require('gulp-bower-files'),
-gulpFilter = require('gulp-filter'),
 wiredep = require('wiredep').stream,
 minifyHTML = require('gulp-minify-html'),
 order = require('gulp-order'),
@@ -110,6 +109,7 @@ gulp.task('watch',function(){
 	gulp.watch('app/src/**/*.js',['javascript']);	
 	gulp.watch('app/src/**/*.html',['template']);
 });
+
 gulp.task('bower',sequence('bower-copy','bower-inject','bower-minify'));
 gulp.task('build',sequence(['sass','javascript','template'],'inject','bower','watch','server:start'));
 
