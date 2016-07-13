@@ -15,6 +15,9 @@ order = require('gulp-order'),
 server = require( 'gulp-develop-server' ),
 karmaServer = require('karma').Server;
 
+var pjson = require('./package.json');
+var version = pjson.version;
+
 
 var NwBuilder = require('node-webkit-builder');
 var nw = new NwBuilder({
@@ -46,7 +49,7 @@ gulp.task('sass',function(){
 	return gulp.src('app/scss/**/*.scss')
 		.pipe(order(['global.scss','**/*.scss']))
 	   .pipe(sass())
-	   .pipe(concat('main.css'))
+	   .pipe(concat('main.min_'+version+'.css'))
 	   .pipe(minifyCss())
 	   .pipe(gulp.dest('dist/css'));
 });
@@ -57,7 +60,7 @@ gulp.task('javascript',function(){
 	return gulp.src(['app/src/**/*.js'])
 	.pipe(order(['src/app.js','**/*.js']))
 	.pipe(concat('script.js'))		   
-	.pipe(rename('script.min.js'))
+	.pipe(rename('script.min_'+version+'.js'))
 	.pipe(uglify())
 	.pipe(gulp.dest('dist/script'));
 });
@@ -69,6 +72,7 @@ gulp.task('template',function(){
 	.pipe(minifyHTML({ empty: true }))
 	.pipe(templateCache({standalone:true}))
 	.pipe(uglify())
+	.pipe(rename('template.min_'+version+'.js'))
 	.pipe(gulp.dest('dist/template'));
 });
 
