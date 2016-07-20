@@ -5,8 +5,9 @@
   "node-main": "server.js",
   "main": "http://localhost:9090/",
   "scripts": {
-    "install": "node node_modules/gulp/bin/gulp.js build",
-    "start": "node node_modules/gulp/bin/gulp.js build"
+    "install": "bower install && npm run build",
+    "start": "node node_modules/gulp/bin/gulp.js build",
+    "build": "node node_modules/gulp/bin/gulp.js build"
   },
   "author": "Santosh",
   "window": {
