@@ -115,7 +115,7 @@ gulp.task('watch',function(){
 });
 
 gulp.task('bower',sequence('bower-copy','bower-inject','bower-minify'));
-gulp.task('build',sequence(['sass','javascript','template'],'inject','bower','watch'));
+gulp.task('build',sequence(['sass','javascript','template'],'inject','bower'));
 
 
 // run server 
