@@ -150,6 +150,5 @@ app.route('/api/:databse/:collection/:id')
         }
     })
 });  
-console.log(process.env.PORT);
-app.listen(process.env.PORT);
-console.log('Application Running on port : ' + process.env.PORT);
+app.listen(9090);
+console.log('Application Running on port : 9090');
