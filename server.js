@@ -149,6 +149,7 @@ app.route('/api/:databse/:collection/:id')
             res.send('Database is not connected...');
         }
     })
-});  
-app.listen(9090);
-console.log('Application Running on port : 9090');
+});
+var port = process.env.PORT || 9090;
+app.listen(port);
+console.log('Application Running on port : '+port);
