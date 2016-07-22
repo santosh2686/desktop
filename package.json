@@ -74,5 +74,8 @@
     "nw": "^0.13.3",
     "path": "^0.12.7",
     "bower":"x.x.x"
+  },
+  "devDependencies":{
+    
   }
 }
