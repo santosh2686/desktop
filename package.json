@@ -9,6 +9,9 @@
     "start": "node node_modules/gulp/bin/gulp.js server:start",
     "build": "node node_modules/gulp/bin/gulp.js build"
   },
+  "engines": {
+    "node": "4.1.1"
+  },
   "author": "Santosh Chaudhari",
   "window": {
     "toolbar": false,
