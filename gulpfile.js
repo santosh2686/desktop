@@ -113,11 +113,11 @@ gulp.task('build',sequence(['sass','javascript','template'],'inject','bower'));
 
 // run server 
 gulp.task('server:start', function(){
-    server.listen({path:'server.js'});
+    server.listen({path:'app.js'});
 });
 
 // restart server if server.js changed 
 gulp.task( 'server:restart', function() {
-    gulp.watch( [ 'server.js' ], server.restart );
+    gulp.watch( [ 'app.js' ], server.restart );
 });
 
