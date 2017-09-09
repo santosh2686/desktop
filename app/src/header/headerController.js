@@ -1,5 +1,9 @@
-app.controller('headerController',['$scope','$state',function($scope,$state){
+app.controller('headerController',['$scope','$state', '$http',function($scope, $state, $http){
 	$scope.logOut=function(){
-		$state.go('login');
+    $http.get('/logout').then(function (res) {
+      $state.go('login');
+    }, function () {
+      console.log('ERROR');
+    });
 	}
 }]);

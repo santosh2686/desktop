@@ -3,7 +3,7 @@ app.factory('config',['$http',function($http){
     return{
 			local:localEnv,
             apiKey:'NNY26lvUYux1Rz5H-7QLgNB28lsBmg0K',
-            baseUrl:localEnv?'http://localhost:9090/api/travel':'https://api.mongolab.com/api/1/databases/travel/collections',
+            baseUrl:localEnv?'http://localhost:9090/api/travel':'v1/api/1/databases/travel/collections',
 			login:'/login',
             regular:'/request',
 			fixed:'/fixedRequest',
@@ -35,7 +35,7 @@ app.factory('config',['$http',function($http){
         },
         getData:function(colName,filterQuery){
             return this.local?$http.get(this.baseUrl+colName+'?'+filterQuery):
-            $http.get(this.baseUrl+colName+'?apiKey='+this.apiKey+'&'+filterQuery);                
+            $http.get(this.baseUrl+colName+'?apiKey='+this.apiKey+'&'+filterQuery);
         },
         postData:function(colName,data){
             return this.local?$http.post(this.baseUrl+colName,JSON.stringify(data)):

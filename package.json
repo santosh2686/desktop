@@ -2,11 +2,11 @@
   "name": "client",
   "version": "1.0.5",
   "description": "Travel",
-  "node-main": "server.js",
+  "node-main": "app.js",
   "main": "http://localhost:9090/",
   "scripts": {
     "install": "bower install && npm run build",
-    "start": "node node_modules/gulp/bin/gulp.js server:start",
+    "start": "node app.js",
     "build": "node node_modules/gulp/bin/gulp.js build"
   },
   "engines": {
@@ -23,7 +23,11 @@
   "license": "ISC",
   "dependencies": {
     "bardjs": "^0.1.8",
+    "body-parser": "^1.15.0",
+    "bower": "x.x.x",
     "chai": "^3.5.0",
+    "express": "^4.13.4",
+    "express-session": "^1.15.5",
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^1.8.0",
     "gulp-bower-files": "^0.2.7",
@@ -48,6 +52,7 @@
     "gulp-uncss": "^1.0.4",
     "gulp-util": "^3.0.7",
     "gulp-wiredep": "0.0.0",
+    "http-proxy-middleware": "^0.17.4",
     "jasmine-core": "^2.4.1",
     "jshint": "^2.9.1",
     "jshint-stylish": "^2.1.0",
@@ -62,20 +67,17 @@
     "main-bower-files": "^2.11.1",
     "mini-css": "^1.0.3",
     "mocha": "^2.4.5",
-    "node-webkit-builder": "^1.0.13",
-    "nw-builder": "^2.2.0",
-    "phantomjs-prebuilt": "^2.1.7",
-    "sinon": "^1.17.4",
-    "sinon-chai": "^2.8.0",
-    "wiredep": "^3.0.0",
-    "body-parser": "^1.15.0",
-    "express": "^4.13.4",
     "mongodb": "^2.1.16",
+    "node-webkit-builder": "^1.0.13",
     "nw": "^0.13.3",
+    "nw-builder": "^2.2.0",
     "path": "^0.12.7",
-    "bower":"x.x.x"
+    "phantomjs-prebuilt": "^2.1.7",
+    "sinon": "^1.17.7",
+    "sinon-chai": "^2.8.0",
+    "wiredep": "^3.0.0"
   },
-  "devDependencies":{
-    
+  "devDependencies": {
+    "https-proxy-agent": "^2.1.0"
   }
 }

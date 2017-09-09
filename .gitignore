@@ -1,7 +1,6 @@
 .git
-
+.idea
 node_modules/
-node_modules/*
 
 node_modules_prod/
 node_modules_prod/*
@@ -10,16 +9,10 @@ database/
 database/*
 
 bower_components/
-bower_components/*
 
 dist/
-dist/*
 
 test/
-test/*
 
-
-coverage/
-coverage/*
-
+npm-debug.log
 MongoDBAsService.txt
