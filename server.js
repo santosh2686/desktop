@@ -1,183 +1,87 @@
-var MongoClient = require('mongodb').MongoClient;
-var express = require('express');
-var app = express();
-var objectId = require('mongodb').ObjectID;
-var bodyParser = require('body-parser');
-var url = require('url');
-var qs = require('querystring');
-var path = require("path");
-var dbUrl='mongodb://localhost:27017/';
+const express = require('express');
+const app = express();
+const http = require('http');
+const url = require('url');
+const qs = require('querystring');
+var request = require('request');
 
-//Window Functions and Events
-//https://github.com/nwjs/nw.js/wiki/window
-
-//Build the EXE
-//Build zip file of entire files and then paste in the directory where we have nw.exe and run the following command.
-//copy /b nw.exe+app.nw app.exe 
-
-//Ref : 
-//https://www.scirra.com/tutorials/1359/distributing-using-node-webkit-for-free-windows
-
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
-
-app.use(express.static(__dirname + '/dist'));
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/dist/index.html'));
-});
+const port = process.env.PORT || 9090;
+const proxyMiddleware = require('http-proxy-middleware');
 
 /*
-db.authenticate('admin1', 'pass123', function(err, result) {
-  if(!err){
-	res.send('Authentication Success');
-  }
-});
+const HttpsProxyAgent = require('https-proxy-agent');
+const proxy = process.env.https_proxy || process.env.HTTPS_PROXY;
+const agent = new HttpsProxyAgent(proxy);
 */
 
-/*db.addUser('admin', 'pass123', function(err, result) {
-	if(!err){
-		res.send('User Addded');
-	}else{
-		res.send('Failed')
-	}
-})*/
+const session = require('express-session');
+app.use(session({
+  secret: '278sbkn4-4Dsahn44-WppQ38S-qwhbk456-80nshdnfh-78sdfgnk10376s',
+  resave: true,
+  saveUninitialized: true
+}));
 
-app.route('/api/:databse/:collection')
-.get(function(req,res){
-    var database = req.params.databse;
-    var collection = req.params.collection;
-    var queryObject = url.parse(req.url,true).query;
-    var q=queryObject.q?JSON.parse(queryObject.q):{};
-    var f=queryObject.f?JSON.parse(queryObject.f):{};
-    var s=queryObject.s?JSON.parse(queryObject.s):{};    
-    var c = queryObject.c;
-    if(q._id){
-        q._id=objectId(q._id);
-    }
-	//Inline authentication for database
-	//MongoClient.connect('mongodb://admin:pass123@localhost:27017/travel',function(err,db){	
-    MongoClient.connect(dbUrl+database,function(err,db){		
-        if(!err){
-            db.collection(collection,function(err, collection) {
-                if(c){
-                    collection.count(q,function(err,count){
-                        res.sendStatus(count);
-                        db.close();
-                    });
-                }else{
-                    collection.find(q,f).sort(s).toArray(function(err, items) {
-                        res.send(items);
-                        db.close();
-                    });
-                }
-            });
-        }else{
-            res.send('Database is not connected...');
-        }
-    });
-})
-.post(function(req,res){
-    var database = req.params.databse;
-    var collection = req.params.collection;
-    var item = req.body;
-    MongoClient.connect(dbUrl+database,function(err,db){
-        if(!err){
-            db.collection(collection, function(err, collection) {
-                collection.insert(item, {safe:true}, function(err, result) {
-                    if(!err)
-                    {
-                        res.send(result);
-                    }else{                        
-                        res.send(err);
-                    }
-                });
-            });
-        }else{
-            res.send('Database is not connected...');
-        }
-    });
-})
-.put(function(req,res){
-    var database = req.params.databse;
-    var collection = req.params.collection;
-    var queryObject = url.parse(req.url,true).query;
-	var a = queryObject.action;
-    var q=queryObject.q?JSON.parse(queryObject.q):{};
-    var item = req.body;
-    if(q._id){
-        q._id=objectId(q._id);
-    }
-    MongoClient.connect(dbUrl+database,function(err,db){
-        if(!err){
-            db.collection(collection,function(err,collection){
-                collection.update(q,item,function(err,result){
-                    if(!err){
-                        res.send(result);
-                    }else{
-                        res.send(err);
-                    }
-                 });
-            });
-        }else{
-            res.send('Database is not connected...');
-        }
-    });
-});
-
-//Delete Record
-app.route('/api/:databse/:collection/:id')
-.delete(function(req,res){
-     var databaseName = req.params.databse;
-    var collectionName = req.params.collection;
-    var recordId = req.params.id;
-    MongoClient.connect(dbUrl+databaseName,function(err,db){
-        if(!err){            
-            db.collection(collectionName,function(err,collection){
-                if(!err){                   
-                    collection.remove({'_id':objectId(recordId)},{safe:true},function(err, result){
-                        if(!err){
-                            res.send(result);
-                        }else{
-                            res.send(err);
-                        }
-                    });
-                }
-                
-            });
-        }else{
-            res.send('Database is not connected...');
-        }
-    })
-});
-var port = process.env.PORT || 9090;
-app.listen(port);
-console.log('Application Running on port : '+port);
-
-
-/*
-//Comvert Excel sheet to JSON.
-var express = require('express');
-var app = express();
-
+app.use(express.static(__dirname + '/dist'));
 app.get('/', function (req, res) {
-    res.send('Hello World!')
+  res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
 
+// Authentication and Authorization Middleware
+const auth = function (req, res, next) {
+  if (req.session && req.session.user === "balaji" && req.session.admin)
+    return next();
+  else
+    return res.sendStatus(401);
+};
 
-var node_xj = require("xls-to-json");
-node_xj({
-    input: "task.xlsx",  // input xls
-    output: "output.json" // output json
-}, function(err, result) {
-    if(err) {
-        console.error(err);
-    } else {
-        console.log(result);
-    }
+
+const loginCall = function (req, res, next) {
+  const data = url.parse(req.url, true).query;
+  if (!data.userName || !data.password) {
+    res.sendStatus(401);
+  } else {
+    request('https://api.mongolab.com/api/1/databases/travel/collections/login?apiKey=NNY26lvUYux1Rz5H-7QLgNB28lsBmg0K&f={"id":1}&q={"userName":"'+data.userName+'","password":"'+data.password+'"}',
+      function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+          const resposnse = JSON.parse(body);
+          if(resposnse.length == 1){
+            return next();
+          }else {
+            return res.sendStatus(401);
+          }
+        } else {
+          return res.sendStatus(401);
+        }
+      });
+  }
+};
+
+app.get('/login', loginCall, (req, res, next) => {
+  const queryObject = url.parse(req.url, true).query;
+  req.session.user = queryObject.userName;
+  req.session.admin = true;
+  res.send("login success!");
 });
 
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!')
+app.get('/logout', function (req, res) {
+  req.session.destroy();
+  res.send("logout success!");
 });
-/*
+
+app.use('/v1/**', auth, proxyMiddleware({
+  target: 'https://api.mongolab.com',
+  changeOrigin: true,
+  secure: false,
+  // agent: agent,
+  pathRewrite: {
+    '^/v1/': '/'
+  },
+  onProxyReq: (proxyReq, req) => {
+    console.log(req.method, req.path, '->', 'https://api.mongolab.com' + proxyReq.path);
+  }
+}));
+
+
+app.listen(port, function () {
+  console.log('Application Running on port: ' + port);
+});
