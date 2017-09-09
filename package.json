@@ -52,6 +52,7 @@
     "gulp-uncss": "^1.0.4",
     "gulp-util": "^3.0.7",
     "gulp-wiredep": "0.0.0",
+    "http": "0.0.0",
     "http-proxy-middleware": "^0.17.4",
     "jasmine-core": "^2.4.1",
     "jshint": "^2.9.1",
@@ -64,6 +65,9 @@
     "nw-builder": "^2.2.0",
     "path": "^0.12.7",
     "phantomjs-prebuilt": "^2.1.7",
+    "querystring": "^0.2.0",
+    "request": "^2.81.0",
+    "url": "^0.11.0",
     "wiredep": "^3.0.0"
   },
   "devDependencies": {

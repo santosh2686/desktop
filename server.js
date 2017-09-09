@@ -3,7 +3,7 @@ const app = express();
 const http = require('http');
 const url = require('url');
 const qs = require('querystring');
-var request = require('request');
+const request = require('request');
 
 const port = process.env.PORT || 9090;
 const proxyMiddleware = require('http-proxy-middleware');
