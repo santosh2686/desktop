@@ -12,8 +12,7 @@ gulpBowerFiles = require('gulp-bower-files'),
 wiredep = require('wiredep').stream,
 minifyHTML = require('gulp-minify-html'),
 order = require('gulp-order'),
-server = require( 'gulp-develop-server' ),
-karmaServer = require('karma').Server;
+server = require('gulp-develop-server');
 
 var pjson = require('./package.json');
 var version = pjson.version;
@@ -26,12 +25,6 @@ var nw = new NwBuilder({
     version: '0.0.1'
 });
 
-//Unit testing
-gulp.task('test', function (done) {
-    new karmaServer({
-        configFile: __dirname + '/karma.conf.js'
-    }, done).start();
-});
 
 //Create Executeables
 gulp.task('exe',function(){
