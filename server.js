@@ -4,16 +4,17 @@ const http = require('http');
 const url = require('url');
 const qs = require('querystring');
 const request = require('request');
-
+const nodemailer = require('nodemailer');
 const port = process.env.PORT || 9090;
 const proxyMiddleware = require('http-proxy-middleware');
 
 /*
+
 const HttpsProxyAgent = require('https-proxy-agent');
 const proxy = process.env.https_proxy || process.env.HTTPS_PROXY;
 const agent = new HttpsProxyAgent(proxy);
-*/
 
+*/
 
 const session = require('express-session');
 app.use(session({
@@ -44,8 +45,8 @@ const loginCall = function (req, res, next) {
     request('https://api.mongolab.com/api/1/databases/travel/collections/login?apiKey=NNY26lvUYux1Rz5H-7QLgNB28lsBmg0K&f={"id":1}&q={"userName":"' + data.userName + '","password":"' + data.password + '"}',
       function (error, response, body) {
         if (!error && response.statusCode == 200) {
-          const resposnse = JSON.parse(body);
-          if (resposnse.length == 1) {
+          const apiRes = JSON.parse(body);
+          if (apiRes.length == 1) {
             return next();
           } else {
             return res.sendStatus(401);
@@ -55,6 +56,48 @@ const loginCall = function (req, res, next) {
         }
       });
   }
+};
+
+const verifyUserByEmail = function (req, res, next) {
+  const queryObject = url.parse(req.url, true).query;
+  const email = queryObject.email;
+  request('https://api.mongolab.com/api/1/databases/travel/collections/login?apiKey=NNY26lvUYux1Rz5H-7QLgNB28lsBmg0K&q={"email":"' + email + '"}',
+    function (error, response, body) {
+      const apiRes = JSON.parse(body);
+      if (apiRes.length == 1) {
+        req.user = apiRes[0];
+        next();
+      } else {
+        return res.sendStatus(401);
+      }
+    })
+};
+
+const emailLoginDetails = function (req, res, next) {
+  const queryObject = url.parse(req.url, true).query;
+  const email = queryObject.email;
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'santosh2686@gmail.com',
+      pass: 'Santosh@2686c'
+    }
+  });
+  var mailOptions = {
+    from: 'santosh2686@gmail.com',
+    to: 'santosh2686@gmail.com',
+    subject: 'Login details',
+    html: '<div><p>UserName: </td><td>'+req.user.userName+'</p><p>Password: </td><td>'+req.user.password+'</p></div>'
+  };
+  transporter.sendMail(mailOptions, function(error, info){
+    console.log(error);
+    if (error) {
+      return res.sendStatus(401);
+    } else {
+      console.log('Email sent: ' + info.response);
+      next();
+    }
+  });
 };
 
 app.get('/login', loginCall, (req, res, next) => {
@@ -67,6 +110,10 @@ app.get('/login', loginCall, (req, res, next) => {
 app.get('/logout', function (req, res) {
   req.session.destroy();
   res.send("logout success!");
+});
+
+app.get('/forgotPassword', verifyUserByEmail, emailLoginDetails, (req, res, next) => {
+  res.send('Email Sent!!!');
 });
 
 app.use('/v1/**', auth, proxyMiddleware({

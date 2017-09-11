@@ -61,6 +61,7 @@
     "mini-css": "^1.0.3",
     "mongodb": "^2.1.16",
     "node-webkit-builder": "^1.0.13",
+    "nodemailer": "^4.1.0",
     "nw": "^0.13.3",
     "nw-builder": "^2.2.0",
     "path": "^0.12.7",
