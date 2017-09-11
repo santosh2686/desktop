@@ -1,13 +1,13 @@
 {
   "name": "client",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "Travel",
   "node-main": "server.js",
   "main": "http://localhost:9090/",
   "scripts": {
     "install": "bower install && npm run build",
-    "start": "node node_modules/gulp/bin/gulp.js server:start",
-    "build": "node node_modules/gulp/bin/gulp.js build"
+    "start": "node ./node_modules/gulp/bin/gulp.js server:start",
+    "build": "rm -rf dist && node ./node_modules/gulp/bin/gulp.js build"
   },
   "engines": {
     "node": "4.1.1"
