@@ -64,7 +64,7 @@ app.controller('regularListController', ['$scope', '$rootScope', '$q', '$filter'
       $scope.filter.vehicle = "";
       $scope.filter.driver = "";
       $scope.filter.month = $scope.monthList[$scope.currMonth];
-    }
+    };
 
     $scope.newRequest = function (template, controller) {
       requestService.newRequest('regular', template, controller);
@@ -79,6 +79,13 @@ app.controller('regularListController', ['$scope', '$rootScope', '$q', '$filter'
     };
 
     $scope.deleteRequest = function (id) {
+      messageService.deleteConfirm().result.then(function (data) {
+        if (data) {
+          $scope.deleteRecord(id);
+        }
+      });
+    };
+    $scope.deleteRecord = function (id) {
       requestService.deleteRequest('regular', id).then(function (res) {
         requestService.request.regular = null;
         init();
@@ -95,7 +102,6 @@ app.controller('regularListController', ['$scope', '$rootScope', '$q', '$filter'
         });
       });
     };
-
     $scope.processForpdf = function (data) {
       var rowData = [];
       for (var i = 0; i < data.length; i++) {

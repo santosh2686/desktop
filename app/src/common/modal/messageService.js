@@ -10,5 +10,17 @@ app.service('messageService',['$uibModal',function($uibModal){
 				}
 			  }
 		});
-	}
+	};
+	this.deleteConfirm = function (context) {
+    return $uibModal.open({
+      templateUrl: 'common/modal/deleteConfirmation.html',
+      controller:'deleteConfirmationController',
+      size:'sm',
+      resolve:{
+        message: function(){
+          return context
+        }
+      }
+    });
+  }
 }]);

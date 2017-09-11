@@ -1,120 +1,122 @@
 <div class="grid-widget">
-    <div class="grid-title">
-        <h3 class="pull-left">Fixed Vehicle Payment</h3>
-        <div class="pull-right" data-ng-if="data.length>0">
-            <span class="count">Total Request : <strong data-ng-bind="data.length"></strong></span>
-        </div>
+  <div class="grid-title">
+    <h3 class="pull-left">Fixed Vehicle Payment</h3>
+    <div class="pull-right" data-ng-if="data.length>0">
+      <span class="count">Total Request : <strong data-ng-bind="data.length"></strong></span>
     </div>
-    <div class="grid-actionbar">
-    	<div class="row">
-            <div class="col-md-10">
-                <form class="form-inline" novalidate="novalidate">
-                    <div class="form-group">
-                        <select class="form-control" data-ng-model="filter.party">
-                            <option value="">Select Party</option>
-                            <option data-ng-repeat="p in partyList">{{p.name}}</option>
-                        </select>
-                    </div>  
-                    <div class="form-group">
-                        <select class="form-control" data-ng-model="filter.vehicle">
-                            <option value="">Select Vehicle</option>
-                            <option data-ng-repeat="v in vehicleList">{{v.vehicleName}},{{v.vehicleNo}}</option>
-                        </select>
-                  </div>
-                  <div class="form-group">
-                        <select class="form-control" data-ng-model="filter.month">
-                            <option data-ng-repeat="m in monthList">{{m}}</option>
-                        </select>
-                  </div>
-                  <div class="form-group">
-                        <select class="form-control" data-ng-model="filter.year">
-                            <option data-ng-repeat="y in yearList">{{y}}</option>
-                        </select>
-                  </div>
-                  <button data-ng-click="calculatePayment()" type="button" class="btn btn-primary" data-ng-disabled="!(filter.party && filter.vehicle)">
-                      Calculate Payment
-                  </button>
-                </form>
-            </div>
-        
-        <div class="col-md-4">
-            <form class="form-inline export" data-ng-if="data.length>0">
-                <div class="checkbox">
-                    <label>&nbsp;Export : &nbsp;</label>
-                    <button type="button" data-ng-click="exportData()" title="Export to PDF" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i></button>
-                </div>
-            </form>
-        </div>
-        </div>
+  </div>
+  <div class="grid-actionbar">
+    <div class="row">
+      <div class="col-md-10">
+        <form class="form-inline" novalidate="novalidate">
+          <div class="form-group">
+            <select class="form-control" data-ng-model="filter.party">
+              <option value="">Select Party</option>
+              <option data-ng-repeat="p in partyList">{{p.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select class="form-control" data-ng-model="filter.vehicle">
+              <option value="">Select Vehicle</option>
+              <option data-ng-repeat="v in vehicleList">{{v.vehicleName}},{{v.vehicleNo}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select class="form-control" data-ng-model="filter.month">
+              <option data-ng-repeat="m in monthList">{{m}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select class="form-control" data-ng-model="filter.year">
+              <option data-ng-repeat="y in yearList">{{y}}</option>
+            </select>
+          </div>
+          <button data-ng-click="calculatePayment()" type="button" class="btn btn-primary"
+                  data-ng-disabled="!(filter.party && filter.vehicle)">
+            Calculate Payment
+          </button>
+        </form>
+      </div>
+
+      <div class="col-md-2">
+        <form class="form-inline export" data-ng-if="data.length>0">
+          <div class="checkbox">
+            <label>&nbsp;Export : &nbsp;</label>
+            <button type="button" data-ng-click="exportData()" title="Export to PDF" class="btn btn-danger"><i
+              class="fa fa-file-pdf-o"></i></button>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="grid">
-        <div data-ng-if="loading" class="loader">
-            <i class="fa fa-refresh fa-spin"></i>
-            Please Wait...
-        </div>
-        <div data-ng-if="!data && !loading" class="loader">
-            Please select a party and vehicle for which you want to see the payment and click on "Calculate Payment" button.
-        </div>
-        <div data-ng-if="data.length==0 && !loading" class="loader">
-            0 Record Found.
-        </div>
-        <table data-ng-if="data.length>0">
-            <thead>
-              <tr>
-                <th data-class="expand" class="srNo">Sr No.</th>            
-                <th>Date</th>
-                <th data-hide="phone,tablet">Request Type</th>
-                <th>Trip KM</th>
-                <th>Extra Hours</th>
-                <th data-hide="phone,tablet">Driver Allowance</th>
-                <th data-hide="phone,tablet">Night Halt</th>
-                <th data-hide="phone,tablet">Toll Amount</th>
-                <th data-hide="phone,tablet">Parking Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr data-ng-repeat='d in data' data-responsive-grid>
-                    <td>{{$index+1}}</td>
-                    <td data-ng-bind='d.date | date:"dd-MMM-yyyy"'></td> 
-                    <td data-ng-bind="'{{d.requestType==='local'?'local':'Out Station'}}'"></td>
-                    <td>{{d.totalKm}} KM</td>
-                    <td>{{d.extraHr}} Hr</td>
-                    <td><i class="fa fa-rupee"></i> {{d.diverAllowanceAmt | number:'2'}}/-</td>
-                    <td><i class="fa fa-rupee"></i> {{d.nightHaltAmt | number:'2'}}/-</td>
-                    <td><i class="fa fa-rupee"></i> {{d.tollAmt | number:'2'}}/-</td>
-                    <td><i class="fa fa-rupee"></i> {{d.parkingAmt | number:'2'}}/-</td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr class="tableFooter" data-ng-if='fixedData.length!==0'>
-                	<td>Total</td>
-                    <td></td>
-                    <td></td>
-                    <td>{{allData.totalKm | number}} KM</td>
-                    <td>{{allData.extraHr}} Hr</td>
-                    <td><i class="fa fa-rupee"></i> {{allData.DAAmt | number:'2'}}/-</td>
-                    <td><i class="fa fa-rupee"></i> {{allData.nightHaltAmt | number:'2'}}/-</td>
-                    <td><i class="fa fa-rupee"></i> {{allData.tollAmt | number:'2'}}/-</td>
-                    <td><i class="fa fa-rupee"></i> {{allData.parkingAmt | number:'2'}}/-</td>
-                </tr>
-            </tfoot>
-        </table>
+  </div>
+  <div class="grid">
+    <div data-ng-if="loading" class="loader">
+      <i class="fa fa-refresh fa-spin"></i>
+      Please Wait...
     </div>
-    <div class="trip-calculation" data-ng-if="data.length>0">
-        <div class="calc-data">
-            <table>
-                <tr>
-                    <td>{{filter.month}} {{filter.year}} Total Amount : </td>
-                    <td>
-                        <i class="fa fa-rupee"> </i> <span>{{allData.monthTotal | number:'2'}}</span>/-
-                    </td>
-                </tr>
-            </table>
-        </div>
-        <div class="form-action">
-            <button type="button" class="btn btn-warning" data-ng-click="generateFixedBill()">
-                <i class="fa fa-list"></i> Generate Bill
-             </button>
-        </div>
+    <div data-ng-if="!data && !loading" class="loader">
+      Please select a party and vehicle for which you want to see the payment and click on "Calculate Payment" button.
     </div>
+    <div data-ng-if="data.length==0 && !loading" class="loader">
+      0 Record Found.
+    </div>
+    <table data-ng-if="data.length>0">
+      <thead>
+      <tr>
+        <th data-class="expand" class="srNo">Sr No.</th>
+        <th>Date</th>
+        <th data-hide="phone,tablet">Request Type</th>
+        <th>Trip KM</th>
+        <th>Extra Hours</th>
+        <th data-hide="phone,tablet">Driver Allowance</th>
+        <th data-hide="phone,tablet">Night Halt</th>
+        <th data-hide="phone,tablet">Toll Amount</th>
+        <th data-hide="phone,tablet">Parking Amount</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr data-ng-repeat='d in data' data-responsive-grid>
+        <td>{{$index+1}}</td>
+        <td data-ng-bind='d.date | date:"dd-MMM-yyyy"'></td>
+        <td data-ng-bind="'{{d.requestType==='local'?'local':'Out Station'}}'"></td>
+        <td>{{d.totalKm}} KM</td>
+        <td>{{d.extraHr}} Hr</td>
+        <td><i class="fa fa-rupee"></i> {{d.diverAllowanceAmt | number:'2'}}/-</td>
+        <td><i class="fa fa-rupee"></i> {{d.nightHaltAmt | number:'2'}}/-</td>
+        <td><i class="fa fa-rupee"></i> {{d.tollAmt | number:'2'}}/-</td>
+        <td><i class="fa fa-rupee"></i> {{d.parkingAmt | number:'2'}}/-</td>
+      </tr>
+      </tbody>
+      <tfoot>
+      <tr class="tableFooter" data-ng-if='fixedData.length!==0'>
+        <td>Total</td>
+        <td></td>
+        <td></td>
+        <td>{{allData.totalKm | number}} KM</td>
+        <td>{{allData.extraHr}} Hr</td>
+        <td><i class="fa fa-rupee"></i> {{allData.DAAmt | number:'2'}}/-</td>
+        <td><i class="fa fa-rupee"></i> {{allData.nightHaltAmt | number:'2'}}/-</td>
+        <td><i class="fa fa-rupee"></i> {{allData.tollAmt | number:'2'}}/-</td>
+        <td><i class="fa fa-rupee"></i> {{allData.parkingAmt | number:'2'}}/-</td>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="trip-calculation" data-ng-if="data.length>0">
+    <div class="calc-data">
+      <table>
+        <tr>
+          <td>{{filter.month}} {{filter.year}} Total Amount :</td>
+          <td>
+            <i class="fa fa-rupee"> </i> <span>{{allData.monthTotal | number:'2'}}</span>/-
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="form-action">
+      <button type="button" class="btn btn-warning" data-ng-click="generateFixedBill()">
+        <i class="fa fa-list"></i> Generate Bill
+      </button>
+    </div>
+  </div>
 </div>
