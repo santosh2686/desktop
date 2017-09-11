@@ -1,11 +1,13 @@
 app.controller('driverController',
-  ['$scope', '$rootScope', 'driverService', 'messageService', 'config', '$uibModal',
-    function ($scope, $rootScope, driverService, messageService, config, $uibModal) {
+  ['$scope', '$state', '$rootScope', 'driverService', 'messageService', 'config', '$uibModal',
+    function ($scope, $state, $rootScope, driverService, messageService, config, $uibModal) {
       $scope.data = [];
       $scope.loading = true;
       $scope.localEnv = config.local;
       var init = function () {
-          driverService.getDriver().then(success);
+          driverService.getDriver().then(success, function () {
+            $state.go('login');
+          });
         },
         driverModal = function (type, data) {
           $uibModal.open({

@@ -1,3 +1,3 @@
-app.controller('packageController',['$scope',function($scope){
-    
+app.controller('packageController', ['$scope', function ($scope) {
+
 }]);

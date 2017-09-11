@@ -1,58 +1,62 @@
 <div class="widget">
-    <div class="widget-header">
-        <div class="pull-left">
-        <i class="fa fa-user"></i> Driver</div>
+  <div class="widget-header">
+    <div class="pull-left">
+      <i class="fa fa-user"></i> Driver
     </div>
-    <div class="widget-content">
-        <div class="grid-widget">
-            <div class="grid-title" data-ng-if="!loading">
-                <h3 class="pull-left">Driver List</h3>
-                <div class="pull-right">
-                    <span class="count">Total Request : <strong data-ng-bind="data.length"></strong></span> 
-    <button class="btn btn-primary" data-ng-click="addDriver()">New Driver</button>
-                </div>
-            </div>
-            <div class="grid">
-                <div data-ng-if="loading" class="loader">
-                    <i class="fa fa-refresh fa-spin"></i>
-                    Please Wait...
-                </div>
-                <div data-ng-if="data.length===0 && !loading" class="loader">0 Record Found.</div>
-                <table data-ng-if="data.length>0">
-                    <thead>
-                      <tr>
-                        <th data-class="expand" class="srNo">Sr No.</th>
-                        <th>Driver Name</th>
-                        <th data-hide="phone,tablet">Driver Address</th>
-                        <th>Driver Contact</th>
-                        <th data-hide="phone,tablet">Licence No.</th>
-                        <th data-hide="phone">Joining Date</th>
-                        <th>Salary</th>
-                        <th data-hide="phone,tablet">Comments</th>
-                        <th data-hide="phone" class="td-actions">Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="d in data" data-responsive-grid>
-                            <td class="srNo">{{$index+1}}</td>
-                            <td data-ng-bind='d.name'></td>            
-                            <td data-ng-bind='d.address'></td>
-                            <td>+91 {{d.contact}}</td>
-                            <td data-ng-bind='d.lincenceNo'></td>
-                            <td data-ng-bind='d.joinDate | date:"dd-MMM-yyyy"'></td>
-                            <td><i class="fa fa-rupee"></i> {{d.salary | number:'2'}}/-</td>
-                            <td data-ng-bind='d.comments'></td> 
-                            <td class="td-actions">
-                                <div class="btn-group">
-                                    <button type="button" title="View" data-ng-click="viewRequest(localEnv?d._id:d._id.$oid)" class="btn btn-primary"><i class="fa fa-eye"></i></button>
-                            <button type="button" title="Edit" data-ng-click="editRequest(localEnv?d._id:d._id.$oid)" class="btn btn-success"><i class="fa fa-edit"></i></button>
-                            <button type="button" title="Delete" data-ng-click="deleteRequest(localEnv?d._id:d._id.$oid)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+  </div>
+  <div class="widget-content">
+    <div class="grid-widget">
+      <div class="grid-title" data-ng-if="!loading">
+        <h3 class="pull-left">Driver List</h3>
+        <div class="pull-right">
+          <span class="count">Total Request : <strong data-ng-bind="data.length"></strong></span>
+          <button class="btn btn-primary" data-ng-click="addDriver()">New Driver</button>
         </div>
+      </div>
+      <div class="grid">
+        <div data-ng-if="loading" class="loader">
+          <i class="fa fa-refresh fa-spin"></i>
+          Please Wait...
+        </div>
+        <div data-ng-if="data.length===0 && !loading" class="loader">0 Record Found.</div>
+        <table data-ng-if="data.length>0">
+          <thead>
+          <tr>
+            <th data-class="expand" class="srNo">Sr No.</th>
+            <th>Driver Name</th>
+            <th data-hide="phone,tablet">Driver Address</th>
+            <th>Driver Contact</th>
+            <th data-hide="phone,tablet">Licence No.</th>
+            <th data-hide="phone">Joining Date</th>
+            <th>Salary</th>
+            <th data-hide="phone,tablet">Comments</th>
+            <th data-hide="phone" class="td-actions">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="d in data" data-responsive-grid>
+            <td class="srNo">{{$index+1}}</td>
+            <td data-ng-bind='d.name'></td>
+            <td data-ng-bind='d.address'></td>
+            <td>+91 {{d.contact}}</td>
+            <td data-ng-bind='d.lincenceNo'></td>
+            <td data-ng-bind='d.joinDate | date:"dd-MMM-yyyy"'></td>
+            <td><i class="fa fa-rupee"></i> {{d.salary | number:'2'}}/-</td>
+            <td data-ng-bind='d.comments'></td>
+            <td class="td-actions">
+              <div class="btn-group">
+                <button type="button" title="View" data-ng-click="viewRequest(localEnv?d._id:d._id.$oid)"
+                        class="btn btn-primary"><i class="fa fa-eye"></i></button>
+                <button type="button" title="Edit" data-ng-click="editRequest(localEnv?d._id:d._id.$oid)"
+                        class="btn btn-success"><i class="fa fa-edit"></i></button>
+                <button type="button" title="Delete" data-ng-click="deleteRequest(localEnv?d._id:d._id.$oid)"
+                        class="btn btn-danger"><i class="fa fa-trash"></i></button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
+  </div>
 </div>

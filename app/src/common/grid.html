@@ -1,36 +1,36 @@
 <table>
-    <thead>
-        <th data-class="expand" class="srNo">Sr No.</th>
-        <th data-ng-repeat="g in gridData" data-hide="{{g.hideOn}}">{{g.name}}</th>
-        <th data-hide="phone" class="td-actions">Action</th>
-    </thead>
-    <tbody>
-        <tr ng-repeat="d in data" data-responsive-grid>
-            <td class="srNo">{{$index+1}}</td> 
-            <td data-ng-repeat="g in gridData">
-                <div data-ng-if="g.type=='phone'" data-ng-bind="'+91'+d.{{g.map}}"></div>
-                <div data-ng-if="g.type=='date'" data-ng-bind="d.{{g.map}} | date:'dd-MMM-yyyy'"></div>
-                <div class="amount" data-ng-if="g.type=='amount'" data-ng-bind="d.{{g.map}} | number:'2'"></div>
-                <div data-ng-if="g.type=='repeat'">
-                    <p data-ng-repeat="r in d[g.map]">
-                        {{$index+1}}. {{r.name}} {{r.number}}
-                    </p>
-                </div>
-                <div data-ng-if="!g.type" data-ng-bind="d.{{g.map}}"></div>
-            </td>
-            <td class="td-actions">
-                <div class="btn-group">
-                    <button type="button" title="View" class="btn btn-primary" data-ng-click="viewData({data:d._id})">
-                        <i class="fa fa-eye"></i>
-                    </button>
-                    <button type="button" title="Edit" class="btn btn-success" data-ng-click="editData({data:d._id})">
-                        <i class="fa fa-edit"></i>
-                    </button>
-                    <button type="button" title="Delete" class="btn btn-danger" data-ng-click="deleteData({data:d._id})">
-                        <i class="fa fa-trash"></i>
-                    </button>
-                </div>
-            </td>
-          </tr>
-    </tbody>
+  <thead>
+  <th data-class="expand" class="srNo">Sr No.</th>
+  <th data-ng-repeat="g in gridData" data-hide="{{g.hideOn}}">{{g.name}}</th>
+  <th data-hide="phone" class="td-actions">Action</th>
+  </thead>
+  <tbody>
+  <tr ng-repeat="d in data" data-responsive-grid>
+    <td class="srNo">{{$index+1}}</td>
+    <td data-ng-repeat="g in gridData">
+      <div data-ng-if="g.type=='phone'" data-ng-bind="'+91'+d.{{g.map}}"></div>
+      <div data-ng-if="g.type=='date'" data-ng-bind="d.{{g.map}} | date:'dd-MMM-yyyy'"></div>
+      <div class="amount" data-ng-if="g.type=='amount'" data-ng-bind="d.{{g.map}} | number:'2'"></div>
+      <div data-ng-if="g.type=='repeat'">
+        <p data-ng-repeat="r in d[g.map]">
+          {{$index+1}}. {{r.name}} {{r.number}}
+        </p>
+      </div>
+      <div data-ng-if="!g.type" data-ng-bind="d.{{g.map}}"></div>
+    </td>
+    <td class="td-actions">
+      <div class="btn-group">
+        <button type="button" title="View" class="btn btn-primary" data-ng-click="viewData({data:d._id})">
+          <i class="fa fa-eye"></i>
+        </button>
+        <button type="button" title="Edit" class="btn btn-success" data-ng-click="editData({data:d._id})">
+          <i class="fa fa-edit"></i>
+        </button>
+        <button type="button" title="Delete" class="btn btn-danger" data-ng-click="deleteData({data:d._id})">
+          <i class="fa fa-trash"></i>
+        </button>
+      </div>
+    </td>
+  </tr>
+  </tbody>
 </table>

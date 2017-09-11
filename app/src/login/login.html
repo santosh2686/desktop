@@ -1,32 +1,37 @@
 <div class="auth-panel">
-	<div class="content">
-    	<h1>Login</h1>
-        <p>Please provide your details</p>
-        <div class="bg-warning" data-ng-if="showAlert">
-        	<i class="fa fa-warning"></i>
-            Please enter valid login credentials.
-         </div>
-         <form name="loginForm">
-         	<div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></div>
-                  <input data-ng-model="loginData.userName" type="text" autofocus="autofocus" class="form-control" id="username" placeholder="Email" required="required">
-                </div>
-            </div>
-            	<div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon"><i class="fa fa-key fa-fw"></i></div>
-                  <input data-ng-model="loginData.password" type="password" class="form-control" id="password" placeholder="Password" required="required">
-                </div>
-            </div>
-            <div class="form-group login-btn">
-            	<p><a href="#" data-ui-sref="forgot">Forgot Password</a></p>
-            	<button class="btn btn-success" type="button" data-ng-disabled="loading" data-ng-click="signIn()">{{loading?"Please Wait...":"Sign In"}}</button>
-            </div>
-         </form>	
-    </div>	
+  <div class="content">
+    <h1>Login</h1>
+    <p>Please provide your details</p>
+    <div class="bg-warning" data-ng-if="showAlert">
+      <i class="fa fa-warning"></i>
+      Please enter valid login credentials.
+    </div>
+    <form name="loginForm">
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon"><i class="fa fa-user fa-fw"></i></div>
+          <input data-ng-model="loginData.userName" type="text" autofocus="autofocus" class="form-control" id="username"
+                 placeholder="Email" required="required">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-addon"><i class="fa fa-key fa-fw"></i></div>
+          <input data-ng-model="loginData.password" type="password" class="form-control" id="password"
+                 placeholder="Password" required="required">
+        </div>
+      </div>
+      <div class="form-group login-btn">
+        <p><a href="#" data-ui-sref="forgot">Forgot Password</a></p>
+        <button class="btn btn-success" type="button" data-ng-disabled="loginForm.$invalid || loading"
+                data-ng-click="signIn()">{{loading?"Please Wait...":"Sign In"}}
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 
+<!--
 <div class="login-extra">
 	Don't have an account? <a href="#" data-ui-sref="register">Register here</a>
-</div>
+</div>-->

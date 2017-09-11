@@ -1,80 +1,86 @@
 <div class="widget">
-	<div class="widget-header">
-    	<div class="pull-left">
-            {{action=='new'?'Add New Driver':action=='edit'?'Update Driver':'Driver Detail'}}
-    	</div>
-        <div class="pull-right">
+  <div class="widget-header">
+    <div class="pull-left">
+      {{action=='new'?'Add New Driver':action=='edit'?'Update Driver':'Driver Detail'}}
+    </div>
+    <div class="pull-right">
         	<span class="modal-close" data-ng-click="closeModal()">
             	<i class="fa fa-close"></i>
             </span>
-        </div>
     </div>
-    <div class="widget-content">
-        <form name="driverForm" novalidate="novalidate">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Driver Name</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="driver.name"></span>
-                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='driver.name'/>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Driver Address</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="driver.address"></span>
-                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='driver.address'/>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Driver Contact</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="driver.contact"></span>
-                        <input data-ng-if="!hideView" required type="number" class="form-control" data-ng-model='driver.contact'/>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Joining date</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="driver.joinDate | date:'dd-MMM-yyyy'"></span>
-                           <p data-ng-if="!hideView" class="input-group">
-                             <input type="text" class="form-control" ng-model="driver.joinDate" show-button-bar="false" show-weeks="false" uib-datepicker-popup="dd-MMM-yyyy" readonly is-open="calendar.open" ng-required="true" close-text="Close" />
-                              <span class="input-group-btn">
-                                <button type="button" class="btn btn-default" ng-click="openCalendar()"><i class="glyphicon glyphicon-calendar"></i></button>
+  </div>
+  <div class="widget-content">
+    <form name="driverForm" novalidate="novalidate">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Driver Name</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="driver.name"></span>
+            <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='driver.name'/>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Driver Address</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="driver.address"></span>
+            <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='driver.address'/>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Driver Contact</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="driver.contact"></span>
+            <input data-ng-if="!hideView" required type="number" class="form-control" data-ng-model='driver.contact'/>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Joining date</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="driver.joinDate | date:'dd-MMM-yyyy'"></span>
+            <p data-ng-if="!hideView" class="input-group">
+              <input type="text" class="form-control" ng-model="driver.joinDate" show-button-bar="false"
+                     show-weeks="false" uib-datepicker-popup="dd-MMM-yyyy" readonly is-open="calendar.open"
+                     ng-required="true" close-text="Close"/>
+              <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openCalendar()"><i
+                                  class="glyphicon glyphicon-calendar"></i></button>
                               </span>
-                            </p>
-                        </div>
-                    </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Salary</label>
-                        <span data-ng-if="hideView" class="view-value">
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Salary</label>
+            <span data-ng-if="hideView" class="view-value">
                             <i class="fa fa-rupee"></i> {{driver.salary | number:'2'}}/-
                         </span>
-                        <input data-ng-if="!hideView" required type="number" class="form-control" data-ng-model='driver.salary'/>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Lincence No</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="driver.lincenceNo"></span>
-                        <input data-ng-if="!hideView" type="text" class="form-control" data-ng-model='driver.lincenceNo'/>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Comments</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="driver.comments"></span>
-                        <textarea data-ng-if="!hideView" class="form-control" data-ng-model='driver.comments'></textarea>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                    <button class="btn btn-danger pull-left" data-ng-click="closeModal()">Close</button>
-                    <button data-ng-if="action!=='view'" class="btn btn-success pull-right" data-ng-disabled="!driverForm.$dirty || !driverForm.$valid || loading" data-ng-click="submitRequest()">{{loading?"Please Wait...":"Submit"}}</button>
-            </div>
-        </form>
-    </div>
+            <input data-ng-if="!hideView" required type="number" class="form-control" data-ng-model='driver.salary'/>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Lincence No</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="driver.lincenceNo"></span>
+            <input data-ng-if="!hideView" type="text" class="form-control" data-ng-model='driver.lincenceNo'/>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Comments</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="driver.comments"></span>
+            <textarea data-ng-if="!hideView" class="form-control" data-ng-model='driver.comments'></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger pull-left" data-ng-click="closeModal()">Close</button>
+        <button data-ng-if="action!=='view'" class="btn btn-success pull-right"
+                data-ng-disabled="!driverForm.$dirty || !driverForm.$valid || loading" data-ng-click="submitRequest()">
+          {{loading?"Please Wait...":"Submit"}}
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

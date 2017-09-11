@@ -1,80 +1,86 @@
 <div class="widget">
-	<div class="widget-header">
-    	<div class="pull-left">
-            {{action}} {{type}}
-    	</div>
-        <div class="pull-right">
-        	<span class="modal-close" data-ng-click="closeModal()">
-            	<i class="fa fa-close"></i>
-            </span>
+  <div class="widget-header">
+    <div class="pull-left">
+      {{action}} {{type}}
+    </div>
+    <div class="pull-right">
+      <span class="modal-close" data-ng-click="closeModal()">
+        <i class="fa fa-close"></i>
+      </span>
+    </div>
+  </div>
+  <div class="widget-content">
+    <form name="partyForm" novalidate="novalidate">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Party Name</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="party.name"></span>
+            <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='party.name'/>
+          </div>
         </div>
-    </div>
-    <div class="widget-content">
-        <form name="partyForm" novalidate="novalidate">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Party Name</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="party.name"></span>
-                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='party.name'/>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Party Address</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="party.address"></span>
-                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='party.address'/>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Party Contact</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="party.contact"></span>
-                        <input data-ng-if="!hideView" required type="number" class="form-control" data-ng-model='party.contact'/>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Party Email</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="party.email"></span>
-                        <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='party.email'/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label>Comments</label>
-                        <span data-ng-if="hideView" class="view-value" data-ng-bind="party.comments"></span>
-                        <textarea data-ng-if="!hideView" class="form-control" data-ng-model='party.comments'></textarea>
-                    </div>
-                </div>                         
-            </div>
-			<div class="section-title" data-ng-if="type=='operator'">Operator Vehicles</div>
-			<div class="operator-vehicle-list" data-ng-if="hideView && type=='operator'">
-			    <table>
-			        <tr>
-			            <th>Sr. No</th>
-			            <th>Name</th>
-			            <th>Number</th>
-			        </tr>
-			        <tr data-ng-repeat="v in party.vehicle">
-			            <td>{{$index+1}}</td>
-			            <td>{{v.name}}</td>
-			            <td>{{v.number}}</td>
-			        </tr>
-			    </table>
-			</div>
-			<div class="operator-vehicle" data-ng-repeat="v in party.vehicle" data-ng-show="!hideView" data-ng-if="type=='operator'">
-				<input type="text" class="form-control" placeholder="NAME" data-ng-model="party.vehicle[$index].name"/>
-				<input type="text" class="form-control" placeholder="NUMBER" data-ng-model="party.vehicle[$index].number"/>
-				<button type="button" class="btn btn-success" data-ng-click="addNewVehicle()" data-ng-if="$last"><i class="fa fa-plus"></i></button>
-				<button type="button" class="btn btn-danger" data-ng-click="removeVehicle($index)" data-ng-if="!$last"><i class="fa fa-close"></i></button>
-			</div>
-            <div class="modal-footer">
-                    <button class="btn btn-danger pull-left" data-ng-click="closeModal()">Close</button>
-                    <button data-ng-if="action!=='view'" class="btn btn-success pull-right" data-ng-disabled="!partyForm.$dirty || !partyForm.$valid || loading" data-ng-click="submitRequest()">{{loading?"Please Wait...":"Submit"}}</button>
-                </div>
-        </form>
-    </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Party Address</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="party.address"></span>
+            <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='party.address'/>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Party Contact</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="party.contact"></span>
+            <input data-ng-if="!hideView" required type="number" class="form-control" data-ng-model='party.contact'/>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Party Email</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="party.email"></span>
+            <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='party.email'/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Comments</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="party.comments"></span>
+            <textarea data-ng-if="!hideView" class="form-control" data-ng-model='party.comments'></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="section-title" data-ng-if="type=='operator'">Operator Vehicles</div>
+      <div class="operator-vehicle-list" data-ng-if="hideView && type=='operator'">
+        <table>
+          <tr>
+            <th>Sr. No</th>
+            <th>Name</th>
+            <th>Number</th>
+          </tr>
+          <tr data-ng-repeat="v in party.vehicle">
+            <td>{{$index+1}}</td>
+            <td>{{v.name}}</td>
+            <td>{{v.number}}</td>
+          </tr>
+        </table>
+      </div>
+      <div class="operator-vehicle" data-ng-repeat="v in party.vehicle" data-ng-show="!hideView"
+           data-ng-if="type=='operator'">
+        <input type="text" class="form-control" placeholder="NAME" data-ng-model="party.vehicle[$index].name"/>
+        <input type="text" class="form-control" placeholder="NUMBER" data-ng-model="party.vehicle[$index].number"/>
+        <button type="button" class="btn btn-success" data-ng-click="addNewVehicle()" data-ng-if="$last"><i
+          class="fa fa-plus"></i></button>
+        <button type="button" class="btn btn-danger" data-ng-click="removeVehicle($index)" data-ng-if="!$last"><i
+          class="fa fa-close"></i></button>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger pull-left" data-ng-click="closeModal()">Close</button>
+        <button data-ng-if="action!=='view'" class="btn btn-success pull-right"
+                data-ng-disabled="!partyForm.$dirty || !partyForm.$valid || loading" data-ng-click="submitRequest()">
+          {{loading?"Please Wait...":"Submit"}}
+        </button>
+      </div>
+    </form>
+  </div>
 </div>

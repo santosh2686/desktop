@@ -1,17 +1,18 @@
 <div class="grid-widget">
-    <div class="grid-title" data-ng-if="!loading">
-        <h3 class="pull-left">Out Station Packages</h3>
-        <div class="pull-right">
-            <span class="count">Total Records : <strong data-ng-bind="data.length"></strong></span> 
-            <button class="btn btn-primary" data-ng-click="newPackage()">New Package</button>
-        </div>
+  <div class="grid-title" data-ng-if="!loading">
+    <h3 class="pull-left">Out Station Packages</h3>
+    <div class="pull-right">
+      <span class="count">Total Records : <strong data-ng-bind="data.length"></strong></span>
+      <button class="btn btn-primary" data-ng-click="newPackage()">New Package</button>
     </div>
-    <div class="grid">
-                <div data-ng-if="loading" class="loader">
-                    <i class="fa fa-refresh fa-spin"></i>
-                    Please Wait...
-                </div>
-                <div data-ng-if="data.length===0 && !loading" class="loader">0 Record Found.</div>
-                <div data-ng-if="data.length>0" data-grid gridconfig="gridConfig" datasource="data" view="view(data)" edit="edit(data)" delete="delete(data)"></div>
+  </div>
+  <div class="grid">
+    <div data-ng-if="loading" class="loader">
+      <i class="fa fa-refresh fa-spin"></i>
+      Please Wait...
     </div>
+    <div data-ng-if="data.length===0 && !loading" class="loader">0 Record Found.</div>
+    <div data-ng-if="data.length>0" data-grid gridconfig="gridConfig" datasource="data" view="view(data)"
+         edit="edit(data)" delete="delete(data)"></div>
+  </div>
 </div>

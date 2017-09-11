@@ -1,51 +1,60 @@
-<div class="navbar">	
-        <div class="navbar-inner">		
-            <div class="container">
-                <div class="pull-left">
-                    <a class="brand" href="#">
-                        <i class="fa fa-bus"></i>&nbsp; Travel Management				
-                    </a>
-                </div>
-                <div class="pull-right">
-                    <span class="userName notify">
-                        <i class="fa fa-bell"></i>
-                    </span>&nbsp;&nbsp;
-                    <span class="userName">
-                        <i class="fa fa-user"> </i> Welcome, Guest
-                    </span>									
-                    <button class="btn btn-danger" data-ng-click="logOut()">Sign Out</button>
-                    <div class="alert-box">
-                        <span></span>
-                        <div></div>
-                    </div>
-                </div>
-            </div>		
-        </div>	
-    </div>
-    <div class="subnavbar">	
-        <div class="subnavbar-inner">
-            <div class="container">
-                <!--data-ng-class="{active: $state.includes('dashboard')}"-->
-				<ul>
-                    <li data-ui-sref-active="{active: 'dashboard.*'}"><a href="#" data-ui-sref="dashboard"><i class="fa fa-dashboard"></i><span>Dashboard</span> </a>
-                    </li>
-                    <li data-ui-sref-active="{active: 'request.*'}"><a href="#" data-ui-sref="request.regular"><i class="fa fa-list"></i><span>Requests</span> </a>
-                    </li>
-                    <li data-ui-sref-active="{active: 'package.*'}"><a href="#" data-ui-sref="package.local"><i class="fa fa-gift"></i><span>Packages</span>
-                    </a></li>
-                    <li data-ui-sref-active="{active: 'vehicle.*'}"><a href="#" data-ui-sref="vehicle.own"><i class="fa fa-automobile"></i><span>Vehicles</span> </a>
-                    </li>
-                    <li data-ui-sref-active="{active: 'driver.*'}"><a href="#" data-ui-sref="driver"><i class="fa fa-user"></i><span>Drivers</span> </a>
-                    </li>
-                    <li data-ui-sref-active="{active: 'party.*'}"><a href="#" data-ui-sref="party.client"><i class="fa fa-users"></i><span>Parties</span> </a>
-                    </li>
-					<li data-ui-sref-active="{active: 'expense.*'}"><a href="#" data-ui-sref="expense.vehicle"><i class="fa fa-rupee"></i><span>Expenses</span> </a>
-                    </li>					
-					<li data-ui-sref-active="{active: 'payment.*'}"><a href="#" data-ui-sref="payment.fixed"><i class="fa fa-money"></i><span>Payment</span> </a>
-                    </li>
-					<li data-ui-sref-active="{active: 'summary.*'}"><a href="#" data-ui-sref="summary.vehicle"><i class="fa fa-files-o"></i><span>Summary</span> </a>
-                    </li>
-                </ul>
-            </div>
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <div class="pull-left">
+        <a class="brand" href="#">
+          <i class="fa fa-bus"></i>&nbsp; Travel Management
+        </a>
+      </div>
+      <div class="pull-right">
+        <span class="userName notify">
+            <i class="fa fa-bell"></i>
+        </span>&nbsp;&nbsp;
+        <span class="userName">
+          <i class="fa fa-user"> </i> Welcome, Guest
+        </span>
+        <button class="btn btn-danger" data-ng-click="logOut()">Sign Out</button>
+        <div class="alert-box">
+          <span></span>
+          <div></div>
         </div>
+      </div>
     </div>
+  </div>
+</div>
+<div class="subnavbar">
+  <div class="subnavbar-inner">
+    <div class="container">
+      <!--data-ng-class="{active: $state.includes('dashboard')}"-->
+      <ul>
+        <li data-ui-sref-active="{active: 'dashboard.*'}"><a href="#" data-ui-sref="dashboard"><i
+          class="fa fa-dashboard"></i><span>Dashboard</span> </a>
+        </li>
+        <li data-ui-sref-active="{active: 'request.*'}"><a href="#" data-ui-sref="request.regular"><i
+          class="fa fa-list"></i><span>Requests</span> </a>
+        </li>
+        <li data-ui-sref-active="{active: 'package.*'}"><a href="#" data-ui-sref="package.local"><i
+          class="fa fa-gift"></i><span>Packages</span>
+        </a></li>
+        <li data-ui-sref-active="{active: 'vehicle.*'}"><a href="#" data-ui-sref="vehicle.own"><i
+          class="fa fa-automobile"></i><span>Vehicles</span> </a>
+        </li>
+        <li data-ui-sref-active="{active: 'driver.*'}"><a href="#" data-ui-sref="driver"><i
+          class="fa fa-user"></i><span>Drivers</span> </a>
+        </li>
+        <li data-ui-sref-active="{active: 'party.*'}"><a href="#" data-ui-sref="party.client"><i
+          class="fa fa-users"></i><span>Parties</span> </a>
+        </li>
+        <li data-ui-sref-active="{active: 'expense.*'}"><a href="#" data-ui-sref="expense.vehicle"><i
+          class="fa fa-rupee"></i><span>Expenses</span> </a>
+        </li>
+        <li data-ui-sref-active="{active: 'payment.*'}"><a href="#" data-ui-sref="payment.fixed"><i
+          class="fa fa-money"></i><span>Payment</span> </a>
+        </li>
+        <li data-ui-sref-active="{active: 'summary.*'}"><a href="#" data-ui-sref="summary.vehicle"><i
+          class="fa fa-files-o"></i><span>Summary</span> </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,5 @@
-app.controller('ownVehicleController', ['$scope', '$rootScope', '$uibModal', 'vehicleService', 'messageService', 'gridMap',
-  function ($scope, $rootScope, $uibModal, vehicleService, messageService, gridMap) {
+app.controller('ownVehicleController', ['$scope', '$state', '$rootScope', '$uibModal', 'vehicleService', 'messageService', 'gridMap',
+  function ($scope, $state, $rootScope, $uibModal, vehicleService, messageService, gridMap) {
     $scope.data = [];
     $scope.gridConfig = gridMap.VEHICLE.OWN;
     $scope.loading = true;
@@ -11,7 +11,9 @@ app.controller('ownVehicleController', ['$scope', '$rootScope', '$uibModal', 've
         $scope.loading = false;
       },
       init = function () {
-        vehicleService.getVehicle('own').then(success);
+        vehicleService.getVehicle('own').then(success, function () {
+          $state.go('login');
+        });
       },
       vehicleModal = function (action, data) {
         $uibModal.open({

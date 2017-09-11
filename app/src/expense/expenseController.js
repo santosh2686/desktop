@@ -1,3 +1,3 @@
-app.controller('expenseController',['$scope',function($scope){
+app.controller('expenseController', ['$scope', function ($scope) {
 
 }]);

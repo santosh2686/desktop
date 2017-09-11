@@ -10,7 +10,9 @@ app.controller('outPackageController', ['$scope', '$rootScope', '$uibModal', 'pa
       $scope.loading = false;
     },
     init = function () {
-      packageService.getPackage('out').then(success);
+      packageService.getPackage('out').then(success, function () {
+        $state.go('login');
+      });
     },
     packageModal = function (action, data) {
       $uibModal.open({

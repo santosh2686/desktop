@@ -1,5 +1,5 @@
-app.controller('fixedListController', ['$scope', '$rootScope', '$filter', 'requestService', 'config', 'partyService', 'messageService', 'pdfService',
-  function ($scope, $rootScope, $filter, requestService, config, partyService, messageService, pdfService) {
+app.controller('fixedListController', ['$scope', '$state', '$rootScope', '$filter', 'requestService', 'config', 'partyService', 'messageService', 'pdfService',
+  function ($scope, $state, $rootScope, $filter, requestService, config, partyService, messageService, pdfService) {
     $scope.data = [];
     $scope.localEnv = config.local;
     $scope.loading = true;
@@ -35,6 +35,8 @@ app.controller('fixedListController', ['$scope', '$rootScope', '$filter', 'reque
         partyService.party.client = res.data;
       }
       init();
+    }, function () {
+      $state.go('login');
     });
 
     $rootScope.$on('fixedRequest', function () {

@@ -1,3 +1,3 @@
-app.controller('summaryController',['$scope',function($scope){
+app.controller('summaryController', ['$scope', function ($scope) {
 
 }]);

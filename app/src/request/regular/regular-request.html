@@ -1,110 +1,128 @@
 <div class="grid-widget">
-    <div class="grid-title" data-ng-if="!loading">
-		<h3 class="pull-left">Regular Request</h3>
-        <div class="pull-right">
-            <span class="count">Total Request : <strong data-ng-bind="data.length"></strong></span> 
-            <button class="btn btn-primary" data-ng-click="newRequest('request/regular/add-regular-request.html','addRegularRequestController')">New Request</button>
-        </div>
+  <div class="grid-title" data-ng-if="!loading">
+    <h3 class="pull-left">Regular Request</h3>
+    <div class="pull-right">
+      <span class="count">Total Request : <strong data-ng-bind="data.length"></strong></span>
+      <button class="btn btn-primary"
+              data-ng-click="newRequest('request/regular/add-regular-request.html','addRegularRequestController')">New
+        Request
+      </button>
     </div>
-    <div class="grid-actionbar" data-ng-show="!loading">
-    	<div class="row">
-            <div class="col-md-8">
-                <form class="form-inline" novalidate="novalidate">
-                  <div class="form-group">
-                        <div class="btn-group"> 
-                            <button class="btn btn-default" data-ng-class='{active:filter.type=="vehicle"}' data-ng-click='filter.type="vehicle"'>Vehicle</button>
-                            <button class="btn btn-default" data-ng-class='{active:filter.type=="driver"}' data-ng-click='filter.type="driver"'>Driver</button>
-                        </div>
-                  </div>
-                  <div class="form-group" data-ng-if='filter.type=="vehicle"'>
-                        <select class="form-control" data-ng-model="filter.vehicle">
-                            <option value="">Select Vehicle</option>
-                            <option data-ng-repeat="v in vehicleList">{{v.vehicleName}},{{v.vehicleNo}}</option>
-                        </select>
-                  </div>
-                  <div class="form-group" data-ng-if='filter.type=="driver"'>
-                        <select class="form-control" data-ng-model="filter.driver">
-                           <option value="">Select Driver</option>
-                            <option data-ng-repeat="d in driverList">{{d.name}}</option>
-                        </select>
-                  </div>
-                  <div class="form-group">
-                        <select class="form-control" data-ng-model="filter.month">
-                            <option data-ng-repeat="m in monthList">{{m}}</option>
-                        </select>
-                  </div>
-                  <button data-ng-click="applyFilter()" type="button" class="btn btn-primary">Apply</button>
-                  <button data-ng-click="clearFilter()" type="button" class="btn btn-primary">Clear</button>
-                </form>
+  </div>
+  <div class="grid-actionbar" data-ng-show="!loading">
+    <div class="row">
+      <div class="col-md-8">
+        <form class="form-inline" novalidate="novalidate">
+          <div class="form-group">
+            <div class="btn-group">
+              <button class="btn btn-default" data-ng-class='{active:filter.type=="vehicle"}'
+                      data-ng-click='filter.type="vehicle"'>Vehicle
+              </button>
+              <button class="btn btn-default" data-ng-class='{active:filter.type=="driver"}'
+                      data-ng-click='filter.type="driver"'>Driver
+              </button>
             </div>
-        
-        <div class="col-md-4">
-            <form class="form-inline export">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Global Search" data-ng-model="globalSearch"/>
-                </div>
-                <div class="checkbox">
-                    <label>&nbsp;Export : &nbsp;</label>
-                    <button type="button" data-ng-click="exportData()" title="Export to PDF" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i></button>
-                </div>
-                
-            </form>
-        </div>
-        </div>
+          </div>
+          <div class="form-group" data-ng-if='filter.type=="vehicle"'>
+            <select class="form-control" data-ng-model="filter.vehicle">
+              <option value="">Select Vehicle</option>
+              <option data-ng-repeat="v in vehicleList">{{v.vehicleName}},{{v.vehicleNo}}</option>
+            </select>
+          </div>
+          <div class="form-group" data-ng-if='filter.type=="driver"'>
+            <select class="form-control" data-ng-model="filter.driver">
+              <option value="">Select Driver</option>
+              <option data-ng-repeat="d in driverList">{{d.name}}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <select class="form-control" data-ng-model="filter.month">
+              <option data-ng-repeat="m in monthList">{{m}}</option>
+            </select>
+          </div>
+          <button data-ng-click="applyFilter()" type="button" class="btn btn-primary">Apply</button>
+          <button data-ng-click="clearFilter()" type="button" class="btn btn-primary">Clear</button>
+        </form>
+      </div>
+
+      <div class="col-md-4">
+        <form class="form-inline export">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Global Search" data-ng-model="globalSearch"/>
+          </div>
+          <div class="checkbox">
+            <label>&nbsp;Export : &nbsp;</label>
+            <button type="button" data-ng-click="exportData()" title="Export to PDF" class="btn btn-danger"><i
+              class="fa fa-file-pdf-o"></i></button>
+          </div>
+
+        </form>
+      </div>
     </div>
-    <div class="grid">
-        <div data-ng-if="loading" class="loader">
-            <i class="fa fa-refresh fa-spin"></i>
-            Please Wait...
-        </div>
-        <div data-ng-if="data.length===0 && !loading" class="loader">0 Record Found.</div>
+  </div>
+  <div class="grid">
+    <div data-ng-if="loading" class="loader">
+      <i class="fa fa-refresh fa-spin"></i>
+      Please Wait...
+    </div>
+    <div data-ng-if="data.length===0 && !loading" class="loader">0 Record Found.</div>
     <table data-ng-if="data.length>0">
-        <thead>
-          <tr>
-          	<th data-class="expand">Status</th>  
-            <th>Start Date</th>            
-            <th>Client Name</th>
-            <th data-hide="phone,tablet">Request</th>
-            <th data-hide="phone">End Date</th>
-            <th data-hide="phone,tablet">Driver</th>
-            <th data-hide="phone">Vehicle</th>            
-            <th data-hide="phone,tablet">Trip KM</th>
-            <th>Total Amt</th>
-            <th data-hide="phone">Profit</th>
-            <th data-hide="phone" class="td-actions">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="r in data.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter:globalSearch" data-responsive-grid>
-             <td>
-            	<i class="fa fa-check-circle-o" data-ng-if="r.payStatus"></i>
-                <i class="fa fa-dot-circle-o" data-ng-if="!r.payStatus"></i>
-            </td>
-            <td data-ng-bind='r.startTrip.date | date:"dd-MMM-yyyy"'></td>            
-            <td data-ng-bind="'{{r.selectClient==='party'?r.partyName:r.selectClient==='operator'?r.operatorName:r.userName}}'"></td>
-            <td data-ng-bind="'{{r.requestType==='local'?'Local':'Out Station'}}'"></td>
-            <td data-ng-bind='r.endTrip.date | date:"dd-MMM-yyyy"'></td>
-            <td>            
-			{{r.vehicleSelect==='own'?r.vehicle.driver:r.vehicleSelect==='indirect'?r.inDirect.driver:r.vehicleSelect==='operator'?r.operator.driver:r.agency.driver}}
-            </td>
-            <td>            	
-			{{r.vehicleSelect==='own'?r.vehicle.vehicle:r.vehicleSelect==='indirect'?r.inDirect.vehicle:r.vehicleSelect==='operator'?r.operator.vehicleName+','+r.operator.vehicleNo:r.agency.vehicleName+','+r.agency.vehicleNo}}
-            </td>            
-            <td data-ng-bind="'{{r.totalKm}}'+' KM'"></td>
-            <td><i class="fa fa-rupee"></i> {{r.totalAmt | number:'2'}}/-</td>
-            <td><i class="fa fa-rupee"></i> {{r.profit | number:'2'}}/-</td>
-            <td class="td-actions">            	
-            	<div class="btn-group">
-                	<button type="button" title="View" data-ng-click="viewRequest('request/regular/add-regular-request.html','addRegularRequestController',localEnv?r._id:r._id.$oid)" class="btn btn-primary"><i class="fa fa-eye"></i></button>
-                    <button type="button" title="Edit" data-ng-click="editRequest('request/regular/add-regular-request.html','addRegularRequestController',localEnv?r._id:r._id.$oid)" class="btn btn-success"><i class="fa fa-edit"></i></button>
-                    <button type="button" title="Delete" data-ng-click="deleteRequest(localEnv?r._id:r._id.$oid)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                </div>
-            </td>
-            </tr>
-        </tbody>
-    </table>     
-    </div>
-    <div class="grid-pager" data-ng-show="data.length>1">
-    <uib-pagination total-items="totalItems" max-size="maxSize" ng-model="currentPage" force-ellipses="true" class="pagination-sm" items-per-page="itemsPerPage" boundary-link-numbers="true" previous-text="&lsaquo;" next-text="&rsaquo;"></uib-pagination>
-    </div>
+      <thead>
+      <tr>
+        <th data-class="expand">Status</th>
+        <th>Start Date</th>
+        <th>Client Name</th>
+        <th data-hide="phone,tablet">Request</th>
+        <th data-hide="phone">End Date</th>
+        <th data-hide="phone,tablet">Driver</th>
+        <th data-hide="phone">Vehicle</th>
+        <th data-hide="phone,tablet">Trip KM</th>
+        <th>Total Amt</th>
+        <th data-hide="phone">Profit</th>
+        <th data-hide="phone" class="td-actions">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr
+        ng-repeat="r in data.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter:globalSearch"
+        data-responsive-grid>
+        <td>
+          <i class="fa fa-check-circle-o" data-ng-if="r.payStatus"></i>
+          <i class="fa fa-dot-circle-o" data-ng-if="!r.payStatus"></i>
+        </td>
+        <td data-ng-bind='r.startTrip.date | date:"dd-MMM-yyyy"'></td>
+        <td
+          data-ng-bind="'{{r.selectClient==='party'?r.partyName:r.selectClient==='operator'?r.operatorName:r.userName}}'"></td>
+        <td data-ng-bind="'{{r.requestType==='local'?'Local':'Out Station'}}'"></td>
+        <td data-ng-bind='r.endTrip.date | date:"dd-MMM-yyyy"'></td>
+        <td>
+          {{r.vehicleSelect==='own'?r.vehicle.driver:r.vehicleSelect==='indirect'?r.inDirect.driver:r.vehicleSelect==='operator'?r.operator.driver:r.agency.driver}}
+        </td>
+        <td>
+          {{r.vehicleSelect==='own'?r.vehicle.vehicle:r.vehicleSelect==='indirect'?r.inDirect.vehicle:r.vehicleSelect==='operator'?r.operator.vehicleName+','+r.operator.vehicleNo:r.agency.vehicleName+','+r.agency.vehicleNo}}
+        </td>
+        <td data-ng-bind="'{{r.totalKm}}'+' KM'"></td>
+        <td><i class="fa fa-rupee"></i> {{r.totalAmt | number:'2'}}/-</td>
+        <td><i class="fa fa-rupee"></i> {{r.profit | number:'2'}}/-</td>
+        <td class="td-actions">
+          <div class="btn-group">
+            <button type="button" title="View"
+                    data-ng-click="viewRequest('request/regular/add-regular-request.html','addRegularRequestController',localEnv?r._id:r._id.$oid)"
+                    class="btn btn-primary"><i class="fa fa-eye"></i></button>
+            <button type="button" title="Edit"
+                    data-ng-click="editRequest('request/regular/add-regular-request.html','addRegularRequestController',localEnv?r._id:r._id.$oid)"
+                    class="btn btn-success"><i class="fa fa-edit"></i></button>
+            <button type="button" title="Delete" data-ng-click="deleteRequest(localEnv?r._id:r._id.$oid)"
+                    class="btn btn-danger"><i class="fa fa-trash"></i></button>
+          </div>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="grid-pager" data-ng-show="data.length>1">
+    <uib-pagination total-items="totalItems" max-size="maxSize" ng-model="currentPage" force-ellipses="true"
+                    class="pagination-sm" items-per-page="itemsPerPage" boundary-link-numbers="true"
+                    previous-text="&lsaquo;" next-text="&rsaquo;"></uib-pagination>
+  </div>
 </div>

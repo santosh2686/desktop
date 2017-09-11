@@ -1,3 +1,3 @@
-app.controller('partyController',['$scope',function($scope){
+app.controller('partyController', ['$scope', function ($scope) {
 
 }]);

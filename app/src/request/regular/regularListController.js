@@ -1,5 +1,5 @@
-app.controller('regularListController', ['$scope', '$rootScope', '$q', '$filter', 'requestService', 'config', 'messageService', 'vehicleService', 'driverService', 'pdfService',
-  function ($scope, $rootScope, $q, $filter, requestService, config, messageService, vehicleService, driverService, pdfService) {
+app.controller('regularListController', ['$scope', '$state', '$rootScope', '$q', '$filter', 'requestService', 'config', 'messageService', 'vehicleService', 'driverService', 'pdfService',
+  function ($scope, $state, $rootScope, $q, $filter, requestService, config, messageService, vehicleService, driverService, pdfService) {
     $scope.data = [];
     $scope.localEnv = config.local;
     $scope.loading = true;
@@ -38,6 +38,8 @@ app.controller('regularListController', ['$scope', '$rootScope', '$q', '$filter'
         driverService.driver = res[1].data;
       }
       init();
+    }, function () {
+      $state.go('login');
     });
     $rootScope.$on('regularRequest', function () {
       init();

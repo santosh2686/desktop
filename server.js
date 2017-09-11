@@ -8,11 +8,11 @@ const request = require('request');
 const port = process.env.PORT || 9090;
 const proxyMiddleware = require('http-proxy-middleware');
 
-/*
+
 const HttpsProxyAgent = require('https-proxy-agent');
 const proxy = process.env.https_proxy || process.env.HTTPS_PROXY;
 const agent = new HttpsProxyAgent(proxy);
-*/
+
 
 const session = require('express-session');
 app.use(session({
@@ -40,13 +40,13 @@ const loginCall = function (req, res, next) {
   if (!data.userName || !data.password) {
     res.sendStatus(401);
   } else {
-    request('https://api.mongolab.com/api/1/databases/travel/collections/login?apiKey=NNY26lvUYux1Rz5H-7QLgNB28lsBmg0K&f={"id":1}&q={"userName":"'+data.userName+'","password":"'+data.password+'"}',
+    request('https://api.mongolab.com/api/1/databases/travel/collections/login?apiKey=NNY26lvUYux1Rz5H-7QLgNB28lsBmg0K&f={"id":1}&q={"userName":"' + data.userName + '","password":"' + data.password + '"}',
       function (error, response, body) {
-      if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode == 200) {
           const resposnse = JSON.parse(body);
-          if(resposnse.length == 1){
+          if (resposnse.length == 1) {
             return next();
-          }else {
+          } else {
             return res.sendStatus(401);
           }
         } else {
@@ -72,7 +72,7 @@ app.use('/v1/**', auth, proxyMiddleware({
   target: 'https://api.mongolab.com',
   changeOrigin: true,
   secure: false,
-  // agent: agent,
+  agent: agent,
   pathRewrite: {
     '^/v1/': '/'
   },

@@ -1,6 +1,6 @@
 app.controller('vehicleExpenseController',
-  ['$scope', '$rootScope', '$filter', 'expenseService', 'requestService', 'vehicleService', 'messageService', 'pdfService', '$uibModal', 'config',
-    function ($scope, $rootScope, $filter, expenseService, requestService, vehicleService, messageService, pdfService, $uibModal, config) {
+  ['$scope', '$state', '$rootScope', '$filter', 'expenseService', 'requestService', 'vehicleService', 'messageService', 'pdfService', '$uibModal', 'config',
+    function ($scope, $state, $rootScope, $filter, expenseService, requestService, vehicleService, messageService, pdfService, $uibModal, config) {
       $scope.data = [];
       $scope.loading = true;
       $scope.localEnv = config.local;
@@ -41,7 +41,9 @@ app.controller('vehicleExpenseController',
           });
         },
         init = function () {
-          expenseService.getExpense('vehicleExpense', 's={"date":-1}').then(success);
+          expenseService.getExpense('vehicleExpense', 's={"date":-1}').then(success, function () {
+            $state.go('login');
+          });
         },
         setFuelData = function (row) {
           if (row.expenseName == 'fuel') {

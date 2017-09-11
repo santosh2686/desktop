@@ -1,5 +1,5 @@
-app.controller('driverExpenseController', ['$scope', '$rootScope', '$filter', 'expenseService', 'requestService', 'driverService', 'messageService', 'pdfService', '$uibModal', 'config',
-  function ($scope, $rootScope, $filter, expenseService, requestService, driverService, messageService, pdfService, $uibModal, config) {
+app.controller('driverExpenseController', ['$scope', '$state', '$rootScope', '$filter', 'expenseService', 'requestService', 'driverService', 'messageService', 'pdfService', '$uibModal', 'config',
+  function ($scope, $state, $rootScope, $filter, expenseService, requestService, driverService, messageService, pdfService, $uibModal, config) {
     $scope.data = [];
     $scope.loading = true;
     $scope.localEnv = config.local;
@@ -39,7 +39,9 @@ app.controller('driverExpenseController', ['$scope', '$rootScope', '$filter', 'e
           }
         });
       }, init = function () {
-        expenseService.getExpense('driverExpense', 's={"date":-1}').then(success);
+        expenseService.getExpense('driverExpense', 's={"date":-1}').then(success, function () {
+          $state.go('login');
+        });
       };
     init();
     $rootScope.$on('driverExpense', function () {

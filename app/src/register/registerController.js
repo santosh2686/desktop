@@ -1,3 +1,3 @@
-app.controller('registerController',['$scope',function($scope){
-	
+app.controller('registerController', ['$scope', function ($scope) {
+
 }]);
