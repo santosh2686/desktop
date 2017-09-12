@@ -5,7 +5,7 @@
   "node-main": "server.js",
   "main": "http://localhost:9090/",
   "scripts": {
-    "dev": "./node_modules/.bin/bower install && npm run build",
+    "install": "node ./node_modules/.bin/bower install && npm run build",
     "start": "node server.js",
     "build": "rm -rf dist && node ./node_modules/.bin/gulp build"
   },
@@ -22,22 +22,12 @@
   },
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.15.0",
-    "express": "^4.13.4",
-    "express-session": "^1.15.5",
-    "http": "0.0.0",
-    "http-proxy-middleware": "^0.17.4",
-    "nodemailer": "^4.1.0",
-    "path": "^0.12.7",
-    "querystring": "^0.2.0",
-    "request": "^2.81.0",
-    "url": "^0.11.0"
-  },
-  "devDependencies": {
-    "https-proxy-agent": "^2.1.0",
     "bardjs": "^0.1.8",
+    "body-parser": "^1.15.0",
     "bower": "x.x.x",
     "chai": "^3.5.0",
+    "express": "^4.13.4",
+    "express-session": "^1.15.5",
     "gulp": "^3.9.1",
     "gulp-angular-templatecache": "^1.8.0",
     "gulp-bower-files": "^0.2.7",
@@ -62,6 +52,8 @@
     "gulp-uncss": "^1.0.4",
     "gulp-util": "^3.0.7",
     "gulp-wiredep": "0.0.0",
+    "http": "0.0.0",
+    "http-proxy-middleware": "^0.17.4",
     "jasmine-core": "^2.4.1",
     "jshint": "^2.9.1",
     "jshint-stylish": "^2.1.0",
@@ -69,9 +61,17 @@
     "mini-css": "^1.0.3",
     "mongodb": "^2.1.16",
     "node-webkit-builder": "^1.0.13",
+    "nodemailer": "^4.1.0",
     "nw": "^0.13.3",
     "nw-builder": "^2.2.0",
+    "path": "^0.12.7",
     "phantomjs-prebuilt": "^2.1.7",
+    "querystring": "^0.2.0",
+    "request": "^2.81.0",
+    "url": "^0.11.0",
     "wiredep": "^3.0.0"
+  },
+  "devDependencies": {
+    "https-proxy-agent": "^2.1.0"
   }
 }

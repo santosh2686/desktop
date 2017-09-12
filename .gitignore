@@ -10,6 +10,8 @@ database/*
 
 bower_components/
 
+dist/
+
 test/
 
 npm-debug.log
