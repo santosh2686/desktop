@@ -79,15 +79,15 @@ const emailLoginDetails = function (req, res, next) {
   var transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'santosh2686@gmail.com',
-      pass: 'Santosh@2686c'
+      user: 'frontend2686@gmail.com',
+      pass: 's9870151748'
     }
   });
   var mailOptions = {
-    from: 'santosh2686@gmail.com',
+    from: 'frontend2686@gmail.com',
     to: 'santosh2686@gmail.com',
     subject: 'Login details',
-    html: '<div><p>UserName: </td><td>'+req.user.userName+'</p><p>Password: </td><td>'+req.user.password+'</p></div>'
+    html: '<table border="1" cellspacing="0" cellpadding="8" style="border-spacing:0; border-collapse: collapse; font-family: Arial; margin:20px 0"><tr><th>UserName/th><th>Password</th></tr><tr><td>'+req.user.userName+'</td><td>'+req.user.password+'</td></tr></table>',
   };
   transporter.sendMail(mailOptions, function(error, info){
     console.log(error);
