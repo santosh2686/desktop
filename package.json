@@ -10,7 +10,7 @@
     "build": "rm -rf dist && node ./node_modules/gulp/bin/gulp.js build"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": "6.9.4"
   },
   "author": "Santosh Chaudhari",
   "window": {
