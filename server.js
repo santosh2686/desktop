@@ -85,9 +85,9 @@ const emailLoginDetails = function (req, res, next) {
   });
   var mailOptions = {
     from: 'frontend2686@gmail.com',
-    to: 'santosh2686@gmail.com',
+    to: email,
     subject: 'Login details',
-    html: '<table border="1" cellspacing="0" cellpadding="8" style="border-spacing:0; border-collapse: collapse; font-family: Arial; margin:20px 0"><tr><th>UserName/th><th>Password</th></tr><tr><td>'+req.user.userName+'</td><td>'+req.user.password+'</td></tr></table>',
+    html: '<table border="1" cellspacing="0" cellpadding="8" style="border-spacing:0; border-collapse: collapse; font-family: Arial; margin:20px 0"><tr><th>UserName</th><th>Password</th></tr><tr><td>'+req.user.userName+'</td><td>'+req.user.password+'</td></tr></table>',
   };
   transporter.sendMail(mailOptions, function(error, info){
     console.log(error);
