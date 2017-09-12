@@ -278,5 +278,4 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
       templateUrl: 'summary/driver/driver-summary.html',
       controller: 'driverSummaryController'
     })
-
-}]);	
+}]);

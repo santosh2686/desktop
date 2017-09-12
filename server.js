@@ -8,13 +8,9 @@ const nodemailer = require('nodemailer');
 const port = process.env.PORT || 9090;
 const proxyMiddleware = require('http-proxy-middleware');
 
-/*
-
 const HttpsProxyAgent = require('https-proxy-agent');
 const proxy = process.env.https_proxy || process.env.HTTPS_PROXY;
 const agent = new HttpsProxyAgent(proxy);
-
-*/
 
 const session = require('express-session');
 app.use(session({
@@ -120,7 +116,7 @@ app.use('/v1/**', auth, proxyMiddleware({
   target: 'https://api.mongolab.com',
   changeOrigin: true,
   secure: false,
-  // agent: agent,
+  agent: agent,
   pathRewrite: {
     '^/v1/': '/'
   },
