@@ -5,20 +5,19 @@ const url = require('url');
 const qs = require('querystring');
 const request = require('request');
 const nodemailer = require('nodemailer');
-const port = process.env.PORT || 9090;
+const session = require('express-session');
 const proxyMiddleware = require('http-proxy-middleware');
+const port = process.env.PORT || 6060;
 
 /*
-
 const HttpsProxyAgent = require('https-proxy-agent');
 const proxy = process.env.https_proxy || process.env.HTTPS_PROXY;
 const agent = new HttpsProxyAgent(proxy);
-
 */
 
-const session = require('express-session');
 app.use(session({
   secret: '278sbkn4-4Dsahn44-WppQ38S-qwhbk456-80nshdnfh-78sdfgnk10376s',
+  name: 'sessionId',
   resave: true,
   saveUninitialized: true
 }));
@@ -30,7 +29,7 @@ app.get('/', function (req, res) {
 
 // Authentication and Authorization Middleware
 const auth = function (req, res, next) {
-  if (req.session && req.session.user === "balaji" && req.session.admin)
+  if (req.session && req.session.loggedIn)
     return next();
   else
     return res.sendStatus(401);
@@ -87,12 +86,11 @@ const emailLoginDetails = function (req, res, next) {
     from: 'frontend2686@gmail.com',
     to: email,
     subject: 'Login details',
-    html: '<table border="1" cellspacing="0" cellpadding="8" style="border-spacing:0; border-collapse: collapse; font-family: Arial; margin:20px 0"><tr><th>UserName</th><th>Password</th></tr><tr><td>'+req.user.userName+'</td><td>'+req.user.password+'</td></tr></table>',
+    html: '<table border="1" cellspacing="0" cellpadding="8" style="border-spacing:0; border-collapse: collapse; font-family: Arial; margin:20px 0"><tr><th>UserName</th><th>Password</th></tr><tr><td>' + req.user.userName + '</td><td>' + req.user.password + '</td></tr></table>',
   };
-  transporter.sendMail(mailOptions, function(error, info){
-    console.log(error);
+  transporter.sendMail(mailOptions, function (error, info) {
     if (error) {
-      return res.sendStatus(401);
+      res.sendStatus(401);
     } else {
       console.log('Email sent: ' + info.response);
       next();
@@ -103,12 +101,14 @@ const emailLoginDetails = function (req, res, next) {
 app.get('/login', loginCall, (req, res, next) => {
   const queryObject = url.parse(req.url, true).query;
   req.session.user = queryObject.userName;
-  req.session.admin = true;
+  req.session.loggedIn = true;
   res.send("login success!");
 });
 
 app.get('/logout', function (req, res) {
-  req.session.destroy();
+  req.session.destroy(function () {
+    console.log('User logged Out.');
+  });
   res.send("logout success!");
 });
 
@@ -122,7 +122,7 @@ app.use('/v1/**', auth, proxyMiddleware({
   secure: false,
   // agent: agent,
   pathRewrite: {
-    '^/v1/': '/'
+    '^/v1/': '/api/1/databases/travel/collections/'
   },
   onProxyReq: (proxyReq, req) => {
     console.log(req.method, req.path, '->', 'https://api.mongolab.com' + proxyReq.path);

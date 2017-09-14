@@ -3,7 +3,7 @@ app.factory('config',['$http',function($http){
     return{
 			local:localEnv,
             apiKey:'NNY26lvUYux1Rz5H-7QLgNB28lsBmg0K',
-            baseUrl:localEnv?'http://localhost:9090/api/travel':'v1/api/1/databases/travel/collections',
+            baseUrl:localEnv?'http://localhost:9090/api/travel':'v1',
 			login:'/login',
             regular:'/request',
 			fixed:'/fixedRequest',
