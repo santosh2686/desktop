@@ -192,8 +192,9 @@ app.controller('addRegularRequestController',
         }
 
         if ($scope.requestData.totalHr > partyPackage.hrRate.minHr && $scope.requestData.totalKm <= partyPackage.kmRate.minKm) {
-          var baseHrAmt = (Math.floor($scope.requestData.totalHr / partyPackage.hrRate.minHr)) * partyPackage.basicAmt;
-          var extraHrAmt = ($scope.requestData.totalHr % partyPackage.hrRate.minHr) * partyPackage.hrRate.extraHr;
+          // var baseHrAmt = (Math.floor($scope.requestData.totalHr / partyPackage.hrRate.minHr)) * partyPackage.basicAmt;
+          var baseHrAmt = partyPackage.basicAmt;
+          var extraHrAmt = (Number($scope.requestData.totalHr) - partyPackage.hrRate.minHr) * partyPackage.hrRate.extraHr;
           $scope.requestData.driverOverTime = ($scope.requestData.totalHr % 12) * 20;
 
           tripTotal = tripTotal + (baseHrAmt + extraHrAmt);
@@ -201,7 +202,7 @@ app.controller('addRegularRequestController',
 
         if ($scope.requestData.totalKm > partyPackage.kmRate.minKm && $scope.requestData.totalHr <= partyPackage.hrRate.minHr) {
           var baseKmAmt = (Math.floor($scope.requestData.totalKm / partyPackage.kmRate.minKm)) * partyPackage.basicAmt;
-          var extraKm = ($scope.requestData.totalKm - partyPackage.kmRate.minKm)
+          var extraKm = ($scope.requestData.totalKm - partyPackage.kmRate.minKm);
           var extraKmAmt = extraKm > 0 ? extraKm * partyPackage.kmRate.extraKm : 0;
           $scope.requestData.driverOverTime = 0;
           tripTotal = tripTotal + (baseKmAmt + extraKmAmt);
@@ -209,8 +210,8 @@ app.controller('addRegularRequestController',
 
         if ($scope.requestData.totalKm > partyPackage.kmRate.minKm && $scope.requestData.totalHr > partyPackage.hrRate.minHr) {
           var baseHrAmt = (Math.floor($scope.requestData.totalHr / partyPackage.hrRate.minHr)) * partyPackage.basicAmt;
-          var extraHrAmt = ($scope.requestData.totalHr % partyPackage.hrRate.minHr) * partyPackage.hrRate.extraHr;
-          var extraKm = ($scope.requestData.totalKm - partyPackage.kmRate.minKm)
+          var extraHrAmt = (Number($scope.requestData.totalHr) - partyPackage.hrRate.minHr) * partyPackage.hrRate.extraHr;
+          var extraKm = ($scope.requestData.totalKm - partyPackage.kmRate.minKm);
           var extraKmAmt = extraKm > 0 ? extraKm * partyPackage.kmRate.extraKm : 0;
           $scope.requestData.driverOverTime = ($scope.requestData.totalHr % 12) * 20;
           tripTotal = tripTotal + (baseHrAmt + extraHrAmt + extraKmAmt);
