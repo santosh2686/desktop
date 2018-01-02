@@ -1,3 +1,4 @@
+const compression = require('compression');
 const express = require('express');
 const app = express();
 const http = require('http');
@@ -15,13 +16,14 @@ const proxy = process.env.https_proxy || process.env.HTTPS_PROXY;
 const agent = new HttpsProxyAgent(proxy);
 */
 
+
 app.use(session({
   secret: '278sbkn4-4Dsahn44-WppQ38S-qwhbk456-80nshdnfh-78sdfgnk10376s',
   name: 'sessionId',
   resave: true,
   saveUninitialized: true
 }));
-
+app.use(compression());
 app.use(express.static(__dirname + '/dist'));
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname + '/dist/index.html'));
