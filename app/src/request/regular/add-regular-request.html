@@ -522,7 +522,7 @@
         <div class="row">
           <div class="col-md-3">
             <div class="form-group">
-              <label>Advance Amt from client</label>
+              <label>Advance Amount from client</label>
               <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.advanceAmt"></span>
               <input data-ng-if="!hideView" type="number" class="form-control" data-ng-model='requestData.advanceAmt'/>
             </div>
@@ -564,8 +564,25 @@
           </div>
           <div class="calc-data">
             <table>
+              <tr data-ng-if='requestData.advanceAmt>0'>
+                <td>Total Amount :</td>
+                <td>
+                  <i class="fa fa-rupee"> </i> <span>{{(requestData.totalAmt + requestData.advanceAmt)  | number:'2'}}</span>/-
+                </td>
+              </tr>
+              <tr data-ng-if='requestData.advanceAmt>0'>
+                <td>Advanced Amount :</td>
+                <td>
+                  <i class="fa fa-rupee"> </i> <span>{{requestData.advanceAmt | number:'2'}}</span>/-
+                </td>
+              </tr>
+              <tr data-ng-if='requestData.advanceAmt>0'>
+                <td colspan="2">
+                  -------------------------------------------
+                </td>
+              </tr>
               <tr>
-                <td>Trip Amount :</td>
+                <td>Final Trip Amount :</td>
                 <td>
                   <i class="fa fa-rupee"> </i> <span>{{requestData.totalAmt | number:'2'}}</span>/-
                 </td>
