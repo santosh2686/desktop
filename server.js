@@ -11,10 +11,10 @@ const proxyMiddleware = require('http-proxy-middleware');
 const port = process.env.PORT || 6060;
 
 /*
-const HttpsProxyAgent = require('https-proxy-agent');
-const proxy = process.env.https_proxy || process.env.HTTPS_PROXY;
-const agent = new HttpsProxyAgent(proxy);
-*/
+ const HttpsProxyAgent = require('https-proxy-agent');
+ const proxy = process.env.https_proxy || process.env.HTTPS_PROXY;
+ const agent = new HttpsProxyAgent(proxy);
+ */
 
 
 app.use(session({

@@ -28,7 +28,6 @@ app.controller('fixedPaymentController', ['$scope', '$q', '$filter', 'config', '
       if (!newValue) {
         return;
       }
-      ;
       $scope.vehicleList = $filter('filter')(initialVehicleData, {'fixed': {'companyName': newValue}});
     });
     $scope.calculatePayment = function () {
@@ -50,7 +49,7 @@ app.controller('fixedPaymentController', ['$scope', '$q', '$filter', 'config', '
           getPackageData();
         });
       }
-    }
+    };
 
     var getPackageData = function () {
         var packageCode = $filter('filter')(initialVehicleData, {
