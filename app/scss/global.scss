@@ -25,7 +25,7 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 .container{
- @media #{$desktop},#{$tablet_landscape }{
+ @media #{$desktop},#{$tablet_landscape}{
         width:90%;
     }
 }

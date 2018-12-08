@@ -34,6 +34,7 @@ app.controller('addRegularRequestController',
           'requestType': 'local',
           'selectClient': 'party',
           'vehicleSelect': 'own',
+          'driverSelect': 'existing',
           'startTrip': {
             'date': currDate
           },
@@ -58,6 +59,7 @@ app.controller('addRegularRequestController',
             'AC': 'Yes'
           },
           'driverAllowance': 0,
+          'advancedFromAgency': 0,
           'advanceAmt': 0,
           'driverOverTime': 0,
           'tollAmt': 0,
@@ -236,9 +238,9 @@ app.controller('addRegularRequestController',
               $scope.requestData.ownerTotal = $scope.calculateOutTotal($scope.requestData.inDirect.ownerPackage, 'owner');
               $scope.requestData.profit = $scope.requestData.totalAmt - $scope.requestData.ownerTotal;
             } else {
-              $scope.requestData.totalAmt = $scope.calculateTotal($scope.requestData.inDirect.partyPackage, 'party') - $scope.requestData.advanceAmt;
+              $scope.requestData.totalAmt = $scope.calculateTotal($scope.requestData.inDirect.partyPackage, 'party') - $scope.requestData.advanceAmt - $scope.requestData.advancedFromAgency;
               $scope.requestData.ownerTotal = $scope.calculateTotal($scope.requestData.inDirect.ownerPackage, 'owner');
-              $scope.requestData.profit = ($scope.requestData.totalAmt - $scope.requestData.ownerTotal) + $scope.requestData.advanceAmt;
+              $scope.requestData.profit = ($scope.requestData.totalAmt - $scope.requestData.ownerTotal) + $scope.requestData.advanceAmt + $scope.requestData.advancedFromAgency;
             }
             break;
           }
@@ -248,10 +250,10 @@ app.controller('addRegularRequestController',
               $scope.requestData.ownerTotal = $scope.calculateOutTotal($scope.requestData.operator.operatorPackage, 'owner');
               $scope.requestData.profit = $scope.requestData.totalAmt - $scope.requestData.ownerTotal;
             } else {
-              $scope.requestData.totalAmt = $scope.calculateTotal($scope.requestData.operator.partyPackage, 'party') - $scope.requestData.advanceAmt;
+              $scope.requestData.totalAmt = $scope.calculateTotal($scope.requestData.operator.partyPackage, 'party') - $scope.requestData.advanceAmt - $scope.requestData.advancedFromAgency;
               $scope.requestData.ownerTotal = $scope.calculateTotal($scope.requestData.operator.operatorPackage, 'owner');
 
-              $scope.requestData.profit = ($scope.requestData.totalAmt - $scope.requestData.ownerTotal) + $scope.requestData.advanceAmt;
+              $scope.requestData.profit = ($scope.requestData.totalAmt - $scope.requestData.ownerTotal) + $scope.requestData.advanceAmt + $scope.requestData.advancedFromAgency;
             }
             break;
           }
@@ -261,9 +263,9 @@ app.controller('addRegularRequestController',
               $scope.requestData.ownerTotal = $scope.calculateOutTotal($scope.requestData.agency.agencyPackage, 'owner');
               $scope.requestData.profit = $scope.requestData.totalAmt - $scope.requestData.ownerTotal;
             } else {
-              $scope.requestData.totalAmt = $scope.calculateTotal($scope.requestData.agency.partyPackage, 'party') - $scope.requestData.advanceAmt;
+              $scope.requestData.totalAmt = $scope.calculateTotal($scope.requestData.agency.partyPackage, 'party') - $scope.requestData.advanceAmt - $scope.requestData.advancedFromAgency;
               $scope.requestData.ownerTotal = $scope.calculateTotal($scope.requestData.agency.agencyPackage, 'owner');
-              $scope.requestData.profit = ($scope.requestData.totalAmt - $scope.requestData.ownerTotal) + $scope.requestData.advanceAmt;
+              $scope.requestData.profit = ($scope.requestData.totalAmt - $scope.requestData.ownerTotal) + $scope.requestData.advanceAmt + $scope.requestData.advancedFromAgency;
             }
             break;
           }

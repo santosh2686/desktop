@@ -278,4 +278,20 @@ app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $u
       templateUrl: 'summary/driver/driver-summary.html',
       controller: 'driverSummaryController'
     })
+    .state('booking', {
+      url: '/booking',
+      views: {
+        'header': {
+          templateUrl: 'header/home-header.html',
+          controller: 'headerController'
+        },
+        'page': {
+          templateUrl: 'booking/booking.html',
+          controller: 'bookingController'
+        },
+        'footer': {
+          templateUrl: 'footer/footer.html'
+        }
+      }
+    })
 }]);

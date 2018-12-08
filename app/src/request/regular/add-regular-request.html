@@ -38,7 +38,7 @@
 
           <div class="col-md-3">
             <div class="form-group">
-              <label for="exampleInputEmail1">Customer</label>
+              <label>Customer</label>
               <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.selectClient"></span>
               <div data-ng-if="!hideView" class="btn-group btn-group-sm">
                 <button data-ng-class="{active:requestData.selectClient=='party'}" class="btn btn-default"
@@ -176,6 +176,23 @@
           </div>
           <div class="col-md-3">
             <div class="form-group">
+              <label>Driver Selection</label>
+              <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.driverSelect"></span>
+              <div data-ng-if="!hideView" class="btn-group btn-group-sm">
+                <button class="btn btn-default" data-ng-class='{active:requestData.driverSelect=="existing"}'
+                        data-ng-click='requestData.driverSelect="existing";  requestData.vehicle.driver = ""; requestData.vehicle.driverContact = ""'>Existing
+                </button>
+                <button class="btn btn-default" data-ng-class='{active:requestData.driverSelect=="other"}'
+                        data-ng-click='requestData.driverSelect="other"'>Other
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" data-ng-if="requestData.vehicleSelect=='own'">
+          <div class="col-md-3" data-ng-if='requestData.driverSelect=="existing"'>
+            <div class="form-group">
               <label>Select Driver</label>
               <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.vehicle.driver"></span>
               <select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.vehicle.driver'>
@@ -184,6 +201,23 @@
               </select>
             </div>
           </div>
+
+          <div class="col-md-3" data-ng-if='requestData.driverSelect=="other"'>
+            <div class="form-group">
+              <label>Driver Name</label>
+              <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.vehicle.driver"></span>
+              <input data-ng-if="!hideView" type="text" class="form-control" data-ng-model='requestData.vehicle.driver'/>
+            </div>
+          </div>
+
+          <div class="col-md-3" data-ng-if='requestData.driverSelect=="other"'>
+            <div class="form-group">
+              <label>Driver Contact</label>
+              <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.vehicle.driverContact"></span>
+              <input data-ng-if="!hideView" type="text" class="form-control" data-ng-model='requestData.vehicle.driverContact'/>
+            </div>
+          </div>
+
         </div>
 
         <!-- Indirect Vehicle-->
@@ -519,6 +553,7 @@
           Miscellaneous Details
         </div>
 
+
         <div class="row">
           <div class="col-md-3">
             <div class="form-group">
@@ -550,6 +585,15 @@
             </div>
           </div>
         </div>
+        <div class="row" data-ng-if="requestData.vehicleSelect !== 'own'">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label>Advanced Amount from Agency</label>
+              <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.advancedFromAgency"></span>
+              <input data-ng-if="!hideView" type="number" class="form-control" data-ng-model='requestData.advancedFromAgency'/>
+            </div>
+          </div>
+        </div>
         <div class="section-title"></div>
         <div class="trip-calculation">
           <div class="form-action">
@@ -564,10 +608,10 @@
           </div>
           <div class="calc-data">
             <table>
-              <tr data-ng-if='requestData.advanceAmt>0'>
+              <tr data-ng-if='requestData.advanceAmt>0 || requestData.advancedFromAgency>0'>
                 <td>Total Amount :</td>
                 <td>
-                  <i class="fa fa-rupee"> </i> <span>{{(requestData.totalAmt + requestData.advanceAmt)  | number:'2'}}</span>/-
+                  <i class="fa fa-rupee"> </i> <span>{{(requestData.totalAmt + requestData.advanceAmt + requestData.advancedFromAgency)  | number:'2'}}</span>/-
                 </td>
               </tr>
               <tr data-ng-if='requestData.advanceAmt>0'>
@@ -576,9 +620,15 @@
                   <i class="fa fa-rupee"> </i> <span>{{requestData.advanceAmt | number:'2'}}</span>/-
                 </td>
               </tr>
-              <tr data-ng-if='requestData.advanceAmt>0'>
+              <tr data-ng-if='requestData.advancedFromAgency>0'>
+                <td>Advanced from Agency :</td>
+                <td>
+                  <i class="fa fa-rupee"> </i> <span>{{requestData.advancedFromAgency | number:'2'}}</span>/-
+                </td>
+              </tr>
+              <tr data-ng-if='requestData.advanceAmt>0 || requestData.advancedFromAgency>0'>
                 <td colspan="2">
-                  -------------------------------------------
+                  ---------------------------------------------------
                 </td>
               </tr>
               <tr>
