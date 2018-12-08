@@ -10,9 +10,9 @@ const session = require('express-session');
 const proxyMiddleware = require('http-proxy-middleware');
 const port = process.env.PORT || 9090;
 
-const HttpsProxyAgent = require('https-proxy-agent');
+/*const HttpsProxyAgent = require('https-proxy-agent');
 const proxy = process.env.https_proxy || process.env.HTTPS_PROXY;
-const agent = new HttpsProxyAgent(proxy);
+const agent = new HttpsProxyAgent(proxy);*/
 
 app.use(session({
   secret: '278sbkn4-4Dsahn44-WppQ38S-qwhbk456-80nshdnfh-78sdfgnk10376s',
@@ -119,7 +119,7 @@ app.use('/v1/**', auth, proxyMiddleware({
   target: 'https://api.mongolab.com',
   changeOrigin: true,
   secure: false,
-  agent: agent,
+  // agent: agent,
   pathRewrite: {
     '^/v1/': '/api/1/databases/travel/collections/'
   },
