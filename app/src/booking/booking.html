@@ -1,4 +1,62 @@
-<div>
-  Coming Soon...
+<div class="widget">
+  <div class="widget-header">
+    <div class="pull-left">
+      <i class="fa fa-user"></i> Advanced Booking
+    </div>
+  </div>
+  <div class="widget-content">
+    <div class="grid-widget">
+      <div class="grid-title" data-ng-if="!loading">
+        <h3 class="pull-left">Booking List</h3>
+        <div class="pull-right">
+          <span class="count">Total Request : <strong data-ng-bind="data.length"></strong></span>
+          <button class="btn btn-primary" data-ng-click="addBooking()">New Booking</button>
+        </div>
+      </div>
+      <div class="grid">
+        <div data-ng-if="loading" class="loader">
+          <i class="fa fa-refresh fa-spin"></i>
+          Please Wait...
+        </div>
+        <div data-ng-if="data.length===0 && !loading" class="loader">0 Record Found.</div>
+        <table data-ng-if="data.length>0">
+          <thead>
+          <tr>
+            <th data-class="expand" class="srNo">Sr No.</th>
+            <th>Client Name</th>
+            <th data-hide="phone,tablet">Pickup Date - Time</th>
+            <th data-hide="phone,tablet">Pickup Location</th>
+            <th data-hide="phone">Destination</th>
+            <th data-hide="phone">Vehicle</th>
+            <th>Client Contact</th>
+            <th data-hide="phone,tablet">Comments</th>
+            <th data-hide="phone" class="td-actions">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="b in data" data-responsive-grid>
+            <td class="srNo">{{$index+1}}</td>
+            <td>{{b.clientName}}</td>
+            <td data-ng-bind='b.pickUpDate | date:"dd-MMM-yyyy - hh:mm:ss a"'></td>
+            <td>{{b.pickUpLocation}}</td>
+            <td>{{b.destination}}</td>
+            <td>{{b.noOfSeats}} Seats</td>
+            <td>{{b.clientContact}}</td>
+            <td>{{b.comments}}</td>
+            <td class="td-actions">
+              <div class="btn-group">
+                <button type="button" title="View" data-ng-click="viewRequest(localEnv?b._id:b._id.$oid)"
+                        class="btn btn-primary"><i class="fa fa-eye"></i></button>
+                <button type="button" title="Edit" data-ng-click="editRequest(localEnv?b._id:b._id.$oid)"
+                        class="btn btn-success"><i class="fa fa-edit"></i></button>
+                <button type="button" title="Delete" data-ng-click="deleteRequest(localEnv?b._id:b._id.$oid)"
+                        class="btn btn-danger"><i class="fa fa-trash"></i></button>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 </div>
-

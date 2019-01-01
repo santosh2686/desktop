@@ -1,0 +1,109 @@
+<div class="widget">
+  <div class="widget-header">
+    <div class="pull-left">
+      {{action=='new'?'Add New Booking':action=='edit'?'Update Booking':'Booking Detail'}}
+    </div>
+    <div class="pull-right">
+        	<span class="modal-close" data-ng-click="closeModal()">
+            	<i class="fa fa-close"></i>
+            </span>
+    </div>
+  </div>
+  <div class="widget-content">
+    <form name="bookingForm" novalidate="novalidate">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Client Name</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="booking.clientName"></span>
+            <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='booking.clientName'/>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Pick up Location</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="booking.pickUpLocation"></span>
+            <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='booking.pickUpLocation'/>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Pick Up date</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="booking.pickUpDate | date:'dd-MMM-yyyy'"></span>
+            <p data-ng-if="!hideView" class="input-group">
+              <input type="text" class="form-control" ng-model="booking.pickUpDate" show-button-bar="false"
+                     show-weeks="false" uib-datepicker-popup="dd-MMM-yyyy" readonly is-open="calendar.open"
+                     ng-required="true" close-text="Close"/>
+              <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="openCalendar()"><i
+                                  class="glyphicon glyphicon-calendar"></i></button>
+                              </span>
+            </p>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="time-label">Pick Up Time</label>
+            <span data-ng-if="hideView" class="view-value"
+                  data-ng-bind="booking.pickUpTime | date:'shortTime'"></span>
+            <uib-timepicker data-ng-if="!hideView" ng-model="booking.pickUpTime"
+                            show-meridian="true"></uib-timepicker>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Destination</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="booking.destination"></span>
+            <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='booking.destination'/>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>No. Of seats</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="booking.noOfSeats"></span>
+            <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='booking.noOfSeats'/>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>AC</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="booking.AC"></span>
+            <div data-ng-if="!hideView" class="btn-group btn-group-sm">
+              <button class="btn btn-default" data-ng-class='{active:booking.AC=="Yes"}'
+                      data-ng-click='booking.AC="Yes"'>Yes
+              </button>
+              <button class="btn btn-default" data-ng-class='{active:booking.AC=="No"}'
+                      data-ng-click='booking.AC="No"'>No
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label>Client Contact</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="booking.clientContact"></span>
+            <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model='booking.clientContact'/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Comments</label>
+            <span data-ng-if="hideView" class="view-value" data-ng-bind="booking.comments"></span>
+            <textarea data-ng-if="!hideView" class="form-control" data-ng-model='booking.comments'></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger pull-left" data-ng-click="closeModal()">Close</button>
+        <button data-ng-if="action!=='view'" class="btn btn-success pull-right"
+                data-ng-disabled="!bookingForm.$dirty || !bookingForm.$valid || loading" data-ng-click="submitRequest()">
+          {{loading?"Please Wait...":"Submit"}}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

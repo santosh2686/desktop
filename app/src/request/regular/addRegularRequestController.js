@@ -134,7 +134,7 @@ app.controller('addRegularRequestController',
         loadDependencies();
       }
       $scope.requestData = ($scope.action === 'new') ? newObj : record.data[0];
-      if (record.action == 'edit') {
+      if (record.action === 'edit') {
         $scope.requestData.startTrip.date = new Date($scope.requestData.startTrip.date);
         $scope.requestData.endTrip.date = new Date($scope.requestData.endTrip.date);
         $scope.requestData.startTrip.time = new Date($scope.requestData.startTrip.time);
