@@ -10,8 +10,7 @@
     "build": "node ./node_modules/.bin/gulp build"
   },
   "engines": {
-    "node": "10.14.2",
-    "npm": "6.4.1"
+    "node": "6.9.4"
   },
   "author": "Santosh Chaudhari",
   "window": {
