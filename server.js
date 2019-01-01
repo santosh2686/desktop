@@ -97,7 +97,7 @@ const emailLoginDetails = function (req, res, next) {
   });
 };
 
-app.get('/login', loginCall, (req, res, next) => {
+app.get('/login', loginCall, function(req, res, next) {
   const queryObject = url.parse(req.url, true).query;
   req.session.user = queryObject.userName;
   req.session.loggedIn = true;
@@ -111,7 +111,7 @@ app.get('/logout', function (req, res) {
   res.send("logout success!");
 });
 
-app.get('/forgotPassword', verifyUserByEmail, emailLoginDetails, (req, res, next) => {
+app.get('/forgotPassword', verifyUserByEmail, emailLoginDetails, function(req, res, next) {
   res.send('Email Sent!!!');
 });
 
