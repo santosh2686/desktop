@@ -7,10 +7,11 @@
   "scripts": {
     "install": "node ./node_modules/.bin/bower install && npm run build",
     "start": "node server.js",
-    "build": "rm -rf dist && node ./node_modules/.bin/gulp build"
+    "build": "node ./node_modules/.bin/gulp build"
   },
   "engines": {
-    "node": "10.6.0"
+    "node": "10.14.2",
+    "npm": "6.4.1"
   },
   "author": "Santosh Chaudhari",
   "window": {
