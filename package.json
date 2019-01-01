@@ -29,7 +29,7 @@
     "compression": "1.7.1",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
-    "gulp": "3.9.1",
+    "gulp": "^4.0.0",
     "gulp-angular-templatecache": "1.8.0",
     "gulp-bower-files": "0.2.7",
     "gulp-bower-src": "0.1.0",
@@ -52,10 +52,11 @@
     "gulp-uglify": "1.5.3",
     "gulp-uncss": "1.0.4",
     "gulp-util": "3.0.7",
-    "gulp-wiredep": "0.0.0",
+    "gulp-wiredep": "^1.2.0",
     "http": "0.0.0",
     "http-proxy-middleware": "0.17.4",
     "jasmine-core": "2.4.1",
+    "jsdoc": "^3.5.5",
     "jshint": "^2.9.6",
     "jshint-stylish": "2.1.0",
     "main-bower-files": "^2.13.1",
@@ -64,13 +65,13 @@
     "node-webkit-builder": "1.0.13",
     "nodemailer": "4.1.0",
     "nw": "^0.35.0",
-    "nw-builder": "2.2.0",
+    "nw-builder": "^3.5.6",
     "path": "0.12.7",
     "phantomjs-prebuilt": "^2.1.16",
     "querystring": "0.2.0",
     "request": "^2.88.0",
     "url": "0.11.0",
-    "wiredep": "3.0.0"
+    "wiredep": "^4.0.0"
   },
   "devDependencies": {
     "https-proxy-agent": "^2.2.1"

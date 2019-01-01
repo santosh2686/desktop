@@ -123,7 +123,7 @@ app.use('/v1/**', auth, proxyMiddleware({
   pathRewrite: {
     '^/v1/': '/api/1/databases/travel/collections/'
   },
-  onProxyReq: (proxyReq, req) => {
+  onProxyReq: function(proxyReq, req) {
     console.log(req.method, req.path, '->', 'https://api.mongolab.com' + proxyReq.path);
   }
 }));
