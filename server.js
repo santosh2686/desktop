@@ -1,134 +1,165 @@
-const compression = require('compression');
+const MongoClient = require('mongodb').MongoClient;
 const express = require('express');
 const app = express();
-const http = require('http');
+const objectId = require('mongodb').ObjectID;
+const bodyParser = require('body-parser');
+const compression = require('compression');
 const url = require('url');
 const qs = require('querystring');
-const request = require('request');
-const nodemailer = require('nodemailer');
+const path = require("path");
 const session = require('express-session');
-const proxyMiddleware = require('http-proxy-middleware');
-const port = process.env.PORT || 9090;
 
-/*const HttpsProxyAgent = require('https-proxy-agent');
-const proxy = process.env.https_proxy || process.env.HTTPS_PROXY;
-const agent = new HttpsProxyAgent(proxy);*/
+const dbUrl="mongodb+srv://admin:admin@travel.ecepf.mongodb.net?retryWrites=true&w=majority";
 
 app.use(session({
-  secret: '278sbkn4-4Dsahn44-WppQ38S-qwhbk456-80nshdnfh-78sdfgnk10376s',
-  name: 'sessionId',
-  resave: true,
-  saveUninitialized: true
-}));
+    secret: '278sbkn4-4Dsahn44-WppQ38S-qwhbk456-80nshdnfh-78sdfgnk10376s',
+    name: 'sessionId',
+    resave: true,
+    saveUninitialized: true
+  }));
+
 app.use(compression());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
+
 app.use(express.static(__dirname + '/dist'));
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname + '/dist/index.html'));
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/dist/index.html'));
 });
+
 
 // Authentication and Authorization Middleware
 const auth = function (req, res, next) {
-  if (req.session && req.session.loggedIn)
-    return next();
-  else
-    return res.sendStatus(401);
-};
-
-
-const loginCall = function (req, res, next) {
-  const data = url.parse(req.url, true).query;
-  if (!data.userName || !data.password) {
-    res.sendStatus(401);
-  } else {
-    request('https://api.mongolab.com/api/1/databases/travel/collections/login?apiKey=NNY26lvUYux1Rz5H-7QLgNB28lsBmg0K&f={"id":1}&q={"userName":"' + data.userName + '","password":"' + data.password + '"}',
-      function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-          const apiRes = JSON.parse(body);
-          if (apiRes.length == 1) {
-            return next();
-          } else {
-            return res.sendStatus(401);
-          }
-        } else {
-          return res.sendStatus(401);
-        }
-      });
-  }
-};
-
-const verifyUserByEmail = function (req, res, next) {
-  const queryObject = url.parse(req.url, true).query;
-  const email = queryObject.email;
-  request('https://api.mongolab.com/api/1/databases/travel/collections/login?apiKey=NNY26lvUYux1Rz5H-7QLgNB28lsBmg0K&q={"email":"' + email + '"}',
-    function (error, response, body) {
-      const apiRes = JSON.parse(body);
-      if (apiRes.length == 1) {
-        req.user = apiRes[0];
-        next();
-      } else {
-        return res.sendStatus(401);
-      }
-    })
-};
-
-const emailLoginDetails = function (req, res, next) {
-  const queryObject = url.parse(req.url, true).query;
-  const email = queryObject.email;
-  var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'frontend2686@gmail.com',
-      pass: 's9870151748'
-    }
-  });
-  var mailOptions = {
-    from: 'frontend2686@gmail.com',
-    to: email,
-    subject: 'Login details',
-    html: '<table border="1" cellspacing="0" cellpadding="8" style="border-spacing:0; border-collapse: collapse; font-family: Arial; margin:20px 0"><tr><th>UserName</th><th>Password</th></tr><tr><td>' + req.user.userName + '</td><td>' + req.user.password + '</td></tr></table>',
-  };
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      res.sendStatus(401);
-    } else {
-      console.log('Email sent: ' + info.response);
+    if (req.session && req.session.loggedIn) {
       next();
+    } else {
+      res.sendStatus(401);
     }
-  });
 };
 
-app.get('/login', loginCall, function(req, res, next) {
-  const queryObject = url.parse(req.url, true).query;
-  req.session.user = queryObject.userName;
-  req.session.loggedIn = true;
-  res.send("login success!");
+  let db;
+  const connectionOptions = {
+     useNewUrlParser: true,
+     useUnifiedTopology: true,
+     compression: ["snappy", "zlib"]
+  }
+
+ MongoClient.connect(dbUrl, connectionOptions, function(err, client) {		
+    if (err){
+        res.send('Database is not connected...');
+        return;
+    }
+    db = client.db('travel-agency');
+    var port = process.env.PORT || 9090;
+    app.listen(port, () => {
+        console.log('Application Running on port : '+port);
+    });
 });
+
+app.get('/login', function(req, res) {
+    const queryObject = url.parse(req.url, true).query;
+    const userName = queryObject.userName;
+    const userPassword = queryObject.password;
+    if(!userName || !userPassword) {
+        res.sendStatus(401);
+    } else {
+        db.collection('login', function(err, collection) {
+            collection.find(queryObject).toArray(function(err, items) {
+                if (!items.length) {
+                    res.sendStatus(401);
+                } else {
+                    req.session.loggedIn = true;
+                    res.send('Login successful')
+                }
+            });
+        });
+    }
+})
 
 app.get('/logout', function (req, res) {
-  req.session.destroy(function () {
-    console.log('User logged Out.');
+    req.session.destroy(function () {
+      console.log('User logged Out.');
+    });
+    res.send("logout success!");
   });
-  res.send("logout success!");
+  
+
+app.use(auth, function(req, res, next) {
+    next()
+})
+
+app.route('/v1/:collection')
+.get(function(req,res) {
+    var collection = req.params.collection;
+    var queryObject = url.parse(req.url,true).query;
+    var q=queryObject.q?JSON.parse(queryObject.q):{};
+    var f=queryObject.f?JSON.parse(queryObject.f):{};
+    var s=queryObject.s?JSON.parse(queryObject.s):{};    
+    var c = queryObject.c;
+    if(q._id){
+        q._id=objectId(q._id);
+    }
+    db.collection(collection,function(err, collection) {
+        if(c){
+            collection.count(q,function(err,count){
+                res.sendStatus(count);
+            });
+        }else{
+            collection.find(q,f).sort(s).toArray(function(err, items) {
+                res.send(items);
+            });
+        }
+    });
+})
+.post(function(req,res){
+    var collection = req.params.collection;
+    var item = req.body;
+    db.collection(collection, function(err, collection) {
+        collection.insertOne(item, {safe:true}, function(err, result) {
+            if(!err)
+            {
+                res.send(result);
+            }else{                        
+                res.send(err);
+            }
+        });
+    });
+})
+.put(function(req,res){
+    var collection = req.params.collection;
+    var queryObject = url.parse(req.url,true).query;
+	var a = queryObject.action;
+    var q=queryObject.q?JSON.parse(queryObject.q):{};
+    var item = req.body;
+    if(q._id){
+        q._id=objectId(q._id);
+    }
+    db.collection(collection,function(err,collection){
+        collection.updateOne(q,item,function(err,result){
+            if(!err){
+                res.send(result);
+            }else{
+                res.send(err);
+            }
+         });
+    });
 });
 
-app.get('/forgotPassword', verifyUserByEmail, emailLoginDetails, function(req, res, next) {
-  res.send('Email Sent!!!');
-});
-
-app.use('/v1/**', auth, proxyMiddleware({
-  target: 'https://api.mongolab.com',
-  changeOrigin: true,
-  secure: false,
-  // agent: agent,
-  pathRewrite: {
-    '^/v1/': '/api/1/databases/travel/collections/'
-  },
-  onProxyReq: function(proxyReq, req) {
-    console.log(req.method, req.path, '->', 'https://api.mongolab.com' + proxyReq.path);
-  }
-}));
-
-
-app.listen(port, function () {
-  console.log('Application Running on port: ' + port);
+//Delete Record
+app.route('/v1/:collection/:id')
+.delete(function(req,res){
+    var collectionName = req.params.collection;
+    var recordId = req.params.id;
+    db.collection(collectionName,function(err,collection){
+        if(!err){          
+            collection.deleteOne({'_id':objectId(recordId)},{safe:true},function(err, result){
+                if(!err){
+                    res.send(result);
+                }else{
+                    res.send(err);
+                }
+            });
+        }
+        
+    });
 });

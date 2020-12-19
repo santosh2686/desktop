@@ -12,7 +12,7 @@ app.controller('localPackageController', ['$scope', '$state', '$rootScope', '$ui
       },
       init = function () {
         packageService.getPackage('local').then(success, function () {
-          $state.go('login');
+          // $state.go('login');
         });
       },
       packageModal = function (action, data) {

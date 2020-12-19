@@ -1,9 +1,8 @@
 app.factory('config',['$http',function($http){
-	var localEnv=false;
     return{
-			local:localEnv,
+			local:true,
             apiKey:'NNY26lvUYux1Rz5H-7QLgNB28lsBmg0K',
-            baseUrl:localEnv?'http://localhost:9090/api/travel':'v1',
+            baseUrl:'v1',
 			login:'/login',
             regular:'/request',
 			fixed:'/fixedRequest',
@@ -36,19 +35,19 @@ app.factory('config',['$http',function($http){
         },
         getData:function(colName,filterQuery){
             return this.local?$http.get(this.baseUrl+colName+'?'+filterQuery):
-            $http.get(this.baseUrl+colName+'?apiKey='+this.apiKey+'&'+filterQuery);
+            $http.get(this.baseUrl+colName+'?'+filterQuery);
         },
         postData:function(colName,data){
             return this.local?$http.post(this.baseUrl+colName,JSON.stringify(data)):
-            $http.post(this.baseUrl+colName+'?apiKey='+this.apiKey,JSON.stringify(data))
+            $http.post(this.baseUrl+colName, JSON.stringify(data))
         },
         updateData:function(colName,docFilter,data){
             return this.local?$http.put(this.baseUrl+colName+'?q='+docFilter,JSON.stringify(data)):
-            $http.put(this.baseUrl+colName+'?apiKey='+this.apiKey+'&q='+docFilter,JSON.stringify(data));
+            $http.put(this.baseUrl+colName+'?q='+docFilter,JSON.stringify(data));
         },
         deleteData:function(colName,id){
             return this.local?$http.delete(this.baseUrl+''+colName+'/'+id+'?c=true'):
-            $http.delete(this.baseUrl+''+colName+'/'+id+'?c=true&apiKey='+this.apiKey);
+            $http.delete(this.baseUrl+''+colName+'/'+id+'?c=true');
         }
 	}
 }]);
