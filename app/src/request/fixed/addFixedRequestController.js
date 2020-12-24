@@ -200,7 +200,7 @@ app.controller('addFixedRequestController',
         if (extraKm > 0) {
           tripOutTotal = tripOutTotal + (extraKm * partyPackage.kmRate.extraKm);
         }
-        return tripOutTotal;
+        return tripOutTotal + $scope.requestData.tollAmt + $scope.requestData.parkingAmt;
       };
 
       $scope.calculateTotal = function (pgCode) {
@@ -232,7 +232,7 @@ app.controller('addFixedRequestController',
           tripTotal = tripTotal + (baseHrAmt + extraHrAmt + extraKmAmt);
         }
 
-        return tripTotal;
+        return tripTotal + $scope.requestData.tollAmt + $scope.requestData.parkingAmt;
 
       };
 

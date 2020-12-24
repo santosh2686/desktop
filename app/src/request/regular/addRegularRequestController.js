@@ -66,7 +66,8 @@ app.controller('addRegularRequestController',
           'parkingAmt': 0,
           'totalAmt': 0,
           'ownerTotal': 0,
-          'profit': 0
+          'profit': 0,
+          'payStatus': ''
         }, loadDependencies = function () {
           $q.all([vehicleService.getVehicle('own'),
             vehicleService.getVehicle('other'),

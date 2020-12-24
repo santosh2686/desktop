@@ -550,7 +550,22 @@
         </div>
 
         <div class="section-title">
-          Miscellaneous Details
+          Payment status
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <select required class="form-control" data-ng-if="!hideView" data-ng-model='requestData.payStatus'>
+                <option value="bill_not_sent">Bill not sent</option>
+                <option value="bill_sent">Bill sent</option>
+                <option value="paid">Paid</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title">
+          Miscellaneous details
         </div>
 
 

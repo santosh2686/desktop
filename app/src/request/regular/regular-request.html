@@ -87,8 +87,9 @@
         ng-repeat="r in data.slice(((currentPage-1)*itemsPerPage), ((currentPage)*itemsPerPage)) | filter:globalSearch"
         data-responsive-grid>
         <td>
-          <i class="fa fa-check-circle-o" data-ng-if="r.payStatus"></i>
-          <i class="fa fa-dot-circle-o" data-ng-if="!r.payStatus"></i>
+          <i class="fa fa-dot-circle-o" data-ng-if="!r.payStatus || (r.payStatus === 'bill_not_sent')"></i>
+          <i class="fa fa-check-circle-o" data-ng-if="r.payStatus === 'paid'"></i>
+          <i class="fa fa-exclamation-circle" data-ng-if="r.payStatus === 'bill_sent'"></i>
         </td>
         <td data-ng-bind='r.startTrip.date | date:"dd-MMM-yyyy"'></td>
         <td
