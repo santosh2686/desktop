@@ -179,7 +179,7 @@ app.controller('addRegularRequestController',
         if (extraKm > 0) {
           tripTotal = tripTotal + (extraKm * partyPackage.kmRate.extraKm);
         }
-        return tripTotal;
+        return tripTotal + $scope.requestData.tollAmt + $scope.requestData.parkingAmt;
       };
       $scope.calculateTotal = function (pgCode, pgName) {
         var tripTotal = 0;
@@ -218,7 +218,7 @@ app.controller('addRegularRequestController',
           $scope.requestData.driverOverTime = ($scope.requestData.totalHr % 12) * 20;
           tripTotal = tripTotal + (baseHrAmt + extraHrAmt + extraKmAmt);
         }
-        return tripTotal;
+        return tripTotal + $scope.requestData.tollAmt + $scope.requestData.parkingAmt;
       };
       $scope.calculate = function () {
         switch ($scope.requestData.vehicleSelect) {
