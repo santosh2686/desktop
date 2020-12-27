@@ -102,7 +102,7 @@ gulp.task('inject',function(){
 });
 
 //Watch for file changes
-gulp.task('watch',function(){
+gulp.task('watch',function() {
 	gulp.watch('app/scss/**/*.scss',['sass']);
 	gulp.watch('app/src/**/*.js',['javascript']);	
 	gulp.watch('app/src/**/*.html',['template']);
@@ -110,7 +110,6 @@ gulp.task('watch',function(){
 
 gulp.task('bower',sequence('bower-copy','bower-inject','bower-minify'));
 gulp.task('build',sequence(['sass','javascript','template'],'inject','bower'));
-
 
 // run server 
 gulp.task('server:start', function(){

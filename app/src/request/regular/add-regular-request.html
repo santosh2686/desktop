@@ -323,7 +323,7 @@
             <div class="form-group">
               <label>Driver Name</label>
               <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.operator.driver"></span>
-              <input data-ng-if="!hideView" required type="text" data-ng-model="requestData.operator.driver"/>
+              <input data-ng-if="!hideView" required type="text" class="form-control" data-ng-model="requestData.operator.driver"/>
             </div>
           </div>
         </div>
@@ -600,8 +600,15 @@
             </div>
           </div>
         </div>
-        <div class="row" data-ng-if="requestData.vehicleSelect !== 'own'">
+        <div class="row">
           <div class="col-md-3">
+            <div class="form-group">
+              <label>Night halt amount</label>
+              <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.nightHalt"></span>
+              <input data-ng-if="!hideView" type="number" class="form-control" data-ng-model='requestData.nightHalt'/>
+            </div>
+          </div>
+          <div class="col-md-3" data-ng-if="requestData.vehicleSelect !== 'own'">
             <div class="form-group">
               <label>Advanced Amount from Agency</label>
               <span data-ng-if="hideView" class="view-value" data-ng-bind="requestData.advancedFromAgency"></span>

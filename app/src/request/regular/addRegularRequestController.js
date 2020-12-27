@@ -65,9 +65,10 @@ app.controller('addRegularRequestController',
           'tollAmt': 0,
           'parkingAmt': 0,
           'totalAmt': 0,
+          'nightHalt': 0,
           'ownerTotal': 0,
           'profit': 0,
-          'payStatus': ''
+          'payStatus': 'bill_not_sent'
         }, loadDependencies = function () {
           $q.all([vehicleService.getVehicle('own'),
             vehicleService.getVehicle('other'),
@@ -180,7 +181,7 @@ app.controller('addRegularRequestController',
         if (extraKm > 0) {
           tripTotal = tripTotal + (extraKm * partyPackage.kmRate.extraKm);
         }
-        return tripTotal + $scope.requestData.tollAmt + $scope.requestData.parkingAmt;
+        return tripTotal + $scope.requestData.tollAmt + $scope.requestData.parkingAmt + $scope.requestData.nightHalt;
       };
       $scope.calculateTotal = function (pgCode, pgName) {
         var tripTotal = 0;
@@ -204,7 +205,8 @@ app.controller('addRegularRequestController',
         }
 
         if ($scope.requestData.totalKm > partyPackage.kmRate.minKm && $scope.requestData.totalHr <= partyPackage.hrRate.minHr) {
-          var baseKmAmt = (Math.floor($scope.requestData.totalKm / partyPackage.kmRate.minKm)) * partyPackage.basicAmt;
+          var baseKmAmt = partyPackage.basicAmt;
+          // var baseKmAmt = (Math.floor($scope.requestData.totalKm / partyPackage.kmRate.minKm)) * partyPackage.basicAmt;
           var extraKm = ($scope.requestData.totalKm - partyPackage.kmRate.minKm);
           var extraKmAmt = extraKm > 0 ? extraKm * partyPackage.kmRate.extraKm : 0;
           $scope.requestData.driverOverTime = 0;
@@ -219,7 +221,7 @@ app.controller('addRegularRequestController',
           $scope.requestData.driverOverTime = ($scope.requestData.totalHr % 12) * 20;
           tripTotal = tripTotal + (baseHrAmt + extraHrAmt + extraKmAmt);
         }
-        return tripTotal + $scope.requestData.tollAmt + $scope.requestData.parkingAmt;
+        return tripTotal + $scope.requestData.tollAmt + $scope.requestData.parkingAmt + $scope.requestData.nightHalt;
       };
       $scope.calculate = function () {
         switch ($scope.requestData.vehicleSelect) {
