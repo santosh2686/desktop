@@ -17,3 +17,4 @@ test/
 npm-debug.log
 MongoDBAsService.txt
 package-lock.json
+.DS_Store
