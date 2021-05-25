@@ -46,7 +46,7 @@ const auth = function (req, res, next) {
 
  MongoClient.connect(dbUrl, connectionOptions, function(err, client) {		
     if (err){
-        res.send('Database is not connected...');
+        console.log('Database is not connected...');
         return;
     }
     db = client.db('travel-agency');
