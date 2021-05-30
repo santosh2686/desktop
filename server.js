@@ -40,8 +40,6 @@ const auth = function (req, res, next) {
   let db;
   const connectionOptions = {
      useNewUrlParser: true,
-     useUnifiedTopology: true,
-     compression: ["snappy", "zlib"]
   }
 
  MongoClient.connect(dbUrl, connectionOptions, function(err, client) {		
