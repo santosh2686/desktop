@@ -1,0 +1,11 @@
+---
+application:
+  name: "desktop"
+  project: "travel-agency"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-desktop"
+  routes:
+  - application_name: "desktop"
+    paths:
+    - "/*"
