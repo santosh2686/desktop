@@ -9,7 +9,7 @@ const qs = require('querystring');
 const path = require("path");
 const session = require('express-session');
 
-const dbUrl="mongodb+srv://admin:admin@travel.ecepf.mongodb.net?retryWrites=true&w=majority";
+const dbUrl = process.env.MONGO_DB_URL || "mongodb+srv://admin:admin@travel.ecepf.mongodb.net?retryWrites=true&w=majority";
 
 app.use(session({
     secret: '278sbkn4-4Dsahn44-WppQ38S-qwhbk456-80nshdnfh-78sdfgnk10376s',
