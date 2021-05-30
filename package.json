@@ -6,7 +6,7 @@
   "main": "http://localhost:9090/",
   "scripts": {
     "install": "node ./node_modules/.bin/bower install && npm run build",
-    "start": "node server.js",
+    "start": "node app.js",
     "build": "rm -rf dist && node ./node_modules/.bin/gulp build"
   },
   "engines": {
