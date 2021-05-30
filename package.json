@@ -9,9 +9,6 @@
     "start": "node app.js",
     "build": "rm -rf dist && node ./node_modules/.bin/gulp build"
   },
-  "engines": {
-    "node": "6.9.4"
-  },
   "author": "Santosh Chaudhari",
   "window": {
     "toolbar": false,
