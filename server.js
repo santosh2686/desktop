@@ -9,7 +9,7 @@ const qs = require('querystring');
 const path = require("path");
 const session = require('express-session');
 
-const dbUrl = process.env.MONGO_DB_URL || "mongodb+srv://admin:admin@travel.ecepf.mongodb.net?retryWrites=true&w=majority";
+const dbUrl = "mongodb+srv://admin:admin@travel.ecepf.mongodb.net?retryWrites=true&w=majority";
 
 app.use(session({
     secret: '278sbkn4-4Dsahn44-WppQ38S-qwhbk456-80nshdnfh-78sdfgnk10376s',
@@ -40,9 +40,12 @@ const auth = function (req, res, next) {
   let db;
   const connectionOptions = {
      useNewUrlParser: true,
+     useUnifiedTopology: true,
   }
 
- MongoClient.connect(dbUrl, connectionOptions, function(err, client) {		
+  const client = new MongoClient(dbUrl, connectionOptions)
+
+  client.connect(function(err, client) {	
     if (err){
         console.log('Database is not connected...');
         return;
